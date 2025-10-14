@@ -1,5 +1,7 @@
 # GPI Template - Universidad de Valparaíso
 
+test changes
+
 ## Diseño En Figma
 
 - [Preview escritorio](https://www.figma.com/proto/5z4yMW89mFpXhtoaWpLykT/pulga-shop-gestion-tienda?node-id=1-4&t=44oV7BSjAEboteSq-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A4)
