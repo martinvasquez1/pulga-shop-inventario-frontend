@@ -24,6 +24,8 @@ const ResetPass = Loadable(
   lazy(() => import("../views/authentication/ResetPass"))
 );
 
+import AuthRoutes from "./../components/AuthRoutes";
+
 /* ****End Pages***** */
 
 const Router = [
@@ -69,6 +71,10 @@ const Router = [
       },
       { path: "*", element: <Navigate to="/error/404" /> },
     ],
+  },
+  {
+    path: "/app",
+    element: <AuthRoutes />,
   },
   {
     path: "/error",
