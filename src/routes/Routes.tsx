@@ -57,20 +57,7 @@ const Router = [
   },
   {
     path: "/",
-    element: <MainLayout />,
-    children: [
-      {
-        path: "",
-        exact: true,
-        element: <Home />,
-      },
-      {
-        path: "home",
-        exact: true,
-        element: <Home />,
-      },
-      { path: "*", element: <Navigate to="/error/404" /> },
-    ],
+    element: <Home />,
   },
   {
     path: "/app",
