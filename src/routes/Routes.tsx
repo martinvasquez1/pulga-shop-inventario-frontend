@@ -25,6 +25,7 @@ const ResetPass = Loadable(
 );
 
 import AuthRoutes from "./../components/AuthRoutes";
+import AppHome from "./../views/app/appHome";
 
 /* ****End Pages***** */
 
@@ -62,6 +63,7 @@ const Router = [
   {
     path: "/app",
     element: <AuthRoutes />,
+    children: [{ path: "", exact: true, element: <AppHome /> }],
   },
   {
     path: "/error",
