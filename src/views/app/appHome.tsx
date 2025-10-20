@@ -4,14 +4,10 @@ import { Button } from "@mui/material";
 import { Create } from "@mui/icons-material";
 
 import ShopList from "../../components/shop/shopList";
-import CreateShopModal from "../../components/shop/create-shop-modal";
+import CreateShop from "../../components/shop/createShop";
 
 export default function AppHome({}) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setIsFormOpen(true);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="w-full">
@@ -20,11 +16,11 @@ export default function AppHome({}) {
         <Button
           variant="contained"
           endIcon={<Create />}
-          onClick={handleClickOpen}
+          onClick={() => setIsModalOpen(true)}
         >
           Create
         </Button>
-        <CreateShopModal open={isFormOpen} setOpen={setIsFormOpen} />
+        <CreateShop open={isModalOpen} setOpen={setIsModalOpen} />
       </div>
       <ShopList />
     </div>
