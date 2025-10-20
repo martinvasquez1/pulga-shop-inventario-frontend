@@ -1,7 +1,7 @@
-import * as React from "react";
-
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
+
+import { useCreateShop, useCreateShopForm } from "../../api/shop/createShop";
 
 interface Props {
   open: boolean;
@@ -9,14 +9,21 @@ interface Props {
 }
 
 export default function CreateShop({ open, setOpen }: Props) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formJson = Object.fromEntries((formData as any).entries());
-    const email = formJson.email;
-    console.log(email);
+  const form = useCreateShopForm();
+  const createShopMutation = useCreateShop({
+    mutationConfig: {
+      onSuccess: () => {
+        form.reset();
+      },
+      onError: (error) => {
+        console.error("Error creating shop:", error);
+      },
+    },
+  });
 
-    setOpen(false);
+  const onSubmit = (data) => {
+    console.log("Mutate", data);
+    createShopMutation.mutate(data);
   };
 
   return (
@@ -27,18 +34,37 @@ export default function CreateShop({ open, setOpen }: Props) {
       open={open}
       setOpen={setOpen}
     >
-      <form onSubmit={handleSubmit} id="subscription-form">
+      <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
         <TextField
           autoFocus
           required
           margin="dense"
           id="name"
+          {...form.register("name")}
           name="name"
           label="Nombre"
           type="text"
           fullWidth
           variant="standard"
         />
+        {form.formState.errors.name && (
+          <p>{form.formState.errors.name.message}</p>
+        )}
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="description"
+          {...form.register("description")}
+          name="description"
+          label="Descripción"
+          type="text"
+          fullWidth
+          variant="standard"
+        />
+        {form.formState.errors.description && (
+          <p>{form.formState.errors.description.message}</p>
+        )}
       </form>
     </ResponsiveModal>
   );
