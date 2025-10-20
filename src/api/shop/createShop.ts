@@ -7,7 +7,7 @@ import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
 
 const createShopSchema = z.object({
-  name: z.string().min(1).max(36),
+  name: z.string().min(3).max(36),
   description: z.string().optional(),
 });
 

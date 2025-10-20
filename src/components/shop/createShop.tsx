@@ -14,6 +14,7 @@ export default function CreateShop({ open, setOpen }: Props) {
     mutationConfig: {
       onSuccess: () => {
         form.reset();
+        setOpen(false);
       },
       onError: (error) => {
         console.error("Error creating shop:", error);
