@@ -72,7 +72,7 @@ export default function AppLayout(props: Props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: "block" }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             MUI
           </Typography>
@@ -105,7 +105,8 @@ export default function AppLayout(props: Props) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 3 }} className="w-full">
+        <Toolbar />
         <Outlet />
       </Box>
     </Box>
