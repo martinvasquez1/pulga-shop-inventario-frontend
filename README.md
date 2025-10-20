@@ -33,7 +33,7 @@ Este template utiliza las siguientes tecnologías:
 ├── src/                   # Código fuente principal
 │   ├── assets/            # Imágenes, iconos y recursos estáticos
 │   │   ├── icons/         # Iconos SVG personalizados
-│   │   └── ...            
+│   │   └── ...
 │   ├── components/        # Componentes React reutilizables
 │   │   ├── mui/           # Componentes de Material UI personalizados
 │   │   ├── spinner/       # Componente de carga/spinner
@@ -63,6 +63,7 @@ Este template utiliza las siguientes tecnologías:
 Para una gestión más eficiente del proyecto, se recomienda añadir las siguientes carpetas:
 
 #### 📂 `src/db`
+
 Contiene todo lo relacionado con la gestión de datos y conexión con el backend de NestJS:
 
 ```
@@ -77,22 +78,23 @@ src/db/
 ```
 
 **Ejemplo de uso:**
+
 ```typescript
 // src/db/config/api.ts
-import axios from 'axios';
+import axios from "axios";
 
 // Crear instancia de axios para comunicarse con el backend de NestJS
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 // Interceptor para añadir el token de autenticación
-api.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -101,6 +103,7 @@ api.interceptors.request.use(config => {
 ```
 
 #### 📂 `src/hooks`
+
 Hooks personalizados de React para reutilizar lógica:
 
 ```
@@ -112,10 +115,11 @@ src/hooks/
 ```
 
 **Ejemplo de uso:**
+
 ```typescript
 // src/hooks/useAuth.ts
-import { useState, useEffect } from 'react';
-import { api } from '../db/config/api';
+import { useState, useEffect } from "react";
+import { api } from "../db/config/api";
 
 export function useAuth() {
   const [user, setUser] = useState(null);
@@ -123,21 +127,21 @@ export function useAuth() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const token = localStorage.getItem('token');
-      
+      const token = localStorage.getItem("token");
+
       if (token) {
         try {
-          const response = await api.get('/auth/me');
+          const response = await api.get("/auth/me");
           setUser(response.data);
         } catch (error) {
-          localStorage.removeItem('token');
+          localStorage.removeItem("token");
           setUser(null);
         }
       }
-      
+
       setLoading(false);
     };
-    
+
     checkAuthStatus();
   }, []);
 
@@ -146,6 +150,7 @@ export function useAuth() {
 ```
 
 #### 📂 `src/utils`
+
 Funciones de utilidad reutilizables:
 
 ```
@@ -157,25 +162,27 @@ src/utils/
 ```
 
 **Ejemplo de uso:**
+
 ```typescript
 // src/utils/formatters.ts
 export const formatDate = (date: Date): string => {
-  return new Intl.DateTimeFormat('es-CL', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
+  return new Intl.DateTimeFormat("es-CL", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
   }).format(date);
 };
 
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('es-CL', {
-    style: 'currency',
-    currency: 'CLP'
+  return new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
   }).format(amount);
 };
 ```
 
 #### 📂 `src/components` (organización detallada)
+
 Una estructura más organizada para componentes:
 
 ```
@@ -207,6 +214,7 @@ src/components/
 ```
 
 Cada carpeta de componente puede seguir esta estructura:
+
 ```
 Button/
 ├── Button.tsx         # Componente principal
@@ -240,10 +248,10 @@ function AuthLayout() {
     <div className="auth-container">
       {/* Elementos comunes del layout */}
       <header>...</header>
-      
+
       {/* Aquí se renderizará el contenido específico de cada ruta */}
       <Outlet />
-      
+
       <footer>...</footer>
     </div>
   );
@@ -257,9 +265,10 @@ En el archivo `src/routes/Routes.tsx`, se configura cómo los layouts y las vist
 ```jsx
 const Router = [
   {
-    path: "/auth",           // Ruta base
+    path: "/auth", // Ruta base
     element: <AuthLayout />, // Layout que se usará
-    children: [              // Rutas hijas que se renderizarán dentro del <Outlet />
+    children: [
+      // Rutas hijas que se renderizarán dentro del <Outlet />
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       // ...
@@ -276,7 +285,7 @@ El archivo `src/routes/Loadable.tsx` implementa la carga diferida (lazy loading)
 ```jsx
 // Simplificado para explicar el concepto
 function Loadable(Component) {
-  return function(props) {
+  return function (props) {
     return (
       <Suspense>
         <Component {...props} />
@@ -295,15 +304,17 @@ const Login = Loadable(lazy(() => import("../views/authentication/Login")));
 ##### Flujo de Navegación
 
 1. Cuando un usuario navega a una URL (ej. `/auth/login`):
+
    - React Router identifica que debe usar `AuthLayout` para la ruta base `/auth`
    - Dentro de `AuthLayout`, el componente `<Outlet />` renderizará el componente `Login`
    - El resultado es una página que combina la estructura de `AuthLayout` con el contenido específico de `Login`
 
 2. Si el usuario navega a `/` (raíz):
-   - Se usará el `MainLayout` 
+   - Se usará el `MainLayout`
    - El componente `Home` se renderizará dentro del `<Outlet />`
 
 Este sistema de layouts anidados permite:
+
 - Reutilizar estructuras comunes (menús, cabeceras, etc.)
 - Mantener coherencia visual entre páginas relacionadas
 - Simplificar el código al evitar repetir elementos comunes
@@ -334,6 +345,7 @@ Las rutas se configuran en `src/routes/Routes.tsx` utilizando React Router. Cada
 #### Instalación de pnpm
 
 **Windows:**
+
 ```bash
 # Usando npm
 npm install -g pnpm
@@ -346,6 +358,7 @@ choco install pnpm
 ```
 
 **macOS:**
+
 ```bash
 # Usando npm
 npm install -g pnpm
@@ -358,6 +371,7 @@ port install pnpm
 ```
 
 **Linux:**
+
 ```bash
 # Usando npm
 npm install -g pnpm
@@ -370,6 +384,7 @@ apk add pnpm
 ```
 
 Para cualquier sistema operativo, también puedes usar:
+
 ```bash
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 ```
@@ -377,6 +392,7 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
 ### Instalación
 
 1. Clona este repositorio:
+
    ```bash
    git clone <url-del-repositorio>
    cd gpitemplate
@@ -390,18 +406,23 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
 ### Ejecución
 
 - **Desarrollo**:
+
   ```bash
   pnpm dev
   ```
+
   Esto iniciará el servidor de desarrollo en `http://localhost:5173`
 
 - **Construcción para producción**:
+
   ```bash
   pnpm build
   ```
+
   Los archivos se generarán en la carpeta `dist`
 
 - **Vista previa de la versión de producción**:
+
   ```bash
   pnpm preview
   ```
@@ -427,7 +448,7 @@ Los colores principales del tema son:
 
 ```css
 :root {
-  --color-darkgreen: #002E38;
+  --color-darkgreen: #002e38;
   --color-blue: #003c58;
   --color-turquesa: #06717e;
   --color-gris: #ebebeb;
@@ -448,64 +469,67 @@ Los colores principales del tema son:
 ### Conectar con el Backend NestJS
 
 1. Configura la URL base en el archivo `.env`:
+
    ```
    VITE_API_URL=http://localhost:3000/api
    ```
 
 2. Crea un servicio para interactuar con el backend:
+
    ```typescript
    // src/db/services/userService.ts
-   import { api } from '../config/api';
-   
+   import { api } from "../config/api";
+
    export const userService = {
      getUsers: async () => {
-       const response = await api.get('/users');
+       const response = await api.get("/users");
        return response.data;
      },
-     
+
      getUserById: async (id: string) => {
        const response = await api.get(`/users/${id}`);
        return response.data;
      },
-     
+
      createUser: async (userData: any) => {
-       const response = await api.post('/users', userData);
+       const response = await api.post("/users", userData);
        return response.data;
-     }
+     },
    };
    ```
 
 3. Utiliza el servicio en un componente:
+
    ```tsx
-   import { useState, useEffect } from 'react';
-   import { userService } from '../db/services/userService';
-   
+   import { useState, useEffect } from "react";
+   import { userService } from "../db/services/userService";
+
    function UserList() {
      const [users, setUsers] = useState([]);
      const [loading, setLoading] = useState(true);
-     
+
      useEffect(() => {
        const fetchUsers = async () => {
          try {
            const data = await userService.getUsers();
            setUsers(data);
          } catch (error) {
-           console.error('Error fetching users:', error);
+           console.error("Error fetching users:", error);
          } finally {
            setLoading(false);
          }
        };
-       
+
        fetchUsers();
      }, []);
-     
+
      if (loading) return <p>Cargando usuarios...</p>;
-     
+
      return (
        <div>
          <h2>Lista de Usuarios</h2>
          <ul>
-           {users.map(user => (
+           {users.map((user) => (
              <li key={user.id}>{user.name}</li>
            ))}
          </ul>
