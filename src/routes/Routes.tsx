@@ -47,12 +47,6 @@ const Router = [
         exact: true,
         element: <Register />,
       },
-      {
-        path: "forgot-password",
-        exact: true,
-        element: <ResetPass />,
-      },
-
       { path: "*", element: <Navigate to="/error/404" /> },
       { path: "404", exact: true, element: <Error /> },
     ],
