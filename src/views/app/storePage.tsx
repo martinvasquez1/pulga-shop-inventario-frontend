@@ -29,7 +29,7 @@ export default function ShopPage() {
         </Button>
         <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} />
       </div>
-      <ProductsTable />
+      <ProductsTable storeId={+storeId!} />
     </div>
   );
 }
