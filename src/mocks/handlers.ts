@@ -29,4 +29,21 @@ export const handlers = [
       return HttpResponse.json(paginatedShops);
     }
   ),
+
+  http.get<{ tiendaId: string }>(
+    `${import.meta.env.VITE_API_URL}/tiendas/:tiendaId`,
+    ({ params }) => {
+      const tiendaId = Number(params.tiendaId);
+      const shop = shops.find((shop) => shop.id === tiendaId);
+
+      if (!shop) {
+        return HttpResponse.json(
+          { message: "Shop not found" },
+          { status: 404 }
+        );
+      }
+
+      return HttpResponse.json(shop);
+    }
+  ),
 ];

@@ -66,7 +66,7 @@ const Router = [
     element: <AuthRoutes />,
     children: [
       { path: "", exact: true, element: <AppHome /> },
-      { path: "tiendas/:id", exact: true, element: <StorePage /> },
+      { path: "tiendas/:tiendaId", exact: true, element: <StorePage /> },
     ],
   },
   {
