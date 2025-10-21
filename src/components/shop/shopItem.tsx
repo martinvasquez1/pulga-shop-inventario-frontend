@@ -15,7 +15,7 @@ export default function ShopItem({ data }: ShopItemProps) {
       </div>
       <div>
         <Button
-          href={`/tiendas/${data.id_tienda}`}
+          href={`/app/tiendas/${data.id_tienda}`}
           startIcon={<ArrowRight />}
           variant="outlined"
         >

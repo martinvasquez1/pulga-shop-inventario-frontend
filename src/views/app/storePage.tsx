@@ -18,7 +18,7 @@ export default function ShopPage() {
   return (
     <div className="w-full">
       <div className="flex justify-between items-center gap-8">
-        <h1 className="text-3xl font-bold">{store!.name}</h1>
+        <h1 className="text-3xl font-bold">{store!.nombre}</h1>
         <Button
           variant="contained"
           endIcon={<Create />}
