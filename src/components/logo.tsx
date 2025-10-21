@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 const logoStyles = cva("aspect-square", {
   variants: {
     size: {
-      sm: "w-24",
+      sm: "w-12",
       md: "w-32",
       lg: "w-40",
       xl: "w-48",

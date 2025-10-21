@@ -26,7 +26,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const navItems = ["Home", "About"];
 
 export default function AppLayout(props: Props) {
   const { window } = props;
@@ -60,7 +60,15 @@ export default function AppLayout(props: Props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar
+        component="nav"
+        style={{
+          backgroundColor: "white",
+          color: "black",
+          borderBottom: "1px solid #ccc",
+        }}
+        elevation={0}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
