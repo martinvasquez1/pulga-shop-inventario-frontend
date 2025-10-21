@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { Create } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { useShop } from "../../api/shop/getShop";
+import ProductsTable from "../../components/product/productsTable";
 
 export default function ShopPage() {
   const { tiendaId: storeId } = useParams<{ tiendaId: string }>();
@@ -17,7 +18,7 @@ export default function ShopPage() {
   return (
     <div className="w-full">
       <div className="flex justify-between items-center gap-8">
-        <h1 className="text-3xl font-bold">{store.name}</h1>
+        <h1 className="text-3xl font-bold">{store!.name}</h1>
         <Button
           variant="contained"
           endIcon={<Create />}
@@ -27,7 +28,7 @@ export default function ShopPage() {
         </Button>
         {/* <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} /> */}
       </div>
-      {/*<ProductList />*/}
+      <ProductsTable />
     </div>
   );
 }
