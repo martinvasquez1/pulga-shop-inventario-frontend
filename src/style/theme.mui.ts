@@ -1,4 +1,5 @@
-// theme.ts o theme.js
+import Roboto from "./../assets/fonts/roboto.ttf";
+
 import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
@@ -32,7 +33,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Popins, sans-serif",
+    fontFamily: '"Roboto", sans-serif',
   },
 });
 
