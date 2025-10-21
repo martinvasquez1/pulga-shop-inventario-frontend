@@ -39,8 +39,8 @@ export default function CreateProduct({ open, setOpen }: Props) {
 
   return (
     <ResponsiveModal
-      title="Crear tienda"
-      description="Rellene el formulario para crear una tienda"
+      title="Crear producto"
+      description="Rellene el formulario para crear un producto"
       triggerButtonText="Crear"
       open={open}
       setOpen={setOpen}
