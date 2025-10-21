@@ -13,6 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+
+import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
 
 interface Props {
@@ -36,9 +38,9 @@ export default function AppLayout(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
+      <div className="flex justify-center pt-10">
+        <Logo />
+      </div>
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -74,11 +76,11 @@ export default function AppLayout(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            <Logo size="sm" />
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
+              <Button key={item} sx={{ color: "#000" }}>
                 {item}
               </Button>
             ))}
