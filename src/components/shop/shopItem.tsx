@@ -1,24 +1,21 @@
 import { ArrowRight } from "@mui/icons-material";
-import { Button, IconButton, Link } from "@mui/material";
+import { Button } from "@mui/material";
+import { CreateShopResponse } from "../../api/shop/createShop";
 
-interface Props {
-  data: {
-    id: number;
-    name: string;
-    description: string;
-  };
+interface ShopItemProps {
+  data: CreateShopResponse;
 }
 
-export default function ShopItem({ data }: Props) {
+export default function ShopItem({ data }: ShopItemProps) {
   return (
     <div className="flex gap-4 justify-between">
       <div>
-        <h2 className="text-xl font-bold">{data.name}</h2>
-        <p>{data.description}</p>
+        <h2 className="text-xl font-bold">{data.nombre}</h2>
+        <p>{data.descripcion}</p>
       </div>
       <div>
         <Button
-          href={`/tiendas/${data.id}`}
+          href={`/tiendas/${data.id_tienda}`}
           startIcon={<ArrowRight />}
           variant="outlined"
         >

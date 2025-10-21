@@ -34,7 +34,7 @@ type CreateShopPayload = {
   telefono: string;
 };
 
-type CreateShopResponse = {
+export type CreateShopResponse = {
   id_tienda: number;
   id_vendedor: number;
   nombre: string;
