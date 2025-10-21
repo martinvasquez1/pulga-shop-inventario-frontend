@@ -5,6 +5,7 @@ import { Create } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { useShop } from "../../api/shop/getShop";
 import ProductsTable from "../../components/product/productsTable";
+import CreateProduct from "../../components/product/createProduct";
 
 export default function ShopPage() {
   const { tiendaId: storeId } = useParams<{ tiendaId: string }>();
@@ -26,7 +27,7 @@ export default function ShopPage() {
         >
           Nuevo Producto
         </Button>
-        {/* <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} /> */}
+        <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} />
       </div>
       <ProductsTable />
     </div>
