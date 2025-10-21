@@ -12,9 +12,14 @@ export default function CreateShop({ open, setOpen }: Props) {
   const form = useCreateShopForm();
   const createShopMutation = useCreateShop({
     mutationConfig: {
-      onSuccess: () => {
+      onSuccess: (newStore) => {
         form.reset();
         setOpen(false);
+
+        // TODO: Remove, it's temp
+        const existingStores = JSON.parse(localStorage.getItem("stores")) || [];
+        const updatedStores = [...existingStores, newStore];
+        localStorage.setItem("stores", JSON.stringify(updatedStores));
       },
       onError: (error) => {
         console.error("Error creating shop:", error);
@@ -23,7 +28,6 @@ export default function CreateShop({ open, setOpen }: Props) {
   });
 
   const onSubmit = (data) => {
-    console.log("Mutate", data);
     createShopMutation.mutate(data);
   };
 
@@ -40,24 +44,25 @@ export default function CreateShop({ open, setOpen }: Props) {
           autoFocus
           required
           margin="dense"
-          id="name"
-          {...form.register("name")}
-          name="name"
+          id="nombre"
+          {...form.register("nombre")}
+          name="nombre"
           label="Nombre"
           type="text"
           fullWidth
           variant="standard"
         />
-        {form.formState.errors.name && (
-          <p>{form.formState.errors.name.message}</p>
+        {form.formState.errors.nombre && (
+          <p>{form.formState.errors.nombre.message}</p>
         )}
+
         <TextField
           autoFocus
           required
           margin="dense"
-          id="description"
-          {...form.register("description")}
-          name="description"
+          id="descripcion"
+          {...form.register("descripcion")}
+          name="descripcion"
           label="Descripción"
           type="text"
           fullWidth
@@ -65,6 +70,38 @@ export default function CreateShop({ open, setOpen }: Props) {
         />
         {form.formState.errors.description && (
           <p>{form.formState.errors.description.message}</p>
+        )}
+
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="direccion"
+          {...form.register("direccion")}
+          name="direccion"
+          label="Dirección"
+          type="text"
+          fullWidth
+          variant="standard"
+        />
+        {form.formState.errors.direccion && (
+          <p>{form.formState.errors.direccion.message}</p>
+        )}
+
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="telefono"
+          {...form.register("telefono")}
+          name="telefono"
+          label="Telefono"
+          type="text"
+          fullWidth
+          variant="standard"
+        />
+        {form.formState.errors.telefono && (
+          <p>{form.formState.errors.telefono.message}</p>
         )}
       </form>
     </ResponsiveModal>

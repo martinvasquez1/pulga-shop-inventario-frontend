@@ -5,7 +5,7 @@ import { Shop } from "../../types/api";
 
 export function getShops(page: number): Promise<Shop[]> {
   return api
-    .get<Shop[]>("/shops", {
+    .get<Shop[]>("/tiendas", {
       params: { page },
     })
     .then((res) => res.data);

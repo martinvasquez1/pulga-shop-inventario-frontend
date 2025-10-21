@@ -7,16 +7,20 @@ import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
 
 const createShopSchema = z.object({
-  name: z.string().min(3).max(36),
-  description: z.string().optional(),
+  nombre: z.string().min(3).max(36),
+  descripcion: z.string().optional(),
+  direccion: z.string(),
+  telefono: z.string(),
 });
 
 export const useCreateShopForm = () => {
   return useForm<z.infer<typeof createShopSchema>>({
     resolver: zodResolver(createShopSchema),
     defaultValues: {
-      name: "",
-      description: "",
+      nombre: "",
+      descripcion: "",
+      direccion: "",
+      telefono: "",
     },
   });
 };
@@ -24,19 +28,25 @@ export const useCreateShopForm = () => {
 export type CreateShopInput = z.infer<typeof createShopSchema>;
 
 type CreateShopPayload = {
-  name: string;
-  description: string;
+  nombre: string;
+  descripcion: string;
+  direccion: string;
+  telefono: string;
 };
 
 type CreateShopResponse = {
-  name: string;
-  description: string;
-  id: number;
+  id_tienda: number;
+  id_vendedor: number;
+  nombre: string;
+  direccion: string;
+  descripcion: string;
+  telefono: string;
+  fecha_creacion: Date;
 };
 
 function createShop(payload: CreateShopPayload): Promise<CreateShopResponse> {
   return api
-    .post<CreateShopResponse>("/shops", { ...payload })
+    .post<CreateShopResponse>("/tiendas", { ...payload })
     .then((res) => res.data);
 }
 

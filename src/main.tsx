@@ -9,6 +9,9 @@ import theme from "./style/theme.mui.ts";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 async function enableMocking() {
+  // TODO: Remove, quick test
+  return;
+
   if (!import.meta.env.DEV) {
     return;
   }

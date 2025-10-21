@@ -2,6 +2,9 @@ import { useShops } from "../../api/shop/getShops";
 import ShopItem from "./shopItem";
 
 export default function ShopList() {
+  // TODO: Return local array of store OR newly created
+  return <div>Not implemented</div>;
+
   const page = 1;
   let { data, isLoading, isError } = useShops(page);
 
