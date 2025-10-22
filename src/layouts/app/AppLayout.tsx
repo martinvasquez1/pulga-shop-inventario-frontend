@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
+import { Avatar } from "@mui/material";
+import profilePicture from "../../assets/images/profile_picture.jpg";
 
 interface Props {
   /**
@@ -72,35 +74,40 @@ export default function AppLayout(props: Props) {
         }}
         elevation={0}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            <Logo size="sm" to="/app" />
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.name}
-                component={Link}
-                to={item.path}
-                sx={{ color: "#000" }}
-              >
-                {item.name}
-              </Button>
-            ))}
-          </Box>
+        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              <Logo size="sm" to="/app" />
+            </Typography>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              {navItems.map((item) => (
+                <Button
+                  key={item.name}
+                  component={Link}
+                  to={item.path}
+                  sx={{ color: "#000" }}
+                >
+                  {item.name}
+                </Button>
+              ))}
+            </Box>
+            <Avatar alt="User picture" src={profilePicture} />
+          </div>
         </Toolbar>
       </AppBar>
       <nav>
