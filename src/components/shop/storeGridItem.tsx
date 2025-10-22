@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
   styled,
   Card,
@@ -6,10 +8,11 @@ import {
   Grid2,
   CardMedia,
 } from "@mui/material";
-import { CreateShopResponse } from "../../api/shop/createShop";
 import { ArrowRight } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+
+import { CreateShopResponse } from "../../api/shop/createShop";
+import Picture from "../../assets/images/card.jpg";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -58,7 +61,7 @@ export function StoreGridItem({ data }: StoreGridItem) {
         <CardMedia
           component="img"
           alt="green iguana"
-          image="https://picsum.photos/800/450?random=6"
+          image={Picture}
           sx={{
             aspectRatio: "16 / 9",
             borderBottom: "1px solid",
