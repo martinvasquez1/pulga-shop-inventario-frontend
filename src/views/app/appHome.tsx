@@ -11,7 +11,14 @@ export default function AppHome({}) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 4 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 4,
+        }}
+      >
         <div>
           <Typography variant="h4" gutterBottom>
             Tiendas
