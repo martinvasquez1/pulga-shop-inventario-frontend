@@ -69,7 +69,7 @@ export default function Login() {
             variant="outlined"
           />
         </FormControl>
-        <Button type="submit" fullWidth variant="contained">
+        <Button type="submit" fullWidth variant="contained" color="secondary">
           Iniciar Sesión
         </Button>
       </Box>

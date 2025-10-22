@@ -95,7 +95,7 @@ export default function Register() {
             variant="outlined"
           />
         </FormControl>
-        <Button type="submit" fullWidth variant="contained">
+        <Button type="submit" fullWidth variant="contained" color="secondary">
           Registrarse
         </Button>
       </Box>

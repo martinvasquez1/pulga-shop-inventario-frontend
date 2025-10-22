@@ -14,7 +14,7 @@ function Home() {
               component={Link}
               to="/auth/login"
               variant="contained"
-              color="primary"
+              color="secondary"
             >
               Login
             </Button>
