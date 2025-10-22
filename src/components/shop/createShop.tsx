@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import { useCreateShop, useCreateShopForm } from "../../api/shop/createShop";
+import { FormControl, FormLabel } from "@mui/material";
 
 interface Props {
   open: boolean;
@@ -17,7 +18,9 @@ export default function CreateShop({ open, setOpen }: Props) {
         setOpen(false);
 
         // TODO: Remove, it's temp
-        const existingStores = JSON.parse(localStorage.getItem("stores")) || [];
+        const storedData = localStorage.getItem("stores");
+        const existingStores = storedData ? JSON.parse(storedData) : [];
+
         const updatedStores = [...existingStores, newStore];
         localStorage.setItem("stores", JSON.stringify(updatedStores));
       },
@@ -34,75 +37,82 @@ export default function CreateShop({ open, setOpen }: Props) {
   return (
     <ResponsiveModal
       title="Crear tienda"
-      description="Rellene el formulario para crear una tienda"
       triggerButtonText="Crear"
       open={open}
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="nombre"
-          {...form.register("nombre")}
-          name="nombre"
-          label="Nombre"
-          type="text"
-          fullWidth
-          variant="standard"
-        />
-        {form.formState.errors.nombre && (
-          <p>{form.formState.errors.nombre.message}</p>
-        )}
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="email">Nombre</FormLabel>
+          <TextField
+            {...form.register("nombre")}
+            id="nombre"
+            type="text"
+            name="nombre"
+            placeholder="Bob"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.nombre && (
+            <p>{form.formState.errors.nombre.message}</p>
+          )}
+        </FormControl>
 
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="descripcion"
-          {...form.register("descripcion")}
-          name="descripcion"
-          label="Descripción"
-          type="text"
-          fullWidth
-          variant="standard"
-        />
-        {form.formState.errors.description && (
-          <p>{form.formState.errors.description.message}</p>
-        )}
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="email">Descripción</FormLabel>
+          <TextField
+            {...form.register("descripcion")}
+            id="descripcion"
+            type="text"
+            name="descripcion"
+            placeholder="..."
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.descripcion && (
+            <p>{form.formState.errors.descripcion.message}</p>
+          )}
+        </FormControl>
 
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="direccion"
-          {...form.register("direccion")}
-          name="direccion"
-          label="Dirección"
-          type="text"
-          fullWidth
-          variant="standard"
-        />
-        {form.formState.errors.direccion && (
-          <p>{form.formState.errors.direccion.message}</p>
-        )}
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="email">Dirección</FormLabel>
+          <TextField
+            {...form.register("direccion")}
+            id="direccion"
+            type="text"
+            name="direccion"
+            placeholder="..."
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.direccion && (
+            <p>{form.formState.errors.direccion.message}</p>
+          )}
+        </FormControl>
 
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="telefono"
-          {...form.register("telefono")}
-          name="telefono"
-          label="Telefono"
-          type="text"
-          fullWidth
-          variant="standard"
-        />
-        {form.formState.errors.telefono && (
-          <p>{form.formState.errors.telefono.message}</p>
-        )}
+        <FormControl fullWidth>
+          <FormLabel htmlFor="email">Telefono</FormLabel>
+          <TextField
+            {...form.register("telefono")}
+            id="telefono"
+            type="tel"
+            name="telefono"
+            placeholder="..."
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.telefono && (
+            <p>{form.formState.errors.telefono.message}</p>
+          )}
+        </FormControl>
       </form>
     </ResponsiveModal>
   );
