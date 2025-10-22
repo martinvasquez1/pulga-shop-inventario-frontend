@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { Avatar, Container } from "@mui/material";
 import profilePicture from "../../assets/images/profile_picture.jpg";
 
 interface Props {
@@ -132,7 +132,9 @@ export default function AppLayout(props: Props) {
       </nav>
       <Box component="main" sx={{ p: 3 }} className="w-full">
         <Toolbar />
-        <Outlet />
+        <Container maxWidth="lg" component="main">
+          <Outlet />
+        </Container>
       </Box>
     </Box>
   );
