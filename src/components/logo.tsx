@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "./../assets/logo.jpeg";
 import { cva } from "class-variance-authority";
 
@@ -19,13 +20,16 @@ type LogoSize = "sm" | "md" | "lg" | "xl";
 
 interface LogoProps {
   size?: LogoSize;
+  to?: string; // Add a 'to' prop for the link destination
 }
 
-const Logo: React.FC<LogoProps> = ({ size = "md" }) => {
+const Logo: React.FC<LogoProps> = ({ size = "md", to = "/" }) => {
   return (
-    <div className={logoStyles({ size })}>
-      <img src={logo} alt="Logo" />
-    </div>
+    <Link to={to}>
+      <div className={logoStyles({ size })}>
+        <img src={logo} alt="Logo" />
+      </div>
+    </Link>
   );
 };
 
