@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^6.4.2",
     "@mui/material": "^6.4.2",
+    "@mui/styled-engine-sc": "^7.3.3",
     "@mui/x-data-grid": "^8.14.1",
     "@tailwindcss/vite": "^4.0.3",
     "@tanstack/react-query": "^5.90.5",
@@ -26,6 +27,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.65.0",
     "react-router-dom": "^7.1.5",
+    "styled-components": "^6.1.19",
     "tailwindcss": "^4.0.3",
     "zod": "^4.1.12"
   },
