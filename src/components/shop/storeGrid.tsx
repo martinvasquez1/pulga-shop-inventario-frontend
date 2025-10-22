@@ -23,7 +23,7 @@ export default function StoreGrid() {
   return (
     <Grid2 container spacing={2} columns={12}>
       {data?.map((s: CreateShopResponse) => {
-        return <StoreGridItem data={s} />;
+        return <StoreGridItem data={s} key={s.id_tienda} />;
       })}
     </Grid2>
   );
