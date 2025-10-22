@@ -43,7 +43,7 @@ export default function CreateShop({ open, setOpen }: Props) {
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="email">Nombre</FormLabel>
+          <FormLabel htmlFor="nombre">Nombre</FormLabel>
           <TextField
             {...form.register("nombre")}
             id="nombre"
@@ -61,7 +61,7 @@ export default function CreateShop({ open, setOpen }: Props) {
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="email">Descripción</FormLabel>
+          <FormLabel htmlFor="descripcion">Descripción</FormLabel>
           <TextField
             {...form.register("descripcion")}
             id="descripcion"
@@ -79,7 +79,7 @@ export default function CreateShop({ open, setOpen }: Props) {
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="email">Dirección</FormLabel>
+          <FormLabel htmlFor="direccion">Dirección</FormLabel>
           <TextField
             {...form.register("direccion")}
             id="direccion"
@@ -97,7 +97,7 @@ export default function CreateShop({ open, setOpen }: Props) {
         </FormControl>
 
         <FormControl fullWidth>
-          <FormLabel htmlFor="email">Telefono</FormLabel>
+          <FormLabel htmlFor="telefono">Telefono</FormLabel>
           <TextField
             {...form.register("telefono")}
             id="telefono"

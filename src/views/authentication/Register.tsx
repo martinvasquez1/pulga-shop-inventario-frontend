@@ -83,7 +83,7 @@ export default function Register() {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="password">Repetir contraseña</FormLabel>
+          <FormLabel htmlFor="repeatPassword">Repetir contraseña</FormLabel>
           <TextField
             name="repeatPassword"
             placeholder="••••••"
