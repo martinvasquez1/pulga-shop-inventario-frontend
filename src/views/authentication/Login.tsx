@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const testToken =
@@ -14,30 +14,42 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit} id="subscription-form">
-      <TextField
-        autoFocus
-        required
-        margin="dense"
-        id="email"
-        name="email"
-        label="email"
-        type="email"
-        fullWidth
-        variant="standard"
-      />
-      <TextField
-        autoFocus
-        required
-        margin="dense"
-        id="password"
-        name="password"
-        label="Password"
-        type="text"
-        fullWidth
-        variant="standard"
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <Typography variant="h5" gutterBottom sx={{ marginBottom: 2 }}>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit} id="subscription-form">
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="email"
+          name="email"
+          label="email"
+          type="email"
+          fullWidth
+          variant="standard"
+        />
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="password"
+          name="password"
+          label="Password"
+          type="text"
+          fullWidth
+          variant="standard"
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: 4 }}
+        >
+          Iniciar Sesión
+        </Button>
+      </form>
+    </>
   );
 }

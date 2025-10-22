@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, Typography, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,55 +25,68 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit} id="subscription-form">
-      <TextField
-        autoFocus
-        required
-        margin="dense"
-        id="name"
-        name="name"
-        label="Nombre"
-        type="text"
-        fullWidth
-        variant="standard"
-      />
-      <TextField
-        autoFocus
-        required
-        margin="dense"
-        id="email"
-        name="email"
-        label="Email"
-        type="email"
-        fullWidth
-        variant="standard"
-      />
-      <TextField
-        required
-        margin="dense"
-        id="password"
-        name="password"
-        label="Contraseña"
-        type="password"
-        fullWidth
-        variant="standard"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <TextField
-        required
-        margin="dense"
-        id="repeatPassword"
-        name="repeatPassword"
-        label="Repetir Contraseña"
-        type="password"
-        fullWidth
-        variant="standard"
-        value={repeatPassword}
-        onChange={(e) => setRepeatPassword(e.target.value)}
-      />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <Typography variant="h5" gutterBottom sx={{ marginBottom: 2 }}>
+        Crear Cuenta
+      </Typography>
+      <form onSubmit={handleSubmit} id="subscription-form">
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="name"
+          name="name"
+          label="Nombre"
+          type="text"
+          fullWidth
+          variant="standard"
+        />
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="email"
+          name="email"
+          label="Email"
+          type="email"
+          fullWidth
+          variant="standard"
+        />
+        <TextField
+          required
+          margin="dense"
+          id="password"
+          name="password"
+          label="Contraseña"
+          type="password"
+          fullWidth
+          variant="standard"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          required
+          margin="dense"
+          id="repeatPassword"
+          name="repeatPassword"
+          label="Repetir Contraseña"
+          type="password"
+          fullWidth
+          variant="standard"
+          value={repeatPassword}
+          onChange={(e) => setRepeatPassword(e.target.value)}
+        />
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: 4 }}
+        >
+          Registrarse
+        </Button>
+      </form>
+    </>
   );
 }
