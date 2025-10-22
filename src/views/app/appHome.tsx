@@ -11,7 +11,7 @@ export default function AppHome({}) {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between items-center gap-8">
+      <div className="flex justify-between items-center gap-8 mb-8">
         <h1 className="text-3xl font-bold">Tiendas</h1>
         <Button
           variant="contained"

@@ -19,7 +19,7 @@ export default function ShopList() {
   console.log(data);
 
   return (
-    <div className="flex gap-4 flex-col p-8">
+    <div className="flex gap-8 flex-col">
       {data?.map((s: CreateShopResponse) => {
         return <ShopItem data={s} key={s.id_tienda} />;
       })}

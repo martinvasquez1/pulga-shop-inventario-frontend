@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
@@ -26,7 +27,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["Home", "About"];
+const navItems = [{ name: "Inicio", path: "/app" }];
 
 export default function AppLayout(props: Props) {
   const { window } = props;
@@ -44,9 +45,13 @@ export default function AppLayout(props: Props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+          <ListItem key={item.name} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={item.path}
+              sx={{ textAlign: "center" }}
+            >
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -88,8 +93,13 @@ export default function AppLayout(props: Props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#000" }}>
-                {item}
+              <Button
+                key={item.name}
+                component={Link}
+                to={item.path}
+                sx={{ color: "#000" }}
+              >
+                {item.name}
               </Button>
             ))}
           </Box>
