@@ -1,13 +1,35 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 
 function Home() {
   return (
-    <div className="flex flex-col h-full lg:pt-14 flex-1">
-      <h1>Landing page</h1>
-      <Link to="/auth/login">Login link</Link>
-      <Link to="/auth/register">Register link</Link>
-    </div>
+    <Box className="flex justify-center items-center h-screen">
+      <Card sx={{ maxWidth: 400, width: "100%" }}>
+        <CardContent>
+          <Typography variant="h5" gutterBottom sx={{ marginBottom: 2 }}>
+            Pulga Shop - Inventario
+          </Typography>
+          <Box className="flex flex-col gap-2">
+            <Button
+              component={Link}
+              to="/auth/login"
+              variant="contained"
+              color="primary"
+            >
+              Login
+            </Button>
+            <Button
+              component={Link}
+              to="/auth/register"
+              variant="outlined"
+              color="primary"
+            >
+              Register
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 
