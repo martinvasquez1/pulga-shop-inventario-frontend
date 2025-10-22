@@ -1,5 +1,13 @@
-import { TextField, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
+import {
+  TextField,
+  Typography,
+  Button,
+  Box,
+  FormLabel,
+  FormControl,
+} from "@mui/material";
 
 const testToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyMywiZW1haWwiOiJjb3JyZW9AY29ycmVvLmNvbSIsInJvbGUiOiJ2ZW5kZWRvciIsImlhdCI6MTc2MDk3OTA4OH0.dcRUZpDddgMwobYV_82pYI62VkeUZIBnWFQ3_EJkvw0";
@@ -7,7 +15,7 @@ const testToken =
 export default function Login() {
   const navigate = useNavigate();
 
-  function handleSubmit(e: Event) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     localStorage.setItem("jwt", testToken);
     navigate("/app");
@@ -15,41 +23,56 @@ export default function Login() {
 
   return (
     <>
-      <Typography variant="h5" gutterBottom sx={{ marginBottom: 2 }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+      >
         Login
       </Typography>
-      <form onSubmit={handleSubmit} id="subscription-form">
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="email"
-          name="email"
-          label="email"
-          type="email"
-          fullWidth
-          variant="standard"
-        />
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          fullWidth
-          variant="standard"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{ marginTop: 4 }}
-        >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        noValidate
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          gap: 2,
+        }}
+      >
+        <FormControl>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <TextField
+            id="email"
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            autoComplete="email"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <TextField
+            name="password"
+            placeholder="••••••"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+        </FormControl>
+        <Button type="submit" fullWidth variant="contained">
           Iniciar Sesión
         </Button>
-      </form>
+      </Box>
     </>
   );
 }

@@ -1,12 +1,16 @@
-import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.tsx";
-import Spinner from "./components/spinner/Spinner.tsx";
+import { StrictMode, Suspense, Fragment } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "@mui/material";
-import theme from "./style/theme.mui.ts";
+
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "./style/theme.mui.ts";
+
+import Spinner from "./components/spinner/Spinner.tsx";
+import App from "./App.tsx";
+
+import "./index.css";
 
 async function enableMocking() {
   // TODO: Remove, quick test
@@ -32,7 +36,10 @@ enableMocking().then(() => {
         <Suspense fallback={<Spinner />}>
           <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-              <App />
+              <Fragment>
+                <CssBaseline />
+                <App />
+              </Fragment>
             </QueryClientProvider>
           </BrowserRouter>
         </Suspense>
