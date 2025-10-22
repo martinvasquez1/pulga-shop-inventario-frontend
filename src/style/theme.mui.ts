@@ -1,39 +1,32 @@
-import Roboto from "./../assets/fonts/roboto.ttf";
-
 import { createTheme } from "@mui/material/styles";
 
-declare module "@mui/material/styles" {
-  interface Palette {
-    pearl: Palette["primary"];
-  }
-  interface PaletteOptions {
-    pearl?: PaletteOptions["primary"];
-  }
-}
-
-declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
-    pearl: true;
-  }
-}
+import { inputsCustomizations } from "./customizations/inputs";
+import { dataDisplayCustomizations } from "./customizations/dataDisplay";
+import { feedbackCustomizations } from "./customizations/feedback";
+import { navigationCustomizations } from "./customizations/navigation";
+import { surfacesCustomizations } from "./customizations/surfaces";
+import { colorSchemes, typography, shadows, shape } from "./themePrimitives";
 
 const theme = createTheme({
+  /*
   palette: {
     primary: {
       main: "#00CC80",
       light: "#003c58",
       dark: "#0d1d1e",
       contrastText: "#ffffff",
-    },
-    secondary: {
-      main: "#1f4d5d",
-      light: "#327d96",
-      dark: "#0c1f25",
-      contrastText: "#ffffff",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", sans-serif',
+    }, */
+
+  colorSchemes,
+  typography,
+  shadows,
+  shape,
+  components: {
+    ...inputsCustomizations,
+    ...dataDisplayCustomizations,
+    ...feedbackCustomizations,
+    ...navigationCustomizations,
+    ...surfacesCustomizations,
   },
 });
 
