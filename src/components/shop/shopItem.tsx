@@ -1,5 +1,7 @@
 import { ArrowRight } from "@mui/icons-material";
 import { Button } from "@mui/material";
+
+import { Link } from "react-router-dom";
 import { CreateShopResponse } from "../../api/shop/createShop";
 
 interface ShopItemProps {
@@ -15,7 +17,8 @@ export default function ShopItem({ data }: ShopItemProps) {
       </div>
       <div>
         <Button
-          href={`/app/tiendas/${data.id_tienda}`}
+          component={Link}
+          to={`/app/tiendas/${data.id_tienda}`}
           startIcon={<ArrowRight />}
           variant="outlined"
         >
