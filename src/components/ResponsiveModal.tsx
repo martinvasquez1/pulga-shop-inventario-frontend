@@ -11,6 +11,7 @@ interface Props {
   triggerButtonText: string;
   open: boolean;
   setOpen: (open: boolean) => void;
+  isSubmitDisabled: boolean;
   children: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export default function ResponsiveModal({
   triggerButtonText,
   open,
   setOpen,
+  isSubmitDisabled,
   children,
 }: Props) {
   return (
@@ -28,8 +30,16 @@ export default function ResponsiveModal({
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)}>Cancelar</Button>
-        <Button type="submit" form="subscription-form">
+        <Button onClick={() => setOpen(false)} variant="outlined">
+          Cancelar
+        </Button>
+        <Button
+          type="submit"
+          form="subscription-form"
+          variant="outlined"
+          color="secondary"
+          disabled={isSubmitDisabled}
+        >
           {triggerButtonText}
         </Button>
       </DialogActions>

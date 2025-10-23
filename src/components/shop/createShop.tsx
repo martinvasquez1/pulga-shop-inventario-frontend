@@ -39,6 +39,7 @@ export default function CreateShop({ open, setOpen }: Props) {
       title="Crear tienda"
       triggerButtonText="Crear"
       open={open}
+      isSubmitDisabled={createShopMutation.isPending}
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
