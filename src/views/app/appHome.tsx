@@ -23,7 +23,7 @@ export default function AppHome({}) {
           <Typography variant="h4" gutterBottom>
             Tiendas
           </Typography>
-          <Typography>Aća puedes ver todas tus tiendas.</Typography>
+          <Typography>Aquí puedes ver todas tus tiendas.</Typography>
         </div>
         <Button
           variant="contained"
@@ -31,7 +31,7 @@ export default function AppHome({}) {
           color="secondary"
           onClick={() => setIsModalOpen(true)}
         >
-          Create
+          Crear Tienda
         </Button>
       </Box>
       <CreateShop open={isModalOpen} setOpen={setIsModalOpen} />

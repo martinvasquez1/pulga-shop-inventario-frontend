@@ -32,7 +32,7 @@ export default function ShopPage() {
             {store!.nombre}
           </Typography>
           <Typography>
-            Aća puedes ver todos los productos de la tienda.
+            Aquí puedes ver todos los productos de la tienda.
           </Typography>
         </div>
         <Button

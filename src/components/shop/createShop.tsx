@@ -98,7 +98,7 @@ export default function CreateShop({ open, setOpen }: Props) {
         </FormControl>
 
         <FormControl fullWidth>
-          <FormLabel htmlFor="telefono">Telefono</FormLabel>
+          <FormLabel htmlFor="telefono">Teléfono</FormLabel>
           <TextField
             {...form.register("telefono")}
             id="telefono"
