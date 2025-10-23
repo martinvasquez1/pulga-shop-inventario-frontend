@@ -1,6 +1,7 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import EmptyState from "../EmptyState";
+import { StyledCard } from "../Card";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "SKU", flex: 2 },
@@ -38,15 +39,24 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   }
 
   return (
-    <Paper sx={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-        style={{ marginTop: 20 }}
-      />
-    </Paper>
+    <StyledCard>
+      <Paper
+        sx={{
+          width: "100%",
+          outline: "3px solid",
+          outlineColor: "hsla(210, 98%, 48%, 0.5)",
+          outlineOffset: "2px",
+        }}
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{ pagination: { paginationModel } }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          style={{ marginTop: 20, minHeight: 200 }}
+        />
+      </Paper>
+    </StyledCard>
   );
 }

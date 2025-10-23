@@ -36,7 +36,7 @@ export function StoreGridItem({ data }: StoreGridItem) {
 
   return (
     <Grid2 size={{ xs: 12, md: 6 }}>
-      <StyledCard variant="outlined" tabIndex={0}>
+      <StyledCard>
         <CardMedia
           component="img"
           alt="green iguana"
