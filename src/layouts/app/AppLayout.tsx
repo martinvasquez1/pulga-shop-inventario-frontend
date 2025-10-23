@@ -28,7 +28,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [{ name: "Inicio", path: "/app" }];
+const navItems = [{ name: "Tiendas", path: "/app" }];
 
 export default function AppLayout(props: Props) {
   const { window } = props;
@@ -67,8 +67,8 @@ export default function AppLayout(props: Props) {
     <Box sx={{ display: "flex" }}>
       <AppBar
         component="nav"
-        style={{
-          backgroundColor: "white",
+        sx={{
+          backgroundColor: "background.paper",
           color: "black",
           borderBottom: "1px solid #ccc",
         }}
@@ -81,7 +81,7 @@ export default function AppLayout(props: Props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{ ml: 0.5, display: { sm: "none" } }}
             >
               <MenuIcon />
             </IconButton>
@@ -93,7 +93,13 @@ export default function AppLayout(props: Props) {
               <Logo size="sm" to="/app" />
             </Typography>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: 10,
+              justifyContent: "space-between",
+            }}
+          >
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navItems.map((item) => (
                 <Button
