@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 import ProductsTable from "../../components/product/productsTable";
@@ -14,7 +14,19 @@ export default function ShopPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if (isLoading) return "Loading!";
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (isError) return "Error!";
 
   return (
