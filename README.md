@@ -75,7 +75,7 @@ pnpm install
 3. .env
 
 ```bash
-VITE_API_URL=http://localhost:3000/
+VITE_API_URL=http://localhost:3000/api
 ```
 
 ## Ejecución
