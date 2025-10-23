@@ -49,7 +49,7 @@ export default function CreateShop({ open, setOpen }: Props) {
             id="nombre"
             type="text"
             name="nombre"
-            placeholder="Bob"
+            placeholder="Mi Tienda"
             autoFocus
             required
             fullWidth
@@ -67,7 +67,7 @@ export default function CreateShop({ open, setOpen }: Props) {
             id="descripcion"
             type="text"
             name="descripcion"
-            placeholder="..."
+            placeholder="Aquí encontrarás una variedad de productos..."
             autoFocus
             required
             fullWidth
@@ -85,7 +85,7 @@ export default function CreateShop({ open, setOpen }: Props) {
             id="direccion"
             type="text"
             name="direccion"
-            placeholder="..."
+            placeholder="123 Main St, Nueva York"
             autoFocus
             required
             fullWidth
@@ -103,7 +103,7 @@ export default function CreateShop({ open, setOpen }: Props) {
             id="telefono"
             type="tel"
             name="telefono"
-            placeholder="..."
+            placeholder="555-000-0000"
             autoFocus
             required
             fullWidth

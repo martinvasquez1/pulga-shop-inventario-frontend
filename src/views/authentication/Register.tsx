@@ -60,7 +60,7 @@ export default function Register() {
             id="email"
             type="email"
             name="email"
-            placeholder="your@email.com"
+            placeholder="tu@email.com"
             autoComplete="email"
             autoFocus
             required
