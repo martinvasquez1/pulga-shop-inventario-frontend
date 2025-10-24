@@ -60,7 +60,7 @@ export default function Register() {
             id="email"
             type="email"
             name="email"
-            placeholder="your@email.com"
+            placeholder="tu@email.com"
             autoComplete="email"
             autoFocus
             required
@@ -83,7 +83,7 @@ export default function Register() {
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="password">Repetir contraseña</FormLabel>
+          <FormLabel htmlFor="repeatPassword">Repetir contraseña</FormLabel>
           <TextField
             name="repeatPassword"
             placeholder="••••••"
@@ -95,7 +95,7 @@ export default function Register() {
             variant="outlined"
           />
         </FormControl>
-        <Button type="submit" fullWidth variant="contained">
+        <Button type="submit" fullWidth variant="contained" color="secondary">
           Registrarse
         </Button>
       </Box>

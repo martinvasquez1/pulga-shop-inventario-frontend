@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
+import { Avatar, Container } from "@mui/material";
+import profilePicture from "../../assets/images/profile_picture.jpg";
 
 interface Props {
   /**
@@ -26,7 +28,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [{ name: "Inicio", path: "/app" }];
+const navItems = [{ name: "Tiendas", path: "/app" }];
 
 export default function AppLayout(props: Props) {
   const { window } = props;
@@ -65,42 +67,53 @@ export default function AppLayout(props: Props) {
     <Box sx={{ display: "flex" }}>
       <AppBar
         component="nav"
-        style={{
-          backgroundColor: "white",
+        sx={{
+          backgroundColor: "background.paper",
           color: "black",
           borderBottom: "1px solid #ccc",
         }}
         elevation={0}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ ml: 0.5, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              <Logo size="sm" to="/app" />
+            </Typography>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 10,
+              justifyContent: "space-between",
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            <Logo size="sm" to="/app" />
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.name}
-                component={Link}
-                to={item.path}
-                sx={{ color: "#000" }}
-              >
-                {item.name}
-              </Button>
-            ))}
-          </Box>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              {navItems.map((item) => (
+                <Button
+                  key={item.name}
+                  component={Link}
+                  to={item.path}
+                  sx={{ color: "#000" }}
+                >
+                  {item.name}
+                </Button>
+              ))}
+            </Box>
+            <Avatar alt="User picture" src={profilePicture} />
+          </div>
         </Toolbar>
       </AppBar>
       <nav>
@@ -125,7 +138,9 @@ export default function AppLayout(props: Props) {
       </nav>
       <Box component="main" sx={{ p: 3 }} className="w-full">
         <Toolbar />
-        <Outlet />
+        <Container maxWidth="lg" component="main">
+          <Outlet />
+        </Container>
       </Box>
     </Box>
   );

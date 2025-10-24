@@ -47,7 +47,7 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
-            placeholder="your@email.com"
+            placeholder="tu@email.com"
             autoComplete="email"
             autoFocus
             required
@@ -69,7 +69,7 @@ export default function Login() {
             variant="outlined"
           />
         </FormControl>
-        <Button type="submit" fullWidth variant="contained">
+        <Button type="submit" fullWidth variant="contained" color="secondary">
           Iniciar Sesión
         </Button>
       </Box>

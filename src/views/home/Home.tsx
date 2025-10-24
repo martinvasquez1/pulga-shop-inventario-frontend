@@ -6,7 +6,12 @@ function Home() {
     <Box className="flex justify-center items-center h-screen">
       <Card sx={{ maxWidth: 400, width: "100%" }}>
         <CardContent>
-          <Typography variant="h5" gutterBottom sx={{ marginBottom: 2 }}>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{ marginBottom: 2 }}
+            textAlign="center"
+          >
             Pulga Shop - Inventario
           </Typography>
           <Box className="flex flex-col gap-2">
@@ -14,9 +19,9 @@ function Home() {
               component={Link}
               to="/auth/login"
               variant="contained"
-              color="primary"
+              color="secondary"
             >
-              Login
+              Iniciar Sesión
             </Button>
             <Button
               component={Link}
@@ -24,7 +29,7 @@ function Home() {
               variant="outlined"
               color="primary"
             >
-              Register
+              Registrarse
             </Button>
           </Box>
         </CardContent>

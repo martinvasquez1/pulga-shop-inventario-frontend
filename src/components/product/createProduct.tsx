@@ -6,6 +6,7 @@ import {
   useCreateProductForm,
 } from "../../api/product/createProduct";
 import { useParams } from "react-router-dom";
+import { FormControl, FormLabel } from "@mui/material";
 
 interface Props {
   open: boolean;
@@ -21,8 +22,11 @@ export default function CreateProduct({ open, setOpen }: Props) {
         form.reset();
         setOpen(false);
 
-        const existingProcuts =
-          JSON.parse(localStorage.getItem("products")) || [];
+        const storedProducts = localStorage.getItem("products");
+        const existingProcuts = storedProducts
+          ? JSON.parse(storedProducts)
+          : [];
+
         const updatedProcuts = [...existingProcuts, newProduct];
         localStorage.setItem("products", JSON.stringify(updatedProcuts));
       },
@@ -40,43 +44,47 @@ export default function CreateProduct({ open, setOpen }: Props) {
   return (
     <ResponsiveModal
       title="Crear producto"
-      description="Rellene el formulario para crear un producto"
       triggerButtonText="Crear"
       open={open}
+      isSubmitDisabled={createProductMutation.isPending}
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="stock"
-          {...form.register("stock", { valueAsNumber: true })}
-          name="stock"
-          label="Stock"
-          type="number"
-          fullWidth
-          variant="standard"
-        />
-        {form.formState.errors.stock && (
-          <p>{form.formState.errors.stock.message}</p>
-        )}
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="stock">Stock</FormLabel>
+          <TextField
+            {...form.register("stock", { valueAsNumber: true })}
+            id="stock"
+            type="number"
+            name="stock"
+            placeholder="10"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.stock && (
+            <p>{form.formState.errors.stock.message}</p>
+          )}
+        </FormControl>
 
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="precio"
-          {...form.register("precio", { valueAsNumber: true })}
-          name="precio"
-          label="Precio"
-          type="number"
-          fullWidth
-          variant="standard"
-        />
-        {form.formState.errors.precio && (
-          <p>{form.formState.errors.precio.message}</p>
-        )}
+        <FormControl fullWidth>
+          <FormLabel htmlFor="precio">Precio</FormLabel>
+          <TextField
+            {...form.register("precio", { valueAsNumber: true })}
+            id="precio"
+            type="number"
+            name="precio"
+            placeholder="10"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.precio && (
+            <p>{form.formState.errors.precio.message}</p>
+          )}
+        </FormControl>
       </form>
     </ResponsiveModal>
   );
