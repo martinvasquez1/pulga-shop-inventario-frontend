@@ -4,6 +4,8 @@ import ResponsiveModal from "../ResponsiveModal";
 import { useCreateShop, useCreateShopForm } from "../../api/shop/createShop";
 import { FormControl, FormLabel } from "@mui/material";
 
+import { CL } from "country-flag-icons/react/3x2";
+
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -31,7 +33,11 @@ export default function CreateShop({ open, setOpen }: Props) {
   });
 
   const onSubmit = (data) => {
-    createShopMutation.mutate(data);
+    const prefix = "+56";
+    const phoneNumberWithPrefix = `${prefix} ${data.telefono}`;
+    const newData = { ...data, telefono: phoneNumberWithPrefix };
+
+    createShopMutation.mutate(newData);
   };
 
   return (
@@ -99,17 +105,29 @@ export default function CreateShop({ open, setOpen }: Props) {
 
         <FormControl fullWidth>
           <FormLabel htmlFor="telefono">Teléfono</FormLabel>
-          <TextField
-            {...form.register("telefono")}
-            id="telefono"
-            type="tel"
-            name="telefono"
-            placeholder="555-000-0000"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-          />
+          <div className="flex w-full">
+            <div className="w-10 flex justify-center items-center px-2">
+              <CL title="United States" />
+            </div>
+
+            <div className="w-10 flex justify-center items-center px-2 text-slate-500">
+              <span>+56</span>
+            </div>
+
+            <div className="w-full">
+              <TextField
+                {...form.register("telefono")}
+                id="telefono"
+                type="tel"
+                name="telefono"
+                placeholder="9 5555 1234"
+                autoFocus
+                required
+                fullWidth
+                variant="outlined"
+              />
+            </div>
+          </div>
           {form.formState.errors.telefono && (
             <p>{form.formState.errors.telefono.message}</p>
           )}

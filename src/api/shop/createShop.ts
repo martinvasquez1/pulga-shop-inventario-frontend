@@ -10,7 +10,7 @@ const createShopSchema = z.object({
   nombre: z.string().min(3).max(36),
   descripcion: z.string().optional(),
   direccion: z.string(),
-  telefono: z.string(),
+  telefono: z.string().length(9, "Teléfono debe tener 9 números"),
 });
 
 export const useCreateShopForm = () => {
