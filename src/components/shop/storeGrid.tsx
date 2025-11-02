@@ -1,20 +1,15 @@
-import { Card, CardContent, Grid2, styled, Typography } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import { CreateShopResponse } from "../../api/shop/createShop";
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
-
-/*
-const page = 1;
-let { data, isLoading, isError } = useShops(page);
-
-if (isLoading) return "Loading...";
-if (isError) return "Error!";
-*/
+import { useShops } from "../../api/shop/getShops";
 
 export default function StoreGrid() {
-  // TODO: Remove, it's temp
-  const storedData = localStorage.getItem("stores");
-  const data = storedData ? JSON.parse(storedData) : [];
+  const page = 1;
+  let { data, isLoading, isError } = useShops(page);
+
+  if (isLoading) return "Loading...";
+  if (isError) return "Error!";
 
   const noShops = data?.length === 0;
   if (noShops)

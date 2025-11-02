@@ -13,9 +13,6 @@ import App from "./App.tsx";
 import "./index.css";
 
 async function enableMocking() {
-  // TODO: Remove, quick test
-  return;
-
   if (!import.meta.env.DEV) {
     return;
   }

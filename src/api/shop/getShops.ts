@@ -13,7 +13,7 @@ export function getShops(page: number): Promise<Shop[]> {
 
 export function useShops(page = 1) {
   return useQuery({
-    queryKey: ["shops"],
+    queryKey: ["tiendas"],
     queryFn: () => getShops(page),
   });
 }

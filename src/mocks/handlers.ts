@@ -1,23 +1,49 @@
 import { http, HttpResponse } from "msw";
+import { CreateShopResponse } from "../api/shop/createShop";
 
 let shops = [
-  { id: 1, name: "Tienda 1", description: "Esta es la tienda 1" },
-  { id: 2, name: "Tienda 2", description: "Esta es la tienda 2" },
+  {
+    id_tienda: 1,
+    nombre: "Tienda 1",
+    descripcion: "Esta es la tienda 1",
+    direccion: "Direccion 1",
+    telefono: "123456789",
+    fecha_creacion: new Date(),
+  },
+  {
+    id_tienda: 2,
+    nombre: "Tienda 2",
+    descripcion: "Esta es la tienda 2",
+    direccion: "Direccion 2",
+    telefono: "987654321",
+    fecha_creacion: new Date(),
+  },
 ];
 
 export const handlers = [
-  http.post(`${import.meta.env.VITE_API_URL}/shops`, async ({ request }) => {
-    const { name, description } = await request.clone().json();
+  http.post(`${import.meta.env.VITE_API_URL}/tiendas`, async ({ request }) => {
+    const { nombre, descripcion, direccion, telefono } = await request
+      .clone()
+      .json();
+    const id_tienda = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
+    const fecha_creacion = new Date();
 
-    const id = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
-    const newShop = { id, name, description };
+    const newShop: CreateShopResponse = {
+      id_tienda,
+      id_vendedor: 1,
+      nombre,
+      direccion,
+      descripcion,
+      telefono,
+      fecha_creacion,
+    };
     shops.push(newShop);
 
     return HttpResponse.json(newShop);
   }),
 
-  http.get<{ id: string }>(
-    `${import.meta.env.VITE_API_URL}/shops`,
+  http.get<{ page: string }>(
+    `${import.meta.env.VITE_API_URL}/tiendas`,
     ({ params }) => {
       const page = Number(params.page) || 1;
 
@@ -34,7 +60,7 @@ export const handlers = [
     `${import.meta.env.VITE_API_URL}/tiendas/:tiendaId`,
     ({ params }) => {
       const tiendaId = Number(params.tiendaId);
-      const shop = shops.find((shop) => shop.id === tiendaId);
+      const shop = shops.find((shop) => shop.id_tienda === tiendaId);
 
       if (!shop) {
         return HttpResponse.json(

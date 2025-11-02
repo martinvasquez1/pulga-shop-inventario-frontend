@@ -62,7 +62,7 @@ export function useCreateShop({ mutationConfig }: UseCreateShopOptions) {
   const mutation = useMutation({
     mutationFn: createShop,
     onSuccess: (...args) => {
-      queryClient.invalidateQueries({ queryKey: ["shops"] });
+      queryClient.invalidateQueries({ queryKey: ["tiendas"] });
       onSuccess?.(...args);
     },
     ...restConfig,
