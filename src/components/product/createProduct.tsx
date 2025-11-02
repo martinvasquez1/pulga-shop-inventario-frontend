@@ -15,20 +15,15 @@ interface Props {
 
 export default function CreateProduct({ open, setOpen }: Props) {
   const { tiendaId: storeId } = useParams<{ tiendaId: string }>();
+
   const form = useCreateProductForm();
+
   const createProductMutation = useCreateProduct({
+    storeId,
     mutationConfig: {
-      onSuccess: (newProduct) => {
+      onSuccess: () => {
         form.reset();
         setOpen(false);
-
-        const storedProducts = localStorage.getItem("products");
-        const existingProcuts = storedProducts
-          ? JSON.parse(storedProducts)
-          : [];
-
-        const updatedProcuts = [...existingProcuts, newProduct];
-        localStorage.setItem("products", JSON.stringify(updatedProcuts));
       },
       onError: (error) => {
         console.error("Error creating shop:", error);

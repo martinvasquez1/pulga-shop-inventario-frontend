@@ -3,6 +3,8 @@ import Paper from "@mui/material/Paper";
 import EmptyState from "../EmptyState";
 import { StyledCard } from "../Card";
 
+import { useProducts } from "../../api/product/getProducts";
+
 const columns: GridColDef[] = [
   { field: "id", headerName: "SKU", flex: 2 },
   { field: "stock", headerName: "Stock", type: "number", flex: 1 },
@@ -13,10 +15,13 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function ProductsTable({ storeId }: { storeId: number }) {
-  const AllProducts = JSON.parse(localStorage.getItem("products")) || [];
-  const products = AllProducts.filter((p) => p.id_tienda === storeId);
+  const page = 1;
+  let { data, isLoading, isError } = useProducts(page, storeId);
 
-  const noProducts = products.length === 0;
+  if (isLoading) return "Loading...";
+  if (isError) return "Error!";
+
+  const noProducts = data.length === 0;
   if (noProducts)
     return (
       <EmptyState
@@ -28,7 +33,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     );
 
   const rows: any = [];
-  for (const p of products) {
+  for (const p of data) {
     const newColumn = {
       id: p.sku,
       stock: p.stock,

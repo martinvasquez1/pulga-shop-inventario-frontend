@@ -46,10 +46,14 @@ function createProduct(
 }
 
 type UseCreateProductsOptions = {
+  storeId: number;
   mutationConfig?: MutationConfig<typeof createProduct>;
 };
 
-export function useCreateProduct({ mutationConfig }: UseCreateProductsOptions) {
+export function useCreateProduct({
+  storeId,
+  mutationConfig,
+}: UseCreateProductsOptions) {
   const queryClient = useQueryClient();
 
   const { onSuccess, ...restConfig } = mutationConfig || {};
@@ -57,7 +61,9 @@ export function useCreateProduct({ mutationConfig }: UseCreateProductsOptions) {
   const mutation = useMutation({
     mutationFn: createProduct,
     onSuccess: (...args) => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({
+        queryKey: ["tiendas", storeId, "productos"],
+      });
       onSuccess?.(...args);
     },
     ...restConfig,

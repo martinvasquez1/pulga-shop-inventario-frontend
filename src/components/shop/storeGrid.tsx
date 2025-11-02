@@ -1,7 +1,9 @@
 import { Grid2 } from "@mui/material";
-import { CreateShopResponse } from "../../api/shop/createShop";
+
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
+
+import { CreateShopResponse } from "../../api/shop/createShop";
 import { useShops } from "../../api/shop/getShops";
 
 export default function StoreGrid() {

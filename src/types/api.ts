@@ -3,3 +3,8 @@ export type Shop = {
   name: string;
   description: string;
 };
+
+export type Product = {
+  stock: number;
+  precio: number;
+};
