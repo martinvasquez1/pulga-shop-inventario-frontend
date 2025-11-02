@@ -1,9 +1,10 @@
 import { http, HttpResponse } from "msw";
 import { CreateShopResponse } from "../api/shop/createShop";
 import { shopsInMemory as shops } from "./handlers";
+import inventoryApi from "./paths";
 
 export const storeHandlers = [
-  http.post(`${import.meta.env.VITE_API_URL}/tiendas`, async ({ request }) => {
+  http.post(inventoryApi("/tiendas"), async ({ request }) => {
     const { nombre, descripcion, direccion, telefono } = await request
       .clone()
       .json();
@@ -24,22 +25,19 @@ export const storeHandlers = [
     return HttpResponse.json(newShop);
   }),
 
-  http.get<{ page: string }>(
-    `${import.meta.env.VITE_API_URL}/tiendas`,
-    ({ params }) => {
-      const page = Number(params.page) || 1;
+  http.get<{ page: string }>(inventoryApi("/tiendas"), ({ params }) => {
+    const page = Number(params.page) || 1;
 
-      const itemsPerPage = 10;
-      const start = (page - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const paginatedShops = shops.slice(start, end);
+    const itemsPerPage = 10;
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedShops = shops.slice(start, end);
 
-      return HttpResponse.json(paginatedShops);
-    }
-  ),
+    return HttpResponse.json(paginatedShops);
+  }),
 
   http.get<{ tiendaId: string }>(
-    `${import.meta.env.VITE_API_URL}/tiendas/:tiendaId`,
+    inventoryApi("/tiendas/:tiendaId"),
     ({ params }) => {
       const tiendaId = Number(params.tiendaId);
       const shop = shops.find((shop) => shop.id_tienda === tiendaId);

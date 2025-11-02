@@ -1,32 +1,30 @@
 import { http, HttpResponse } from "msw";
 import { CreateProductResponse } from "../api/product/createProduct";
+import inventoryApi from "./paths";
 
 export let productsInMemory: CreateProductResponse[] = [];
 
 export const productsHandlers = [
-  http.post(
-    `${import.meta.env.VITE_API_URL}/productos`,
-    async ({ request }) => {
-      const { stock, precio, id_tienda } = await request.clone().json();
+  http.post(inventoryApi("/productos"), async ({ request }) => {
+    const { stock, precio, id_tienda } = await request.clone().json();
 
-      const sku = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
-      const disponible = stock > 0;
+    const sku = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
+    const disponible = stock > 0;
 
-      const newProduct: CreateProductResponse = {
-        sku,
-        disponible,
-        stock,
-        precio,
-        id_tienda,
-      };
-      productsInMemory.push(newProduct);
+    const newProduct: CreateProductResponse = {
+      sku,
+      disponible,
+      stock,
+      precio,
+      id_tienda,
+    };
+    productsInMemory.push(newProduct);
 
-      return HttpResponse.json(newProduct);
-    }
-  ),
+    return HttpResponse.json(newProduct);
+  }),
 
   http.get<{ page: string; storeId: string }>(
-    `${import.meta.env.VITE_API_URL}/productos`,
+    inventoryApi("/productos"),
     ({ request }) => {
       const url = new URL(request.url);
       const page = Number(url.searchParams.get("id")) || 1;
