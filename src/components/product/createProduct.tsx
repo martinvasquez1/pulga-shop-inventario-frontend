@@ -14,7 +14,8 @@ interface Props {
 }
 
 export default function CreateProduct({ open, setOpen }: Props) {
-  const { tiendaId: storeId } = useParams<{ tiendaId: string }>();
+  const { tiendaId } = useParams<{ tiendaId: string }>();
+  const storeId = +tiendaId!;
 
   const form = useCreateProductForm();
 
