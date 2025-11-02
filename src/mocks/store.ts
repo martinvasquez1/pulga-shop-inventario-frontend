@@ -25,8 +25,9 @@ export const storeHandlers = [
     return HttpResponse.json(newShop);
   }),
 
-  http.get<{ page: string }>(inventoryApi("/tiendas"), ({ params }) => {
-    const page = Number(params.page) || 1;
+  http.get<{ page: string }>(inventoryApi("/tiendas"), ({ request }) => {
+    const url = new URL(request.url);
+    const page = Number(url.searchParams.get("page")) || 1;
 
     const itemsPerPage = 10;
     const start = (page - 1) * itemsPerPage;
@@ -40,8 +41,8 @@ export const storeHandlers = [
     inventoryApi("/tiendas/:tiendaId"),
     ({ params }) => {
       const tiendaId = Number(params.tiendaId);
-      const shop = shops.find((shop) => shop.id_tienda === tiendaId);
 
+      const shop = shops.find((shop) => shop.id_tienda === tiendaId);
       if (!shop) {
         return HttpResponse.json(
           { message: "Shop not found" },
