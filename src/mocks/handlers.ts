@@ -1,4 +1,5 @@
 import { storeHandlers } from "./store";
+import { productsHandlers } from "./products";
 
 export let shopsInMemory = [
   {
@@ -19,4 +20,4 @@ export let shopsInMemory = [
   },
 ];
 
-export const handlers = [...storeHandlers];
+export const handlers = [...storeHandlers, ...productsHandlers];
