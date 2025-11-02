@@ -5,7 +5,7 @@ import { Product } from "../../types/api";
 
 export function getProducts(page: number, storeId: number): Promise<Product[]> {
   return api
-    .get<Product[]>("/products", {
+    .get<Product[]>("/productos", {
       params: { page, storeId },
     })
     .then((res) => res.data);

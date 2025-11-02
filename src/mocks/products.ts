@@ -27,9 +27,10 @@ export const productsHandlers = [
 
   http.get<{ page: string; storeId: string }>(
     `${import.meta.env.VITE_API_URL}/productos`,
-    ({ params }) => {
-      const page = Number(params.page) || 1;
-      const storeId = Number(params.storeId);
+    ({ request }) => {
+      const url = new URL(request.url);
+      const page = Number(url.searchParams.get("id")) || 1;
+      const storeId = Number(url.searchParams.get("storeId"));
 
       const filteredProducts = productsInMemory.filter(
         (product) => product.id_tienda === storeId
