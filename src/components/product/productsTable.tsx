@@ -1,16 +1,20 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridTreeNodeWithRender,
+} from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import EmptyState from "../EmptyState";
 import { StyledCard } from "../Card";
 
 import { useProducts } from "../../api/product/getProducts";
+import { IconButton } from "@mui/material";
+import CreateIcon from "@mui/icons-material/Create";
 
-const columns: GridColDef[] = [
-  { field: "id", headerName: "SKU", flex: 2 },
-  { field: "stock", headerName: "Stock", type: "number", flex: 1 },
-  { field: "precio", headerName: "Precio", type: "number", flex: 1 },
-  { field: "disponible", headerName: "Disponible", type: "boolean", flex: 1 },
-];
+interface UpdateButtonProps {
+  params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
+}
 
 const paginationModel = { page: 0, pageSize: 5 };
 
@@ -42,6 +46,34 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     };
     rows.push(newColumn);
   }
+
+  function UpdateButton({ params }: UpdateButtonProps) {
+    return (
+      <IconButton
+        aria-label="delete"
+        onClick={() => {
+          // TODO: Open modal
+          console.log(params.row.id);
+        }}
+      >
+        <CreateIcon />
+      </IconButton>
+    );
+  }
+
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "SKU", flex: 2 },
+    { field: "stock", headerName: "Stock", type: "number", flex: 1 },
+    { field: "precio", headerName: "Precio", type: "number", flex: 1 },
+    { field: "disponible", headerName: "Disponible", type: "boolean", flex: 1 },
+    {
+      field: "action",
+      headerName: "Acción",
+      type: "actions",
+      flex: 1,
+      renderCell: (params) => <UpdateButton params={params} />,
+    },
+  ];
 
   return (
     <StyledCard>
