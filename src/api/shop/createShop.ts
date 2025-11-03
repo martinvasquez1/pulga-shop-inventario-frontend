@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
+import { Shop } from "../../types/api";
 
 const createShopSchema = z.object({
   nombre: z.string().min(3).max(36),
@@ -34,15 +35,9 @@ type CreateShopPayload = {
   telefono: string;
 };
 
-export type CreateShopResponse = {
-  id_tienda: number;
-  id_vendedor: number;
-  nombre: string;
-  direccion: string;
-  descripcion: string;
-  telefono: string;
-  fecha_creacion: Date;
-};
+// For now, they are the same. The response could later
+// have a different shape.
+export type CreateShopResponse = Shop;
 
 function createShop(payload: CreateShopPayload): Promise<CreateShopResponse> {
   return api

@@ -3,7 +3,7 @@ import { Grid2 } from "@mui/material";
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
 
-import { CreateShopResponse } from "../../api/shop/createShop";
+import { Shop } from "../../types/api";
 import { useShops } from "../../api/shop/getShops";
 
 export default function StoreGrid() {
@@ -26,7 +26,7 @@ export default function StoreGrid() {
 
   return (
     <Grid2 container spacing={2} columns={12}>
-      {data?.map((s: CreateShopResponse) => {
+      {data?.map((s: Shop) => {
         return <StoreGridItem data={s} key={s.id_tienda} />;
       })}
     </Grid2>
