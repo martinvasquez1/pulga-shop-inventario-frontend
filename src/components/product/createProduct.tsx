@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import {
+  CreateProductInput,
   useCreateProduct,
   useCreateProductForm,
 } from "../../api/product/createProduct";
@@ -32,7 +33,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: CreateProductInput) => {
     const newData = { ...data, id_tienda: Number(storeId) };
     createProductMutation.mutate(newData);
   };
