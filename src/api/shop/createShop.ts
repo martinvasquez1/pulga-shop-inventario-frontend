@@ -28,7 +28,7 @@ export const useCreateShopForm = () => {
 
 export type CreateShopInput = z.infer<typeof createShopSchema>;
 
-type CreateShopPayload = {
+export type CreateShopPayload = {
   nombre: string;
   descripcion: string;
   direccion: string;

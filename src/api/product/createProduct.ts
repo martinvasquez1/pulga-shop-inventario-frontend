@@ -24,7 +24,7 @@ export const useCreateProductForm = () => {
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 
-type CreateProductPayload = {
+export type CreateProductPayload = {
   stock: number;
   precio: number;
   id_tienda: number;

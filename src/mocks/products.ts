@@ -1,13 +1,17 @@
 import { http, HttpResponse } from "msw";
-import { CreateProductResponse } from "../api/product/createProduct";
+import {
+  CreateProductPayload,
+  CreateProductResponse,
+} from "../api/product/createProduct";
 import inventoryApi from "./paths";
 
 import { productsInMemory } from "./handlers";
 
 export const productsHandlers = [
   http.post(inventoryApi("/productos"), async ({ request }) => {
-    const { stock, precio, id_tienda } = await request.clone().json();
+    const body = (await request.clone().json()) as CreateProductPayload;
 
+    const { stock, precio, id_tienda } = body;
     const sku = String(Math.floor(Math.random() * (10000 - 100 + 1)) + 100);
     const disponible = stock > 0;
 

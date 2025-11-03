@@ -1,13 +1,13 @@
 import { http, HttpResponse } from "msw";
-import { CreateShopResponse } from "../api/shop/createShop";
+import { CreateShopPayload, CreateShopResponse } from "../api/shop/createShop";
 import { shopsInMemory as shops } from "./handlers";
 import inventoryApi from "./paths";
 
 export const storeHandlers = [
   http.post(inventoryApi("/tiendas"), async ({ request }) => {
-    const { nombre, descripcion, direccion, telefono } = await request
-      .clone()
-      .json();
+    const body = (await request.clone().json()) as CreateShopPayload;
+
+    const { nombre, descripcion, direccion, telefono } = body;
     const id_tienda = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
     const fecha_creacion = new Date();
 
