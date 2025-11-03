@@ -21,7 +21,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   if (isLoading) return "Loading...";
   if (isError) return "Error!";
 
-  const noProducts = data.length === 0;
+  const noProducts = !data?.length;
   if (noProducts)
     return (
       <EmptyState
