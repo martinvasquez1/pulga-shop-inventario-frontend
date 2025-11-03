@@ -8,15 +8,6 @@ import { surfacesCustomizations } from "./customizations/surfaces";
 import { colorSchemes, typography, shadows, shape } from "./themePrimitives";
 
 const theme = createTheme({
-  /*
-  palette: {
-    primary: {
-      main: "#00CC80",
-      light: "#003c58",
-      dark: "#0d1d1e",
-      contrastText: "#ffffff",
-    }, */
-
   colorSchemes,
   typography,
   shadows,
