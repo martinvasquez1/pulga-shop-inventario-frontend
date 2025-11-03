@@ -6,7 +6,8 @@ export type Shop = {
   descripcion: string;
   telefono: string;
   fecha_creacion: Date;
-  producto: Product[];
+  // Should this have a product array?
+  // producto: Product[];
 };
 
 export type Product = {
