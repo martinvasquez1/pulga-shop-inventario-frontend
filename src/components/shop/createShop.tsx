@@ -1,7 +1,11 @@
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
-import { useCreateShop, useCreateShopForm } from "../../api/shop/createShop";
+import {
+  CreateShopInput,
+  useCreateShop,
+  useCreateShopForm,
+} from "../../api/shop/createShop";
 import { FormControl, FormLabel } from "@mui/material";
 
 import { CL } from "country-flag-icons/react/3x2";
@@ -15,16 +19,9 @@ export default function CreateShop({ open, setOpen }: Props) {
   const form = useCreateShopForm();
   const createShopMutation = useCreateShop({
     mutationConfig: {
-      onSuccess: (newStore) => {
+      onSuccess: () => {
         form.reset();
         setOpen(false);
-
-        // TODO: Remove, it's temp
-        const storedData = localStorage.getItem("stores");
-        const existingStores = storedData ? JSON.parse(storedData) : [];
-
-        const updatedStores = [...existingStores, newStore];
-        localStorage.setItem("stores", JSON.stringify(updatedStores));
       },
       onError: (error) => {
         console.error("Error creating shop:", error);
@@ -32,7 +29,7 @@ export default function CreateShop({ open, setOpen }: Props) {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: CreateShopInput) => {
     const prefix = "+56";
     const phoneNumberWithPrefix = `${prefix} ${data.telefono}`;
     const newData = { ...data, telefono: phoneNumberWithPrefix };

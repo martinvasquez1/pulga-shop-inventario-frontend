@@ -9,7 +9,7 @@ import { Shop } from "../../types/api";
 
 const createShopSchema = z.object({
   nombre: z.string().min(3).max(36),
-  descripcion: z.string().optional(),
+  descripcion: z.string(),
   direccion: z.string(),
   telefono: z.string().length(9, "Teléfono debe tener 9 números"),
 });
