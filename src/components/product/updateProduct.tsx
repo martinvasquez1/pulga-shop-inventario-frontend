@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
@@ -13,7 +15,7 @@ import { Product } from "../../types/api";
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
-  product: Product;
+  product: Product | null;
 }
 
 export default function UpdateProduct({ open, setOpen, product }: Props) {
@@ -22,9 +24,21 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
 
   const form = useUpdateProductForm(product);
 
+  console.log(form.formState.errors);
+
+  // To update form values on product change
+  useEffect(() => {
+    if (product) {
+      form.reset({
+        stock: product.stock,
+        precio: product.precio,
+      });
+    }
+  }, [product, form]);
+
   const updateProductMutation = useUpdateProduct({
     storeId,
-    productSku: product.sku,
+    productSku: product ? product.sku : "-1",
     mutationConfig: {
       onSuccess: () => {
         setOpen(false);
@@ -37,6 +51,8 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
     updateProductMutation.mutate(newData);
   };
 
+  if (!product) return null;
+
   return (
     <ResponsiveModal
       title="Actualizar producto"
@@ -45,7 +61,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
       isSubmitDisabled={updateProductMutation.isPending}
       setOpen={setOpen}
     >
-      <form onSubmit={form.handleSubmit(onSubmit)} id="update-product-form">
+      <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="stock">Stock</FormLabel>
           <TextField

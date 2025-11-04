@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   DataGrid,
   GridColDef,
@@ -11,14 +13,18 @@ import { StyledCard } from "../Card";
 import { useProducts } from "../../api/product/getProducts";
 import { IconButton } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
+import UpdateProduct from "./updateProduct";
 
 interface UpdateButtonProps {
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
 }
 
-const paginationModel = { page: 0, pageSize: 5 };
-
 export default function ProductsTable({ storeId }: { storeId: number }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const paginationModel = { page: 0, pageSize: 5 };
+
   const page = 1;
   let { data, isLoading, isError } = useProducts(page, storeId);
 
@@ -50,10 +56,10 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   function UpdateButton({ params }: UpdateButtonProps) {
     return (
       <IconButton
-        aria-label="delete"
+        aria-label="update"
         onClick={() => {
-          // TODO: Open modal
-          console.log(params.row.id);
+          setSelectedProduct(params.row);
+          setIsModalOpen(true);
         }}
       >
         <CreateIcon />
@@ -94,6 +100,12 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
           style={{ marginTop: 20, minHeight: 200 }}
         />
       </Paper>
+
+      <UpdateProduct
+        open={isModalOpen}
+        setOpen={setIsModalOpen}
+        product={selectedProduct}
+      />
     </StyledCard>
   );
 }

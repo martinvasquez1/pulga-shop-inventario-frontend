@@ -12,7 +12,7 @@ const updateProductSchema = z.object({
   precio: z.number().min(1),
 });
 
-export const useUpdateProductForm = (defaultValues: Product | undefined) => {
+export const useUpdateProductForm = (defaultValues: Product | null) => {
   return useForm<z.infer<typeof updateProductSchema>>({
     resolver: zodResolver(updateProductSchema),
     defaultValues: {
