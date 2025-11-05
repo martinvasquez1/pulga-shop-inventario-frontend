@@ -8,8 +8,8 @@ import { MutationConfig } from "../../lib/react-query";
 import { Product } from "../../types/api";
 
 const createProductSchema = z.object({
-  stock: z.number().min(1),
-  precio: z.number().min(1),
+  stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
+  precio: z.number().min(1, { message: "El precio debe ser al menos 1." }),
 });
 
 export const useCreateProductForm = () => {

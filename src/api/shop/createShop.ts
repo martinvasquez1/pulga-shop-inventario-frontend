@@ -8,9 +8,20 @@ import { MutationConfig } from "../../lib/react-query";
 import { Shop } from "../../types/api";
 
 const createShopSchema = z.object({
-  nombre: z.string().min(3).max(36),
-  descripcion: z.string(),
-  direccion: z.string(),
+  nombre: z
+    .string()
+    .min(3, { message: "Nombre debe tener al menos 3 caracteres." })
+    .max(36, { message: "Nombre no puede tener más de 36 caracteres." }),
+
+  descripcion: z
+    .string()
+    .max(200, { message: "Descripción no puede tener más de 200 caracteres." }),
+
+  direccion: z
+    .string()
+    .min(3, { message: "Dirección debe tener al menos 3 caracteres." })
+    .max(100, { message: "Dirección no puede tener más de 100 caracteres." }),
+
   telefono: z.string().refine(
     (phone) => {
       const digits = phone.replace(/\s/g, "");
