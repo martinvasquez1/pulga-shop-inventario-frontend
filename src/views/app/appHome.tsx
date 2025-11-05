@@ -8,6 +8,7 @@ import StoreGrid from "../../components/shop/storeGrid";
 
 export default function AppHome({}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const username = "Alex";
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -23,7 +24,9 @@ export default function AppHome({}) {
           <Typography variant="h4" gutterBottom>
             Tiendas
           </Typography>
-          <Typography>Aquí puedes ver todas tus tiendas.</Typography>
+          <Typography>
+            Bienvenido {username}, aquí puedes ver todas tus tiendas.
+          </Typography>
         </div>
         <Button
           variant="contained"
