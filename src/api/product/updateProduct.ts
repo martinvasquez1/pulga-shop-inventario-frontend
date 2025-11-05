@@ -25,9 +25,12 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 
 export type UpdateProductPayload = {
-  stock: number;
-  precio: number;
-  id_tienda: number;
+  sku: string;
+  data: {
+    stock: number;
+    precio: number;
+    id_tienda: number;
+  };
 };
 
 export type UpdateProductResponse = Product;
@@ -36,7 +39,9 @@ function updateProduct(
   payload: UpdateProductPayload
 ): Promise<UpdateProductResponse> {
   return api
-    .patch<UpdateProductResponse>("/productos", { ...payload })
+    .patch<UpdateProductResponse>(`/productos/${payload.sku}`, {
+      ...payload.data,
+    })
     .then((res) => res.data);
 }
 

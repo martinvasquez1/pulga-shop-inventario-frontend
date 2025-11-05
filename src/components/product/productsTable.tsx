@@ -46,6 +46,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   for (const p of data) {
     const newColumn = {
       id: p.sku,
+      sku: p.sku,
       stock: p.stock,
       precio: p.precio,
       disponible: p.disponible,

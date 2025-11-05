@@ -46,4 +46,10 @@ export const productsHandlers = [
       return HttpResponse.json(paginatedProducts);
     }
   ),
+
+  /*
+  http.patch(inventoryApi("/productos/:sku"), ({ request }) => {
+    return HttpResponse.json({});
+  }),
+  */
 ];

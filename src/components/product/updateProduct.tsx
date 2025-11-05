@@ -24,8 +24,6 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
 
   const form = useUpdateProductForm(product);
 
-  console.log(form.formState.errors);
-
   // To update form values on product change
   useEffect(() => {
     if (product) {
@@ -46,12 +44,12 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
     },
   });
 
+  if (!product) return null;
+
   const onSubmit = (data: UpdateProductInput) => {
     const newData = { ...data, id_tienda: Number(storeId) };
-    updateProductMutation.mutate(newData);
+    updateProductMutation.mutate({ sku: product.sku, data: newData });
   };
-
-  if (!product) return null;
 
   return (
     <ResponsiveModal
