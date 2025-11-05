@@ -37,7 +37,6 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
 
   const updateProductMutation = useUpdateProduct({
     storeId,
-    productSku: product ? product.sku : "-1",
     mutationConfig: {
       onSuccess: () => {
         setOpen(false);

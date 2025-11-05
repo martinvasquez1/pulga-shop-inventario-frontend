@@ -47,13 +47,11 @@ function updateProduct(
 
 type UseUpdateProductsOptions = {
   storeId: number;
-  productSku: string;
   mutationConfig?: MutationConfig<typeof updateProduct>;
 };
 
 export function useUpdateProduct({
   storeId,
-  productSku,
   mutationConfig,
 }: UseUpdateProductsOptions) {
   const queryClient = useQueryClient();
