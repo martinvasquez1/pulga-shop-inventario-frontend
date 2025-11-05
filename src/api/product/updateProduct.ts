@@ -64,7 +64,8 @@ export function useUpdateProduct({
     mutationFn: updateProduct,
     onSuccess: (...args) => {
       queryClient.invalidateQueries({
-        queryKey: ["tiendas", storeId, "productos", productSku],
+        //queryKey: ["tiendas", storeId, "productos", productSku],
+        queryKey: ["tiendas", storeId, "productos"],
       });
       onSuccess?.(...args);
     },

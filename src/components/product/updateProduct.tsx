@@ -18,6 +18,7 @@ interface Props {
   product: Product | null;
 }
 
+// By default product is null. Product is set on click
 export default function UpdateProduct({ open, setOpen, product }: Props) {
   const { tiendaId } = useParams<{ tiendaId: string }>();
   const storeId = +tiendaId!;
