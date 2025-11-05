@@ -6,6 +6,7 @@ import {
 import inventoryApi from "./paths";
 
 import { productsInMemory } from "./handlers";
+import { UpdateProductResponse } from "../api/product/updateProduct";
 
 export const productsHandlers = [
   http.post(inventoryApi("/productos"), async ({ request }) => {
@@ -47,9 +48,28 @@ export const productsHandlers = [
     }
   ),
 
-  /*
-  http.patch(inventoryApi("/productos/:sku"), ({ request }) => {
-    return HttpResponse.json({});
-  }),
-  */
+  http.patch<{ sku: string }>(
+    inventoryApi("/productos/:sku"),
+    async ({ request, params }) => {
+      const { sku } = params;
+      const productUpdate = (await request
+        .clone()
+        .json()) as UpdateProductResponse;
+
+      const productIndex = productsInMemory.findIndex((p) => p.sku === sku);
+      if (productIndex === -1) {
+        return HttpResponse.json(
+          { message: "Product not found" },
+          { status: 404 }
+        );
+      }
+
+      productsInMemory[productIndex] = {
+        ...productsInMemory[productIndex],
+        ...productUpdate,
+      };
+
+      return HttpResponse.json(productsInMemory[productIndex], { status: 200 });
+    }
+  ),
 ];
