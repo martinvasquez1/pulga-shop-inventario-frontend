@@ -26,7 +26,7 @@ export type Product = {
   precio: number;
   condicion: Condicion;
   stock: number;
-  fotos: File[];
+  fotos: string[];
   categorias: string[];
   rating: Number;
   disponible: boolean;
