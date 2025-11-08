@@ -20,13 +20,19 @@ export default function CreateProduct({ open, setOpen }: Props) {
   const { tiendaId } = useParams<{ tiendaId: string }>();
   const storeId = +tiendaId!;
 
-  const form = useCreateProductForm();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    reset: resetForm,
+  } = useCreateProductForm();
 
   const createProductMutation = useCreateProduct({
     storeId,
     mutationConfig: {
       onSuccess: () => {
-        form.reset();
+        resetForm();
         setOpen(false);
       },
       onError: (error) => {
@@ -43,7 +49,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
     createProductMutation.mutate(newData);
   };
 
-  console.log(form.formState.errors);
+  console.log(formState.errors);
 
   return (
     <ResponsiveModal
@@ -53,11 +59,11 @@ export default function CreateProduct({ open, setOpen }: Props) {
       isSubmitDisabled={createProductMutation.isPending}
       setOpen={setOpen}
     >
-      <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
+      <form onSubmit={handleSubmit(onSubmit)} id="subscription-form">
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="stock">Stock</FormLabel>
           <TextField
-            {...form.register("stock", { valueAsNumber: true })}
+            {...register("stock", { valueAsNumber: true })}
             id="stock"
             type="number"
             name="stock"
@@ -67,15 +73,13 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {form.formState.errors.stock && (
-            <p>{form.formState.errors.stock.message}</p>
-          )}
+          {formState.errors.stock && <p>{formState.errors.stock.message}</p>}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="precio">Precio</FormLabel>
           <TextField
-            {...form.register("precio", { valueAsNumber: true })}
+            {...register("precio", { valueAsNumber: true })}
             id="precio"
             type="number"
             name="precio"
@@ -85,16 +89,14 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {form.formState.errors.precio && (
-            <p>{form.formState.errors.precio.message}</p>
-          )}
+          {formState.errors.precio && <p>{formState.errors.precio.message}</p>}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="condicion">Condición</FormLabel>
           <Controller
             name="condicion"
-            control={form.control}
+            control={control}
             rules={{ required: "Condición es requerida." }}
             render={({ field }) => (
               <Select {...field} id="condicion" required fullWidth>
@@ -106,15 +108,15 @@ export default function CreateProduct({ open, setOpen }: Props) {
               </Select>
             )}
           />
-          {form.formState.errors.condicion && (
-            <p>{form.formState.errors.condicion.message}</p>
+          {formState.errors.condicion && (
+            <p>{formState.errors.condicion.message}</p>
           )}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="marca">Marca</FormLabel>
           <TextField
-            {...form.register("marca")}
+            {...register("marca")}
             id="marca"
             type="text"
             name="marca"
@@ -124,10 +126,33 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {form.formState.errors.marca && (
-            <p>{form.formState.errors.marca.message}</p>
-          )}
+          {formState.errors.marca && <p>{formState.errors.marca.message}</p>}
         </FormControl>
+
+        <div>
+          <label htmlFor="photos">Fotos</label>
+          <Controller
+            name="fotos"
+            control={control}
+            render={({ field: { onChange } }) => (
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={(e) => {
+                  const files = e.target.files;
+                  if (files) {
+                    // FileList to Array
+                    onChange(Array.from(files));
+                  }
+                }}
+              />
+            )}
+          />
+          {formState.errors.fotos?.message && (
+            <span>{formState.errors.fotos.message}</span>
+          )}
+        </div>
       </form>
     </ResponsiveModal>
   );
