@@ -19,14 +19,18 @@ export enum Condicion {
 export type Product = {
   sku: string;
   id_tienda: number;
+  id_producto: number;
   nombre: string;
-  condicion: Condicion;
-  fotos: File[];
+  descripcion: string;
   marca: string;
-  categorias: string[];
-  stock: number;
   precio: number;
+  condicion: Condicion;
+  stock: number;
+  fotos: File[];
+  categorias: string[];
+  rating: Number;
   disponible: boolean;
+  fecha: Date;
 };
 
 export type PaginationMeta = {
