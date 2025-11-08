@@ -7,6 +7,7 @@ import inventoryApi from "./paths";
 
 import { productsInMemory } from "./handlers";
 import { UpdateProductResponse } from "../api/product/updateProduct";
+import { GetProductsResponse } from "../api/product/getProducts";
 
 export const productsHandlers = [
   http.post(inventoryApi("/productos"), async ({ request }) => {
@@ -28,23 +29,40 @@ export const productsHandlers = [
     return HttpResponse.json(newProduct);
   }),
 
-  http.get<{ page: string; storeId: string }>(
+  http.get<{ page: string; take: string; storeId: string }>(
     inventoryApi("/productos"),
     ({ request }) => {
       const url = new URL(request.url);
-      const page = Number(url.searchParams.get("id")) || 1;
+      const page = Number(url.searchParams.get("page")) || 1;
+      const take = Number(url.searchParams.get("take")) || 5;
       const storeId = Number(url.searchParams.get("storeId"));
 
       const filteredProducts = productsInMemory.filter(
         (product) => product.id_tienda === storeId
       );
 
-      const itemsPerPage = 10;
-      const start = (page - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const paginatedProducts = filteredProducts.slice(start, end);
+      const start = (page - 1) * take;
+      const end = start + take;
 
-      return HttpResponse.json(paginatedProducts);
+      const paginatedProducts = filteredProducts.slice(start, end);
+      const itemCount = productsInMemory.length;
+      const pageCount = Math.ceil(itemCount / take);
+
+      console.log({ page, take });
+
+      const response: GetProductsResponse = {
+        data: paginatedProducts,
+        meta: {
+          page,
+          take,
+          itemCount: itemCount,
+          pageCount: pageCount,
+          hasPreviousPage: page > 1,
+          hasNextPage: page < pageCount,
+        },
+      };
+
+      return HttpResponse.json(response);
     }
   ),
 

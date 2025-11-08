@@ -15,6 +15,7 @@ export default function StoreGrid() {
 
   if (isLoading) return "Loading...";
   if (isError) return "Error!";
+  if (!data) return null;
 
   const noShops = data?.data.length === 0;
   if (noShops)

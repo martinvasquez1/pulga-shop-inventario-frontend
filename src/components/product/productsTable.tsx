@@ -11,7 +11,7 @@ import EmptyState from "../EmptyState";
 import { StyledCard } from "../Card";
 
 import { useProducts } from "../../api/product/getProducts";
-import { IconButton } from "@mui/material";
+import { IconButton, Pagination } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import UpdateProduct from "./updateProduct";
 
@@ -23,15 +23,14 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const paginationModel = { page: 0, pageSize: 5 };
-
-  const page = 1;
-  let { data, isLoading, isError } = useProducts(page, storeId);
+  const [page, setPage] = useState(1);
+  const take = 2;
+  let { data, isLoading, isError } = useProducts(page, take, storeId);
 
   if (isLoading) return "Loading...";
   if (isError) return "Error!";
 
-  const noProducts = !data?.length;
+  const noProducts = !data?.data.length;
   if (noProducts)
     return (
       <EmptyState
@@ -43,7 +42,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     );
 
   const rows: any = [];
-  for (const p of data) {
+  for (const p of data.data) {
     const newColumn = {
       id: p.sku,
       sku: p.sku,
@@ -68,6 +67,13 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     );
   }
 
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "SKU", flex: 2 },
     { field: "stock", headerName: "Stock", type: "number", flex: 1 },
@@ -83,30 +89,35 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   ];
 
   return (
-    <StyledCard>
-      <Paper
-        sx={{
-          width: "100%",
-          outline: "3px solid",
-          outlineColor: "hsla(210, 98%, 48%, 0.5)",
-          outlineOffset: "2px",
-        }}
-      >
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          style={{ marginTop: 20, minHeight: 200 }}
-        />
-      </Paper>
+    <>
+      <StyledCard>
+        <Paper
+          sx={{
+            width: "100%",
+            outline: "3px solid",
+            outlineColor: "hsla(210, 98%, 48%, 0.5)",
+            outlineOffset: "2px",
+          }}
+        >
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            checkboxSelection
+            style={{ marginTop: 20, minHeight: 200 }}
+          />
+        </Paper>
 
-      <UpdateProduct
-        open={isModalOpen}
-        setOpen={setIsModalOpen}
-        product={selectedProduct}
+        <UpdateProduct
+          open={isModalOpen}
+          setOpen={setIsModalOpen}
+          product={selectedProduct}
+        />
+      </StyledCard>
+      <Pagination
+        count={data.meta.pageCount}
+        page={page}
+        onChange={handlePageChange}
       />
-    </StyledCard>
+    </>
   );
 }
