@@ -39,7 +39,10 @@ const createProductSchema = z.object({
     .string()
     .min(3, { message: "Marca debe tener al menos 3 caracteres." })
     .max(36, { message: "Marca no puede tener más de 36 caracteres." }),
-  categorias: z.array(z.string().min(3).max(20)),
+  categorias: z
+    .array(z.string().min(1, "Cada categoría debe tener al menos 1 carácter"))
+    .min(1, "Se requiere al menos una categoría")
+    .max(20, "Puedes ingresar hasta 20 categorías"),
 });
 
 export const useCreateProductForm = () => {
@@ -49,6 +52,7 @@ export const useCreateProductForm = () => {
       stock: 0,
       precio: 0,
       condicion: Condicion.NUEVO,
+      categorias: [],
     },
   });
 };
@@ -61,8 +65,8 @@ export type CreateProductPayload = {
   id_tienda: number;
   condicion: Condicion;
   fotos: File[];
-  marca: string[];
-  categorias: string;
+  marca: string;
+  categorias: string[];
 };
 
 export type CreateProductResponse = Product;

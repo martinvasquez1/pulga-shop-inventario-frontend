@@ -7,9 +7,15 @@ import {
   useCreateProductForm,
 } from "../../api/product/createProduct";
 import { useParams } from "react-router-dom";
-import { FormControl, FormLabel, MenuItem, Select } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { Condicion } from "../../types/api";
-import { Controller } from "react-hook-form";
+import { Controller, useFieldArray } from "react-hook-form";
 
 interface Props {
   open: boolean;
@@ -27,6 +33,11 @@ export default function CreateProduct({ open, setOpen }: Props) {
     formState,
     reset: resetForm,
   } = useCreateProductForm();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "categorias",
+  });
 
   const createProductMutation = useCreateProduct({
     storeId,
@@ -151,6 +162,37 @@ export default function CreateProduct({ open, setOpen }: Props) {
           />
           {formState.errors.fotos?.message && (
             <span>{formState.errors.fotos.message}</span>
+          )}
+        </div>
+
+        <div>
+          <label>Categorías (max. 20, min. 1):</label>
+          {fields.map((item, index) => (
+            <div key={item.id}>
+              <Controller
+                name={`categorias.${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input {...field} placeholder={`String ${index + 1}`} />
+                )}
+              />
+              <Button
+                type="button"
+                variant="contained"
+                onClick={() => remove(index)}
+              >
+                Eliminar
+              </Button>
+              {formState.errors.categorias?.[index]?.message && (
+                <span>{formState.errors.categorias[index].message}</span>
+              )}
+            </div>
+          ))}
+          <Button variant="contained" onClick={() => append("")}>
+            Añadir categoría
+          </Button>
+          {formState.errors.categorias?.message && (
+            <span>{formState.errors.categorias.message}</span>
           )}
         </div>
       </form>
