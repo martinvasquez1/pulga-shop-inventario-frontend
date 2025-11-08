@@ -87,6 +87,24 @@ export default function CreateProduct({ open, setOpen }: Props) {
           {formState.errors.nombre && <p>{formState.errors.nombre.message}</p>}
         </FormControl>
 
+        <FormControl fullWidth>
+          <FormLabel htmlFor="marca">Descripción</FormLabel>
+          <TextField
+            {...register("descripcion")}
+            id="descripcion"
+            name="descripcion"
+            placeholder="..."
+            type="text"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {formState.errors.descripcion && (
+            <p>{formState.errors.descripcion.message}</p>
+          )}
+        </FormControl>
+
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="stock">Stock</FormLabel>
           <TextField

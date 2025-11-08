@@ -20,13 +20,20 @@ const createProductSchema = z.object({
     .string()
     .min(3, { message: "Nombre debe tener al menos 3 caracteres." })
     .max(36, { message: "Nombre no puede tener más de 36 caracteres." }),
+
+  descripcion: z
+    .string()
+    .max(200, { message: "Descripción no puede tener más de 200 caracteres." }),
+
   stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
   precio: z.number().min(1, { message: "El precio debe ser al menos 1." }),
+
   condicion: z.enum([
     Condicion.NUEVO,
     Condicion.REACONDICIONADO,
     Condicion.USADO,
   ]),
+
   fotos: z
     .array(z.instanceof(File))
     .refine((files) => files.length > 0, "Se debe subir por lo menos una foto.")
@@ -39,10 +46,12 @@ const createProductSchema = z.object({
         files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Solo se soporta estos formatos: .jpg, .jpeg, .png, and .webp."
     ),
+
   marca: z
     .string()
     .min(3, { message: "Marca debe tener al menos 3 caracteres." })
     .max(36, { message: "Marca no puede tener más de 36 caracteres." }),
+
   categorias: z
     .array(z.string().min(1, "Cada categoría debe tener al menos 1 carácter"))
     .min(1, "Se requiere al menos una categoría")
@@ -65,6 +74,7 @@ export type CreateProductInput = z.infer<typeof createProductSchema>;
 
 export type CreateProductPayload = {
   nombre: string;
+  descripcion: string;
   stock: number;
   precio: number;
   id_tienda: number;
