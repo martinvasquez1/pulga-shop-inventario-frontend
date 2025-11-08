@@ -18,7 +18,7 @@ export function getShops(page: number, take = 5): Promise<GetStoreResponse> {
 
 export function useShops(page = 1, take = 5) {
   return useQuery({
-    queryKey: ["tiendas", page],
+    queryKey: ["tiendas", { page, take }],
     queryFn: () => getShops(page, take),
   });
 }

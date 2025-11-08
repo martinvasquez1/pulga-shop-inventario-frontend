@@ -40,8 +40,6 @@ export const storeHandlers = [
       const itemCount = shops.length;
       const pageCount = Math.ceil(itemCount / take);
 
-      console.log(paginatedShops);
-
       const response: GetStoreResponse = {
         data: paginatedShops,
         meta: {
