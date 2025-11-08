@@ -23,7 +23,8 @@ export let shopsInMemory: Shop[] = [
   },
 ];
 
-const pic1 = "https://images.unsplash.com/photo-1491553895911-0055eca6402d";
+export const pic1 =
+  "https://images.unsplash.com/photo-1491553895911-0055eca6402d";
 const pic2 = "https://images.unsplash.com/photo-1631984564919-1f6b2313a71c";
 const pic3 = "https://images.unsplash.com/photo-1710643301117-4d738aeb1e69";
 const pic4 = "https://images.unsplash.com/photo-1695748966450-3abe5c25b481";
