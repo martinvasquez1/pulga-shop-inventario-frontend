@@ -5,11 +5,41 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Product } from "../../types/api";
+import { Condicion, Product } from "../../types/api";
+
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
 
 const createProductSchema = z.object({
   stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
   precio: z.number().min(1, { message: "El precio debe ser al menos 1." }),
+  condicion: z.enum([
+    Condicion.NUEVO,
+    Condicion.REACONDICIONADO,
+    Condicion.USADO,
+  ]),
+  fotos: z
+    .array(z.instanceof(File))
+    .refine((files) => files.length > 0, "Se debe subir por lo menos una foto.")
+    .refine(
+      (files) => files.every((file) => file.size <= MAX_FILE_SIZE),
+      "Max image size is 5MB."
+    )
+    .refine(
+      (files) =>
+        files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+      "Solo se soporta estos formatos: .jpg, .jpeg, .png, and .webp."
+    ),
+  marca: z
+    .string()
+    .min(3, { message: "Marca debe tener al menos 3 caracteres." })
+    .max(36, { message: "Marca no puede tener más de 36 caracteres." }),
+  categorias: z.array(z.string().min(3).max(20)),
 });
 
 export const useCreateProductForm = () => {
@@ -18,6 +48,7 @@ export const useCreateProductForm = () => {
     defaultValues: {
       stock: 0,
       precio: 0,
+      condicion: Condicion.NUEVO,
     },
   });
 };
@@ -28,6 +59,10 @@ export type CreateProductPayload = {
   stock: number;
   precio: number;
   id_tienda: number;
+  condicion: Condicion;
+  fotos: File[];
+  marca: string[];
+  categorias: string;
 };
 
 export type CreateProductResponse = Product;

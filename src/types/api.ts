@@ -10,9 +10,19 @@ export type Shop = {
   // producto: Product[];
 };
 
+export enum Condicion {
+  NUEVO = "Nuevo",
+  REACONDICIONADO = "Reacondicionado",
+  USADO = "Usado",
+}
+
 export type Product = {
   sku: string;
   id_tienda: number;
+  condicion: Condicion;
+  fotos: File[];
+  marca: string;
+  categorias: string[];
   stock: number;
   precio: number;
   disponible: boolean;
