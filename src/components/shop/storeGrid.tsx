@@ -1,4 +1,6 @@
-import { Grid2 } from "@mui/material";
+import { useState } from "react";
+
+import { Grid2, Pagination } from "@mui/material";
 
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
@@ -7,13 +9,14 @@ import { Shop } from "../../types/api";
 import { useShops } from "../../api/shop/getShops";
 
 export default function StoreGrid() {
-  const page = 1;
-  let { data, isLoading, isError } = useShops(page);
+  const [page, setPage] = useState(1);
+  const take = 2;
+  let { data, isLoading, isError } = useShops(page, take);
 
   if (isLoading) return "Loading...";
   if (isError) return "Error!";
 
-  const noShops = data?.length === 0;
+  const noShops = data?.data.length === 0;
   if (noShops)
     return (
       <EmptyState
@@ -24,11 +27,25 @@ export default function StoreGrid() {
       />
     );
 
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
+
   return (
-    <Grid2 container spacing={2} columns={12}>
-      {data?.map((s: Shop) => {
-        return <StoreGridItem data={s} key={s.id_tienda} />;
-      })}
-    </Grid2>
+    <>
+      <Grid2 container spacing={2} columns={12}>
+        {data?.data.map((s: Shop) => {
+          return <StoreGridItem data={s} key={s.id_tienda} />;
+        })}
+      </Grid2>
+      <Pagination
+        count={data ? Math.ceil(data.meta.pageCount) : 0}
+        page={page}
+        onChange={handlePageChange}
+      />
+    </>
   );
 }

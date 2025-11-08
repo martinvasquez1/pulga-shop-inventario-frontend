@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { CreateShopPayload, CreateShopResponse } from "../api/shop/createShop";
 import { shopsInMemory as shops } from "./handlers";
 import inventoryApi from "./paths";
+import { GetStoreResponse } from "../api/shop/getShops";
 
 export const storeHandlers = [
   http.post(inventoryApi("/tiendas"), async ({ request }) => {
@@ -25,17 +26,37 @@ export const storeHandlers = [
     return HttpResponse.json(newShop);
   }),
 
-  http.get<{ page: string }>(inventoryApi("/tiendas"), ({ request }) => {
-    const url = new URL(request.url);
-    const page = Number(url.searchParams.get("page")) || 1;
+  http.get<{ page: string; take: string }>(
+    inventoryApi("/tiendas"),
+    ({ request }) => {
+      const url = new URL(request.url);
+      const page = Number(url.searchParams.get("page")) || 1;
+      const take = Number(url.searchParams.get("take")) || 5;
 
-    const itemsPerPage = 10;
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedShops = shops.slice(start, end);
+      const start = (page - 1) * take;
+      const end = start + take;
 
-    return HttpResponse.json(paginatedShops);
-  }),
+      const paginatedShops = shops.slice(start, end);
+      const itemCount = shops.length;
+      const pageCount = Math.ceil(itemCount / take);
+
+      console.log(paginatedShops);
+
+      const response: GetStoreResponse = {
+        data: paginatedShops,
+        meta: {
+          page,
+          take,
+          itemCount: itemCount,
+          pageCount: pageCount,
+          hasPreviousPage: page > 1,
+          hasNextPage: page < pageCount,
+        },
+      };
+
+      return HttpResponse.json(response);
+    }
+  ),
 
   http.get<{ tiendaId: string }>(
     inventoryApi("/tiendas/:tiendaId"),

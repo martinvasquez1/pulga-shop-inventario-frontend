@@ -27,3 +27,12 @@ export type Product = {
   precio: number;
   disponible: boolean;
 };
+
+export type PaginationMeta = {
+  page: number;
+  take: number;
+  itemCount: number;
+  pageCount: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+};

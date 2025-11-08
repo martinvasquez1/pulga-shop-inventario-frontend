@@ -1,19 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
-import { Shop } from "../../types/api";
+import { Shop, PaginationMeta } from "../../types/api";
 
-export function getShops(page: number): Promise<Shop[]> {
+export type GetStoreResponse = {
+  data: Shop[];
+  meta: PaginationMeta;
+};
+
+export function getShops(page: number, take = 5): Promise<GetStoreResponse> {
   return api
-    .get<Shop[]>("/tiendas", {
-      params: { page },
+    .get<GetStoreResponse>("/tiendas", {
+      params: { page, take },
     })
     .then((res) => res.data);
 }
 
-export function useShops(page = 1) {
+export function useShops(page = 1, take = 5) {
   return useQuery({
-    queryKey: ["tiendas"],
-    queryFn: () => getShops(page),
+    queryKey: ["tiendas", page],
+    queryFn: () => getShops(page, take),
   });
 }
