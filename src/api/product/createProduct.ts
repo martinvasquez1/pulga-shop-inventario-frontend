@@ -16,6 +16,10 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 const createProductSchema = z.object({
+  nombre: z
+    .string()
+    .min(3, { message: "Nombre debe tener al menos 3 caracteres." })
+    .max(36, { message: "Nombre no puede tener más de 36 caracteres." }),
   stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
   precio: z.number().min(1, { message: "El precio debe ser al menos 1." }),
   condicion: z.enum([
@@ -60,6 +64,7 @@ export const useCreateProductForm = () => {
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 
 export type CreateProductPayload = {
+  nombre: string;
   stock: number;
   precio: number;
   id_tienda: number;

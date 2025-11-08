@@ -71,6 +71,22 @@ export default function CreateProduct({ open, setOpen }: Props) {
       setOpen={setOpen}
     >
       <form onSubmit={handleSubmit(onSubmit)} id="subscription-form">
+        <FormControl fullWidth>
+          <FormLabel htmlFor="marca">Nombre</FormLabel>
+          <TextField
+            {...register("nombre")}
+            id="nombre"
+            type="text"
+            name="nombre"
+            placeholder="Cool"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {formState.errors.nombre && <p>{formState.errors.nombre.message}</p>}
+        </FormControl>
+
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="stock">Stock</FormLabel>
           <TextField

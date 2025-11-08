@@ -19,6 +19,7 @@ export enum Condicion {
 export type Product = {
   sku: string;
   id_tienda: number;
+  nombre: string;
   condicion: Condicion;
   fotos: File[];
   marca: string;
