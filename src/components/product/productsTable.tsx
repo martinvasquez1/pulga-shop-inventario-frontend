@@ -13,7 +13,10 @@ import { StyledCard } from "../Card";
 import { useProducts } from "../../api/product/getProducts";
 import { IconButton, Pagination } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
+import SegmentSharp from "@mui/icons-material/SegmentSharp";
 import UpdateProduct from "./updateProduct";
+import ProductDrawer from "./product-drawer";
+import { Product } from "../../types/api";
 
 interface UpdateButtonProps {
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
@@ -21,7 +24,8 @@ interface UpdateButtonProps {
 
 export default function ProductsTable({ storeId }: { storeId: number }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [page, setPage] = useState(1);
   const take = 2;
@@ -67,6 +71,20 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     );
   }
 
+  function DetailsButton({ params }: UpdateButtonProps) {
+    return (
+      <IconButton
+        aria-label="details"
+        onClick={() => {
+          setSelectedProduct(params.row);
+          setIsDrawerOpen(true);
+        }}
+      >
+        <SegmentSharp />
+      </IconButton>
+    );
+  }
+
   const handlePageChange = (
     _event: React.ChangeEvent<unknown>,
     value: number
@@ -84,7 +102,11 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       headerName: "Acción",
       type: "actions",
       flex: 1,
-      renderCell: (params) => <UpdateButton params={params} />,
+      renderCell: (params) => (
+        <>
+          <UpdateButton params={params} /> <DetailsButton params={params} />
+        </>
+      ),
     },
   ];
 
@@ -106,7 +128,11 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
             style={{ marginTop: 20, minHeight: 200 }}
           />
         </Paper>
-
+        <ProductDrawer
+          open={isDrawerOpen}
+          toggleDrawer={setIsDrawerOpen}
+          product={selectedProduct}
+        />
         <UpdateProduct
           open={isModalOpen}
           setOpen={setIsModalOpen}
