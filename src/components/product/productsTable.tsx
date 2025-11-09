@@ -33,8 +33,10 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
 
   if (isLoading) return "Loading...";
   if (isError) return "Error!";
+  if (!data) return null;
+  if (!data.data) return null;
 
-  const noProducts = !data?.data.length;
+  const noProducts = !data.data.length;
   if (noProducts)
     return (
       <EmptyState
@@ -45,12 +47,19 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       />
     );
 
+  function setProduct(sku: string) {
+    const product = data!.data.find((p) => p.sku == sku);
+    if (product) {
+      setSelectedProduct(product);
+    }
+  }
+
   function UpdateButton({ params }: UpdateButtonProps) {
     return (
       <IconButton
         aria-label="update"
         onClick={() => {
-          setSelectedProduct(params.row);
+          setProduct(params.row.sku);
           setIsModalOpen(true);
         }}
       >
@@ -64,7 +73,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       <IconButton
         aria-label="details"
         onClick={() => {
-          setSelectedProduct(params.row);
+          setProduct(params.row.sku);
           setIsDrawerOpen(true);
         }}
       >
