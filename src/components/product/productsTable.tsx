@@ -45,18 +45,6 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       />
     );
 
-  const rows: any = [];
-  for (const p of data.data) {
-    const newColumn = {
-      id: p.sku,
-      sku: p.sku,
-      stock: p.stock,
-      precio: p.precio,
-      disponible: p.disponible,
-    };
-    rows.push(newColumn);
-  }
-
   function UpdateButton({ params }: UpdateButtonProps) {
     return (
       <IconButton
@@ -92,20 +80,39 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     setPage(value);
   };
 
+  const rows: any = [];
+  for (const p of data.data) {
+    const newColumn = { id: p.sku, ...p };
+    rows.push(newColumn);
+  }
+
   const columns: GridColDef[] = [
-    { field: "id", headerName: "SKU", flex: 2 },
+    {
+      field: "foto",
+      headerName: "Foto",
+      renderCell: (params) => {
+        const pic1URL = params.row.fotos[0];
+        return (
+          <div className="aspect-square max-h-full">
+            <img src={pic1URL} />{" "}
+          </div>
+        );
+      },
+    },
+    { field: "nombre", headerName: "Nombre", flex: 1 },
+    { field: "id", headerName: "SKU", flex: 1 },
+    { field: "marca", headerName: "Marca", flex: 1 },
     { field: "stock", headerName: "Stock", type: "number", flex: 1 },
     { field: "precio", headerName: "Precio", type: "number", flex: 1 },
-    { field: "disponible", headerName: "Disponible", type: "boolean", flex: 1 },
     {
       field: "action",
       headerName: "Acción",
       type: "actions",
       flex: 1,
       renderCell: (params) => (
-        <>
+        <div className="flex gap-2">
           <UpdateButton params={params} /> <DetailsButton params={params} />
-        </>
+        </div>
       ),
     },
   ];
