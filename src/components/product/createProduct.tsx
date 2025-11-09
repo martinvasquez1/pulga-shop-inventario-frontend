@@ -36,7 +36,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "categorias",
+    name: "categorias" as never,
   });
 
   const createProductMutation = useCreateProduct({
