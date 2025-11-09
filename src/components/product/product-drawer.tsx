@@ -87,7 +87,7 @@ export default function ProductDrawer({
           <DrawerItem name="Categorias" text="" icon={<MailIcon />} />
           <div>
             {product.categorias.map((c) => (
-              <p>{c}</p>
+              <p key={product.id_producto + c}>{c}</p>
             ))}
           </div>
 
@@ -107,7 +107,7 @@ export default function ProductDrawer({
         <div>
           {product.fotos.map((f) => {
             return (
-              <div className="aspect-square">
+              <div className="aspect-square" key={product.id_producto + f}>
                 <img src={f} />
               </div>
             );
