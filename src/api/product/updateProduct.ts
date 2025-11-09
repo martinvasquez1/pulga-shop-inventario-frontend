@@ -5,19 +5,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Product } from "../../types/api";
+import { Condicion, Product } from "../../types/api";
+import { CreateProductPayload, createProductSchema } from "./createProduct";
 
-const updateProductSchema = z.object({
-  stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
-  precio: z.number().min(1, { message: "El precio debe ser al menos 1." }),
-});
+const updateProductSchema = createProductSchema;
 
 export const useUpdateProductForm = (defaultValues: Product | null) => {
   return useForm<z.infer<typeof updateProductSchema>>({
     resolver: zodResolver(updateProductSchema),
     defaultValues: {
+      nombre: defaultValues?.nombre ?? "",
+      marca: defaultValues?.marca ?? Condicion.NUEVO,
       stock: defaultValues?.stock ?? 0,
       precio: defaultValues?.precio ?? 0,
+      categorias: defaultValues?.categorias ?? [],
     },
   });
 };
@@ -26,11 +27,7 @@ export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 
 export type UpdateProductPayload = {
   sku: string;
-  data: {
-    stock: number;
-    precio: number;
-    id_tienda: number;
-  };
+  data: CreateProductPayload;
 };
 
 export type UpdateProductResponse = Product;

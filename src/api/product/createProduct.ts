@@ -15,7 +15,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 
-const createProductSchema = z.object({
+export const createProductSchema = z.object({
   nombre: z
     .string()
     .min(3, { message: "Nombre debe tener al menos 3 caracteres." })
