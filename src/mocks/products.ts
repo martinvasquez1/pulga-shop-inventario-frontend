@@ -66,7 +66,7 @@ export const productsHandlers = [
       const end = start + take;
 
       const paginatedProducts = filteredProducts.slice(start, end);
-      const itemCount = productsInMemory.length;
+      const itemCount = filteredProducts.length;
       const pageCount = Math.ceil(itemCount / take);
 
       console.log({ page, take });
