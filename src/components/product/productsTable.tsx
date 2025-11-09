@@ -11,7 +11,7 @@ import EmptyState from "../EmptyState";
 import { StyledCard } from "../Card";
 
 import { useProducts } from "../../api/product/getProducts";
-import { IconButton, Pagination } from "@mui/material";
+import { Box, IconButton, Pagination } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import SegmentSharp from "@mui/icons-material/SegmentSharp";
 import UpdateProduct from "./updateProduct";
@@ -155,11 +155,13 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
           product={selectedProduct}
         />
       </StyledCard>
-      <Pagination
-        count={data.meta.pageCount}
-        page={page}
-        onChange={handlePageChange}
-      />
+      <Box display="flex" justifyContent="center">
+        <Pagination
+          count={data.meta.pageCount}
+          page={page}
+          onChange={handlePageChange}
+        />
+      </Box>
     </>
   );
 }

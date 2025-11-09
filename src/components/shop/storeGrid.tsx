@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Grid2, Pagination } from "@mui/material";
+import { Box, Grid2, Pagination } from "@mui/material";
 
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
@@ -42,11 +42,13 @@ export default function StoreGrid() {
           return <StoreGridItem data={s} key={s.id_tienda} />;
         })}
       </Grid2>
-      <Pagination
-        count={data ? Math.ceil(data.meta.pageCount) : 0}
-        page={page}
-        onChange={handlePageChange}
-      />
+      <Box display="flex" justifyContent="center">
+        <Pagination
+          count={data ? Math.ceil(data.meta.pageCount) : 0}
+          page={page}
+          onChange={handlePageChange}
+        />
+      </Box>
     </>
   );
 }
