@@ -13,14 +13,16 @@ import { StyledCard } from "../Card";
 import { useProducts } from "../../api/product/getProducts";
 import { IconButton, Pagination } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
-
-import { Link } from "react-router-dom";
+import UpdateProduct from "./updateProduct";
 
 interface UpdateButtonProps {
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
 }
 
 export default function ProductsTable({ storeId }: { storeId: number }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   const [page, setPage] = useState(1);
   const take = 2;
   let { data, isLoading, isError } = useProducts(page, take, storeId);
@@ -51,6 +53,20 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     rows.push(newColumn);
   }
 
+  function UpdateButton({ params }: UpdateButtonProps) {
+    return (
+      <IconButton
+        aria-label="update"
+        onClick={() => {
+          setSelectedProduct(params.row);
+          setIsModalOpen(true);
+        }}
+      >
+        <CreateIcon />
+      </IconButton>
+    );
+  }
+
   const handlePageChange = (
     _event: React.ChangeEvent<unknown>,
     value: number
@@ -68,11 +84,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       headerName: "Acción",
       type: "actions",
       flex: 1,
-      renderCell: (params) => (
-        <Link to={`/app/tiendas/${storeId}/productos/${params.id}`}>
-          Go to product page
-        </Link>
-      ),
+      renderCell: (params) => <UpdateButton params={params} />,
     },
   ];
 
@@ -94,6 +106,12 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
             style={{ marginTop: 20, minHeight: 200 }}
           />
         </Paper>
+
+        <UpdateProduct
+          open={isModalOpen}
+          setOpen={setIsModalOpen}
+          product={selectedProduct}
+        />
       </StyledCard>
       <Pagination
         count={data.meta.pageCount}
