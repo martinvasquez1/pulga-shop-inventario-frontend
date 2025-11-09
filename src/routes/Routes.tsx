@@ -11,6 +11,7 @@ import Register from "../views/authentication/Register";
 import AuthRoutes from "./../components/AuthRoutes";
 import AppHome from "./../views/app/appHome";
 import StorePage from "../views/app/storePage";
+import ProductPage from "../views/app/product-page";
 
 const Router = [
   {
@@ -43,6 +44,11 @@ const Router = [
     children: [
       { path: "", exact: true, element: <AppHome /> },
       { path: "tiendas/:tiendaId", exact: true, element: <StorePage /> },
+      {
+        path: "tiendas/:tiendaId/productos/:sku",
+        exact: true,
+        element: <ProductPage />,
+      },
     ],
   },
   {
