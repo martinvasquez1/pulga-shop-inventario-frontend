@@ -41,8 +41,13 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
   useEffect(() => {
     if (product) {
       form.reset({
+        nombre: product.nombre,
+        descripcion: product.descripcion,
         stock: product.stock,
         precio: product.precio,
+        condicion: product.condicion,
+        marca: product.marca,
+        categorias: product.categorias,
       });
     }
   }, [product, form]);

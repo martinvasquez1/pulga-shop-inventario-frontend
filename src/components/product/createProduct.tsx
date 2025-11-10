@@ -54,13 +54,8 @@ export default function CreateProduct({ open, setOpen }: Props) {
 
   const onSubmit = (data: CreateProductInput) => {
     const newData = { ...data, id_tienda: Number(storeId) };
-
-    console.log("Data:", data);
-
     createProductMutation.mutate(newData);
   };
-
-  console.log(formState.errors);
 
   return (
     <ResponsiveModal

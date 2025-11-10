@@ -15,9 +15,11 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
     resolver: zodResolver(updateProductSchema),
     defaultValues: {
       nombre: defaultValues?.nombre ?? "",
-      marca: defaultValues?.marca ?? Condicion.NUEVO,
+      descripcion: defaultValues?.descripcion ?? "",
       stock: defaultValues?.stock ?? 0,
       precio: defaultValues?.precio ?? 0,
+      condicion: defaultValues?.condicion ?? Condicion.NUEVO,
+      marca: defaultValues?.marca ?? "",
       categorias: defaultValues?.categorias ?? [],
     },
   });

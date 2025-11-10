@@ -63,8 +63,6 @@ export const productsHandlers = [
       const itemCount = filteredProducts.length;
       const pageCount = Math.ceil(itemCount / take);
 
-      console.log({ page, take });
-
       const response: GetProductsResponse = {
         data: paginatedProducts,
         meta: {
