@@ -9,8 +9,6 @@ import { productsInMemory } from "./handlers";
 import { UpdateProductResponse } from "../api/product/updateProduct";
 import { GetProductsResponse } from "../api/product/getProducts";
 
-import { pic1 as exampleURL } from "./handlers";
-
 export const productsHandlers = [
   http.post(inventoryApi("/productos"), async ({ request }) => {
     const body = (await request.clone().json()) as CreateProductPayload;
@@ -27,7 +25,6 @@ export const productsHandlers = [
     } = body;
     const sku = String(Math.floor(Math.random() * (10000 - 100 + 1)) + 100);
     const id_producto = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
-    const disponible = stock > 0;
 
     const newProduct: CreateProductResponse = {
       sku,
@@ -39,10 +36,7 @@ export const productsHandlers = [
       precio,
       condicion,
       stock,
-      fotos: [exampleURL],
       categorias,
-      rating: 0,
-      disponible,
       fecha: new Date(),
     };
     productsInMemory.push(newProduct);

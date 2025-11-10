@@ -26,10 +26,7 @@ export type Product = {
   precio: number;
   condicion: Condicion;
   stock: number;
-  fotos: string[];
   categorias: string[];
-  rating: Number;
-  disponible: boolean;
   fecha: Date;
 };
 

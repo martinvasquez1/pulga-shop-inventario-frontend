@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
 import { Product } from "../../types/api";
+import { mockFotos } from "../../mocks/data";
 
 interface DrawerItemProps {
   name: string;
@@ -91,21 +92,13 @@ export default function ProductDrawer({
             ))}
           </div>
 
-          <DrawerItem
-            name="Rating"
-            text={String(product.rating)}
-            icon={<MailIcon />}
-          />
-          <DrawerItem
-            name="Disponible"
-            text={String(product.disponible)}
-            icon={<MailIcon />}
-          />
+          <DrawerItem name="Rating" text="4.7" icon={<MailIcon />} />
+          <DrawerItem name="Disponible" text="True" icon={<MailIcon />} />
         </List>
         <Divider />
         <p>Fotos</p>
         <div>
-          {product.fotos.map((f) => {
+          {mockFotos.map((f) => {
             return (
               <div className="aspect-square" key={product.id_producto + f}>
                 <img src={f} />

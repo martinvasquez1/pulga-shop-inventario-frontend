@@ -175,31 +175,6 @@ export default function CreateProduct({ open, setOpen }: Props) {
         </FormControl>
 
         <div>
-          <label htmlFor="photos">Fotos</label>
-          <Controller
-            name="fotos"
-            control={control}
-            render={({ field: { onChange } }) => (
-              <input
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={(e) => {
-                  const files = e.target.files;
-                  if (files) {
-                    // FileList to Array
-                    onChange(Array.from(files));
-                  }
-                }}
-              />
-            )}
-          />
-          {formState.errors.fotos?.message && (
-            <span>{formState.errors.fotos.message}</span>
-          )}
-        </div>
-
-        <div>
           <label>Categorías (max. 20, min. 1):</label>
           {fields.map((item, index) => (
             <div key={item.id}>

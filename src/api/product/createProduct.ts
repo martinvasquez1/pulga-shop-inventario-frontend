@@ -7,14 +7,6 @@ import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
 import { Condicion, Product } from "../../types/api";
 
-const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
 export const createProductSchema = z.object({
   nombre: z
     .string()
@@ -33,19 +25,6 @@ export const createProductSchema = z.object({
     Condicion.REACONDICIONADO,
     Condicion.USADO,
   ]),
-
-  fotos: z
-    .array(z.instanceof(File))
-    .refine((files) => files.length > 0, "Se debe subir por lo menos una foto.")
-    .refine(
-      (files) => files.every((file) => file.size <= MAX_FILE_SIZE),
-      "Max image size is 5MB."
-    )
-    .refine(
-      (files) =>
-        files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
-      "Solo se soporta estos formatos: .jpg, .jpeg, .png, and .webp."
-    ),
 
   marca: z
     .string()
@@ -79,7 +58,6 @@ export type CreateProductPayload = {
   precio: number;
   id_tienda: number;
   condicion: Condicion;
-  fotos: File[];
   marca: string;
   categorias: string[];
 };

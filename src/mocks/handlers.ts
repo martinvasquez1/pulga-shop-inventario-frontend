@@ -40,10 +40,7 @@ export let productsInMemory: Product[] = [
     precio: 1000,
     condicion: Condicion.NUEVO,
     stock: 10,
-    fotos: [pic1, pic4],
     categorias: ["Cat1", "Cat2"],
-    rating: 4.5,
-    disponible: true,
     fecha: new Date(),
   },
   {
@@ -56,10 +53,7 @@ export let productsInMemory: Product[] = [
     precio: 2000,
     condicion: Condicion.REACONDICIONADO,
     stock: 20,
-    fotos: [pic2],
     categorias: ["Cat1", "Cat2"],
-    rating: 4.9,
-    disponible: true,
     fecha: new Date(),
   },
   {
@@ -72,10 +66,7 @@ export let productsInMemory: Product[] = [
     precio: 3000,
     condicion: Condicion.USADO,
     stock: 30,
-    fotos: [pic3],
     categorias: ["Cat1", "Cat2"],
-    rating: 4.1,
-    disponible: true,
     fecha: new Date(),
   },
 ];
