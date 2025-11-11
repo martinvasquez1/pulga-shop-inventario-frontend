@@ -4,20 +4,14 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import { useParams } from "react-router-dom";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { FormControl, FormLabel, MenuItem, Select } from "@mui/material";
 import {
   UpdateProductInput,
   useUpdateProduct,
   useUpdateProductForm,
 } from "../../api/product/updateProduct";
-import { Condicion, Product } from "../../types/api";
-import { Controller, useFieldArray } from "react-hook-form";
+import { Condicion, Categoria, Product } from "../../types/api";
+import { Controller } from "react-hook-form";
 
 interface Props {
   open: boolean;
@@ -32,11 +26,6 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
 
   const form = useUpdateProductForm(product);
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "categorias" as never,
-  });
-
   // To update form values on product change
   useEffect(() => {
     if (product) {
@@ -47,7 +36,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
         precio: product.precio,
         condicion: product.condicion,
         marca: product.marca,
-        categorias: product.categorias,
+        categoria: product.categoria,
       });
     }
   }, [product, form]);
@@ -188,36 +177,26 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           )}
         </FormControl>
 
-        <div>
-          <label>Categorías (max. 20, min. 1):</label>
-          {fields.map((item, index) => (
-            <div key={item.id}>
-              <Controller
-                name={`categorias.${index}`}
-                control={form.control}
-                render={({ field }) => (
-                  <input {...field} placeholder={`String ${index + 1}`} />
-                )}
-              />
-              <Button
-                type="button"
-                variant="contained"
-                onClick={() => remove(index)}
-              >
-                Eliminar
-              </Button>
-              {form.formState.errors.categorias?.[index]?.message && (
-                <span>{form.formState.errors.categorias[index].message}</span>
-              )}
-            </div>
-          ))}
-          <Button variant="contained" onClick={() => append("")}>
-            Añadir categoría
-          </Button>
-          {form.formState.errors.categorias?.message && (
-            <span>{form.formState.errors.categorias.message}</span>
+        <FormControl fullWidth>
+          <FormLabel htmlFor="condicion">Categoría</FormLabel>
+          <Controller
+            name="categoria"
+            control={form.control}
+            rules={{ required: "Categoría es requerida." }}
+            render={({ field }) => (
+              <Select {...field} id="cateogria" required fullWidth>
+                {Object.values(Categoria).map((c) => (
+                  <MenuItem key={c} value={c}>
+                    {c}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+          {form.formState.errors.categoria && (
+            <p>{form.formState.errors.categoria.message}</p>
           )}
-        </div>
+        </FormControl>
       </form>
     </ResponsiveModal>
   );

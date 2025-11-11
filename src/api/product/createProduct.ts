@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Condicion, Product } from "../../types/api";
+import { Condicion, Categoria, Product } from "../../types/api";
 
 export const createProductSchema = z.object({
   nombre: z
@@ -31,10 +31,21 @@ export const createProductSchema = z.object({
     .min(3, { message: "Marca debe tener al menos 3 caracteres." })
     .max(36, { message: "Marca no puede tener más de 36 caracteres." }),
 
-  categorias: z
-    .array(z.string().min(1, "Cada categoría debe tener al menos 1 carácter"))
-    .min(1, "Se requiere al menos una categoría")
-    .max(20, "Puedes ingresar hasta 20 categorías"),
+  categoria: z.enum([
+    Categoria.ELECTRÓNICA,
+    Categoria.ROPA,
+    Categoria.CALZADO,
+    Categoria.HOGAR,
+    Categoria.JUGUETES,
+    Categoria.DEPORTES,
+    Categoria.LIBROS,
+    Categoria.ALIMENTOS,
+    Categoria.BELLEZA,
+    Categoria.OFICINA,
+    Categoria.AUTOMOTRIZ,
+    Categoria.MASCOTAS,
+    Categoria.GENERAL,
+  ]),
 });
 
 export const useCreateProductForm = () => {
@@ -44,7 +55,7 @@ export const useCreateProductForm = () => {
       stock: 0,
       precio: 0,
       condicion: Condicion.NUEVO,
-      categorias: [],
+      categoria: Categoria.ELECTRÓNICA,
     },
   });
 };
@@ -59,7 +70,7 @@ export type CreateProductPayload = {
   id_tienda: number;
   condicion: Condicion;
   marca: string;
-  categorias: string[];
+  categoria: Categoria;
 };
 
 export type CreateProductResponse = Product;

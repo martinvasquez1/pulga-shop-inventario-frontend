@@ -11,9 +11,25 @@ export type Shop = {
 };
 
 export enum Condicion {
-  NUEVO = "Nuevo",
-  REACONDICIONADO = "Reacondicionado",
-  USADO = "Usado",
+  NUEVO = "NUEVO",
+  USADO = "USADO",
+  REACONDICIONADO = "REACONDICIONADO",
+}
+
+export enum Categoria {
+  ELECTRÓNICA = "ELECTRÓNICA",
+  ROPA = "ROPA",
+  CALZADO = "CALZADO",
+  HOGAR = "HOGAR",
+  JUGUETES = "JUGUETES",
+  DEPORTES = "DEPORTES",
+  LIBROS = "LIBROS",
+  ALIMENTOS = "ALIMENTOS",
+  BELLEZA = "BELLEZA",
+  OFICINA = "OFICINA",
+  AUTOMOTRIZ = "AUTOMOTRIZ",
+  MASCOTAS = "MASCOTAS",
+  GENERAL = "GENERAL",
 }
 
 export type Product = {
@@ -26,7 +42,7 @@ export type Product = {
   precio: number;
   condicion: Condicion;
   stock: number;
-  categorias: string[];
+  categoria: Categoria;
   fecha: Date;
 };
 

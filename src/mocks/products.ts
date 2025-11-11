@@ -21,7 +21,7 @@ export const productsHandlers = [
       descripcion,
       marca,
       condicion,
-      categorias,
+      categoria,
     } = body;
     const sku = String(Math.floor(Math.random() * (10000 - 100 + 1)) + 100);
     const id_producto = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
@@ -36,7 +36,7 @@ export const productsHandlers = [
       precio,
       condicion,
       stock,
-      categorias,
+      categoria,
       fecha: new Date(),
     };
     productsInMemory.push(newProduct);

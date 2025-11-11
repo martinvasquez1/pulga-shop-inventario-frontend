@@ -1,6 +1,6 @@
 import { storeHandlers } from "./store";
 import { productsHandlers } from "./products";
-import { Condicion, Product, Shop } from "../types/api";
+import { Condicion, Categoria, Product, Shop } from "../types/api";
 
 export let shopsInMemory: Shop[] = [
   {
@@ -40,7 +40,7 @@ export let productsInMemory: Product[] = [
     precio: 1000,
     condicion: Condicion.NUEVO,
     stock: 10,
-    categorias: ["Cat1", "Cat2"],
+    categoria: Categoria.ELECTRÓNICA,
     fecha: new Date(),
   },
   {
@@ -53,7 +53,7 @@ export let productsInMemory: Product[] = [
     precio: 2000,
     condicion: Condicion.REACONDICIONADO,
     stock: 20,
-    categorias: ["Cat1", "Cat2"],
+    categoria: Categoria.BELLEZA,
     fecha: new Date(),
   },
   {
@@ -66,7 +66,7 @@ export let productsInMemory: Product[] = [
     precio: 3000,
     condicion: Condicion.USADO,
     stock: 30,
-    categorias: ["Cat1", "Cat2"],
+    categoria: Categoria.LIBROS,
     fecha: new Date(),
   },
 ];

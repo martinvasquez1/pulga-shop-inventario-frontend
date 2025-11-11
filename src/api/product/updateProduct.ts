@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Condicion, Product } from "../../types/api";
+import { Categoria, Condicion, Product } from "../../types/api";
 import { CreateProductPayload, createProductSchema } from "./createProduct";
 
 const updateProductSchema = createProductSchema;
@@ -20,7 +20,7 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
       precio: defaultValues?.precio ?? 0,
       condicion: defaultValues?.condicion ?? Condicion.NUEVO,
       marca: defaultValues?.marca ?? "",
-      categorias: defaultValues?.categorias ?? [],
+      categoria: defaultValues?.categoria ?? Categoria.ELECTRÓNICA,
     },
   });
 };

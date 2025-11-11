@@ -105,13 +105,11 @@ export default function ProductDrawer({
             text={String(product.stock)}
             icon={<PinIcon />}
           />
-
-          <DrawerItem name="Categorias" text="" icon={<CategoryIcon />} />
-          <div>
-            {product.categorias.map((c) => (
-              <p key={product.id_producto + c}>{c}</p>
-            ))}
-          </div>
+          <DrawerItem
+            name="Categoría"
+            text={String(product.categoria)}
+            icon={<CategoryIcon />}
+          />
 
           <DrawerItem name="Rating" text="4.7" icon={<GradeIcon />} />
           <DrawerItem name="Disponible" text="True" icon={<CheckIcon />} />
