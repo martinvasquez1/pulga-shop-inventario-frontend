@@ -146,47 +146,54 @@ export default function CreateProduct({ open, setOpen }: Props) {
           </FormControl>
         </Box>
 
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="condicion">Condición</FormLabel>
-          <Controller
-            name="condicion"
-            control={control}
-            rules={{ required: "Condición es requerida." }}
-            render={({ field }) => (
-              <Select {...field} id="condicion" required fullWidth>
-                {Object.values(Condicion).map((condicion) => (
-                  <MenuItem key={condicion} value={condicion}>
-                    {condicion}
-                  </MenuItem>
-                ))}
-              </Select>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="condicion">Condición</FormLabel>
+            <Controller
+              name="condicion"
+              control={control}
+              rules={{ required: "Condición es requerida." }}
+              render={({ field }) => (
+                <Select {...field} id="condicion" required fullWidth>
+                  {Object.values(Condicion).map((condicion) => (
+                    <MenuItem key={condicion} value={condicion}>
+                      {condicion}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+            {formState.errors.condicion && (
+              <p>{formState.errors.condicion.message}</p>
             )}
-          />
-          {formState.errors.condicion && (
-            <p>{formState.errors.condicion.message}</p>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="condicion">Categoría</FormLabel>
-          <Controller
-            name="categoria"
-            control={control}
-            rules={{ required: "Categoría es requerida." }}
-            render={({ field }) => (
-              <Select {...field} id="cateogria" required fullWidth>
-                {Object.values(Categoria).map((c) => (
-                  <MenuItem key={c} value={c}>
-                    {c}
-                  </MenuItem>
-                ))}
-              </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="condicion">Categoría</FormLabel>
+            <Controller
+              name="categoria"
+              control={control}
+              rules={{ required: "Categoría es requerida." }}
+              render={({ field }) => (
+                <Select {...field} id="cateogria" required fullWidth>
+                  {Object.values(Categoria).map((c) => (
+                    <MenuItem key={c} value={c}>
+                      {c}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+            {formState.errors.categoria && (
+              <p>{formState.errors.categoria.message}</p>
             )}
-          />
-          {formState.errors.categoria && (
-            <p>{formState.errors.categoria.message}</p>
-          )}
-        </FormControl>
+          </FormControl>
+        </Box>
       </form>
     </ResponsiveModal>
   );
