@@ -84,7 +84,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             id="nombre"
             type="text"
             name="nombre"
-            placeholder="Cool"
+            placeholder="Auriculares Inalámbricos"
             autoFocus
             required
             fullWidth
@@ -100,7 +100,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             {...form.register("descripcion")}
             id="descripcion"
             name="descripcion"
-            placeholder="..."
+            placeholder="Auriculares Bluetooth con cancelación de ruido y sonido envolvente"
             type="text"
             autoFocus
             required
@@ -118,7 +118,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             id="marca"
             type="text"
             name="marca"
-            placeholder="Cool 21"
+            placeholder="TechWave"
             autoFocus
             required
             fullWidth
