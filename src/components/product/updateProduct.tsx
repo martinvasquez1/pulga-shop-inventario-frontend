@@ -4,7 +4,14 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import { useParams } from "react-router-dom";
-import { Box, FormControl, FormLabel, MenuItem, Select } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import {
   UpdateProductInput,
   useUpdateProduct,
@@ -25,7 +32,11 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
   const storeId = +tiendaId!;
 
   const form = useUpdateProductForm(product);
+  const {
+    formState: { errors },
+  } = form;
 
+  // FIX:
   // To update form values on product change
   useEffect(() => {
     if (product) {
@@ -78,10 +89,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.nombre}
+            helperText={errors.nombre ? errors.nombre.message : ""}
           />
-          {form.formState.errors.nombre && (
-            <p>{form.formState.errors.nombre.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -96,10 +106,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.descripcion}
+            helperText={errors.descripcion ? errors.descripcion.message : ""}
           />
-          {form.formState.errors.descripcion && (
-            <p>{form.formState.errors.descripcion.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -114,10 +123,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.marca}
+            helperText={errors.marca ? errors.marca.message : ""}
           />
-          {form.formState.errors.marca && (
-            <p>{form.formState.errors.marca.message}</p>
-          )}
         </FormControl>
 
         <Box
@@ -139,10 +147,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
               required
               fullWidth
               variant="outlined"
+              error={!!errors.stock}
+              helperText={errors.stock ? errors.stock.message : ""}
             />
-            {form.formState.errors.stock && (
-              <p>{form.formState.errors.stock.message}</p>
-            )}
           </FormControl>
           <FormControl fullWidth>
             <FormLabel htmlFor="precio">Precio</FormLabel>
@@ -156,10 +163,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
               required
               fullWidth
               variant="outlined"
+              error={!!errors.precio}
+              helperText={errors.precio ? errors.precio.message : ""}
             />
-            {form.formState.errors.precio && (
-              <p>{form.formState.errors.precio.message}</p>
-            )}
           </FormControl>
         </Box>
 
@@ -186,9 +192,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
                 </Select>
               )}
             />
-            {form.formState.errors.condicion && (
-              <p>{form.formState.errors.condicion.message}</p>
-            )}
+            <FormHelperText>
+              {errors.condicion ? errors.condicion.message : ""}
+            </FormHelperText>
           </FormControl>
           <FormControl fullWidth sx={{ mb: 2 }}>
             <FormLabel htmlFor="condicion">Categoría</FormLabel>
@@ -206,9 +212,9 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
                 </Select>
               )}
             />
-            {form.formState.errors.categoria && (
-              <p>{form.formState.errors.categoria.message}</p>
-            )}
+            <FormHelperText>
+              {errors.categoria ? errors.categoria.message : ""}
+            </FormHelperText>
           </FormControl>
         </Box>
       </form>
