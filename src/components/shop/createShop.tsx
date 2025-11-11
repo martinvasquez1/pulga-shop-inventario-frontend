@@ -6,7 +6,7 @@ import {
   useCreateShop,
   useCreateShopForm,
 } from "../../api/shop/createShop";
-import { FormControl, FormLabel } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel } from "@mui/material";
 
 import { CL } from "country-flag-icons/react/3x2";
 
@@ -16,11 +16,17 @@ interface Props {
 }
 
 export default function CreateShop({ open, setOpen }: Props) {
-  const form = useCreateShopForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset: resetForm,
+  } = useCreateShopForm();
+
   const createShopMutation = useCreateShop({
     mutationConfig: {
       onSuccess: () => {
-        form.reset();
+        resetForm();
         setOpen(false);
       },
       onError: (error) => {
@@ -45,11 +51,11 @@ export default function CreateShop({ open, setOpen }: Props) {
       isSubmitDisabled={createShopMutation.isPending}
       setOpen={setOpen}
     >
-      <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
+      <form onSubmit={handleSubmit(onSubmit)} id="subscription-form">
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="nombre">Nombre</FormLabel>
           <TextField
-            {...form.register("nombre")}
+            {...register("nombre")}
             id="nombre"
             type="text"
             name="nombre"
@@ -58,16 +64,15 @@ export default function CreateShop({ open, setOpen }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.nombre}
+            helperText={errors.nombre ? errors.nombre.message : ""}
           />
-          {form.formState.errors.nombre && (
-            <p>{form.formState.errors.nombre.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="descripcion">Descripción</FormLabel>
           <TextField
-            {...form.register("descripcion")}
+            {...register("descripcion")}
             id="descripcion"
             type="text"
             name="descripcion"
@@ -76,16 +81,15 @@ export default function CreateShop({ open, setOpen }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.descripcion}
+            helperText={errors.descripcion ? errors.descripcion.message : ""}
           />
-          {form.formState.errors.descripcion && (
-            <p>{form.formState.errors.descripcion.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="direccion">Dirección</FormLabel>
           <TextField
-            {...form.register("direccion")}
+            {...register("direccion")}
             id="direccion"
             type="text"
             name="direccion"
@@ -94,26 +98,25 @@ export default function CreateShop({ open, setOpen }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.direccion}
+            helperText={errors.direccion ? errors.direccion.message : ""}
           />
-          {form.formState.errors.direccion && (
-            <p>{form.formState.errors.direccion.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="telefono">Teléfono</FormLabel>
-          <div className="flex w-full">
-            <div className="w-10 flex justify-center items-center px-2">
-              <CL title="United States" />
+          <div className="flex w-full items-center">
+            <div className="h-10 flex justify-center items-center px-2">
+              <CL title="United States" width={24} />
             </div>
 
-            <div className="w-10 flex justify-center items-center px-2 text-slate-500">
+            <div className="h-10 flex justify-center items-center px-2 text-slate-500">
               <span>+56</span>
             </div>
 
             <div className="w-full">
               <TextField
-                {...form.register("telefono")}
+                {...register("telefono")}
                 id="telefono"
                 type="tel"
                 name="telefono"
@@ -125,9 +128,9 @@ export default function CreateShop({ open, setOpen }: Props) {
               />
             </div>
           </div>
-          {form.formState.errors.telefono && (
-            <p>{form.formState.errors.telefono.message}</p>
-          )}
+          <FormHelperText error={!!errors.telefono}>
+            {errors.telefono ? errors.telefono.message : ""}
+          </FormHelperText>
         </FormControl>
       </form>
     </ResponsiveModal>
