@@ -102,6 +102,24 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           )}
         </FormControl>
 
+        <FormControl fullWidth>
+          <FormLabel htmlFor="marca">Marca</FormLabel>
+          <TextField
+            {...form.register("marca")}
+            id="marca"
+            type="text"
+            name="marca"
+            placeholder="Cool 21"
+            autoFocus
+            required
+            fullWidth
+            variant="outlined"
+          />
+          {form.formState.errors.marca && (
+            <p>{form.formState.errors.marca.message}</p>
+          )}
+        </FormControl>
+
         <Box
           sx={{
             display: "flex",
@@ -163,24 +181,6 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           />
           {form.formState.errors.condicion && (
             <p>{form.formState.errors.condicion.message}</p>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth>
-          <FormLabel htmlFor="marca">Marca</FormLabel>
-          <TextField
-            {...form.register("marca")}
-            id="marca"
-            type="text"
-            name="marca"
-            placeholder="Cool 21"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-          />
-          {form.formState.errors.marca && (
-            <p>{form.formState.errors.marca.message}</p>
           )}
         </FormControl>
 
