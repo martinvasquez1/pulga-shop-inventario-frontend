@@ -66,7 +66,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Nombre</FormLabel>
           <TextField
             {...form.register("nombre")}
@@ -84,7 +84,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           )}
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Descripción</FormLabel>
           <TextField
             {...form.register("descripcion")}
@@ -102,7 +102,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           )}
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Marca</FormLabel>
           <TextField
             {...form.register("marca")}
@@ -163,7 +163,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           </FormControl>
         </Box>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="condicion">Condición</FormLabel>
           <Controller
             name="condicion"
@@ -184,7 +184,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           )}
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="condicion">Categoría</FormLabel>
           <Controller
             name="categoria"
