@@ -7,7 +7,14 @@ import {
   useCreateProductForm,
 } from "../../api/product/createProduct";
 import { useParams } from "react-router-dom";
-import { Box, FormControl, FormLabel, MenuItem, Select } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { Categoria, Condicion } from "../../types/api";
 import { Controller } from "react-hook-form";
 
@@ -24,7 +31,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
     register,
     control,
     handleSubmit,
-    formState,
+    formState: { errors },
     reset: resetForm,
   } = useCreateProductForm();
 
@@ -67,8 +74,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.nombre}
+            helperText={errors.nombre ? errors.nombre.message : ""}
           />
-          {formState.errors.nombre && <p>{formState.errors.nombre.message}</p>}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -83,10 +91,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.descripcion}
+            helperText={errors.descripcion ? errors.descripcion.message : ""}
           />
-          {formState.errors.descripcion && (
-            <p>{formState.errors.descripcion.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -101,8 +108,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
             required
             fullWidth
             variant="outlined"
+            error={!!errors.marca}
+            helperText={errors.marca ? errors.marca.message : ""}
           />
-          {formState.errors.marca && <p>{formState.errors.marca.message}</p>}
         </FormControl>
 
         <Box
@@ -124,8 +132,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
               required
               fullWidth
               variant="outlined"
+              error={!!errors.stock}
+              helperText={errors.stock ? errors.stock.message : ""}
             />
-            {formState.errors.stock && <p>{formState.errors.stock.message}</p>}
           </FormControl>
           <FormControl fullWidth>
             <FormLabel htmlFor="precio">Precio</FormLabel>
@@ -139,10 +148,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
               required
               fullWidth
               variant="outlined"
+              error={!!errors.precio}
+              helperText={errors.precio ? errors.precio.message : ""}
             />
-            {formState.errors.precio && (
-              <p>{formState.errors.precio.message}</p>
-            )}
           </FormControl>
         </Box>
 
@@ -169,9 +177,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
                 </Select>
               )}
             />
-            {formState.errors.condicion && (
-              <p>{formState.errors.condicion.message}</p>
-            )}
+            <FormHelperText>
+              {errors.condicion ? errors.condicion.message : ""}
+            </FormHelperText>
           </FormControl>
           <FormControl fullWidth sx={{ mb: 2 }}>
             <FormLabel htmlFor="condicion">Categoría</FormLabel>
@@ -189,9 +197,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
                 </Select>
               )}
             />
-            {formState.errors.categoria && (
-              <p>{formState.errors.categoria.message}</p>
-            )}
+            <FormHelperText>
+              {errors.categoria ? errors.categoria.message : ""}
+            </FormHelperText>
           </FormControl>
         </Box>
       </form>
