@@ -15,6 +15,7 @@ export const createProductSchema = z.object({
 
   descripcion: z
     .string()
+    .min(3, { message: "Descripción debe tener al menos 3 caracteres." })
     .max(200, { message: "Descripción no puede tener más de 200 caracteres." }),
 
   stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
