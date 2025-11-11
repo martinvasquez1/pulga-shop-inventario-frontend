@@ -160,6 +160,8 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
           count={data.meta.pageCount}
           page={page}
           onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
         />
       </Box>
     </>

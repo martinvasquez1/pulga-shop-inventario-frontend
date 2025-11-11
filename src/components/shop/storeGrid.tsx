@@ -47,6 +47,8 @@ export default function StoreGrid() {
           count={data ? Math.ceil(data.meta.pageCount) : 0}
           page={page}
           onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
         />
       </Box>
     </>
