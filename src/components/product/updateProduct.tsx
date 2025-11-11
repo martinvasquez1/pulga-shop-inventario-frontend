@@ -1,11 +1,8 @@
+import { useEffect } from "react";
+
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
-import {
-  CreateProductInput,
-  useCreateProduct,
-  useCreateProductForm,
-} from "../../api/product/createProduct";
 import { useParams } from "react-router-dom";
 import {
   Button,
@@ -14,62 +11,76 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { Condicion } from "../../types/api";
+import {
+  UpdateProductInput,
+  useUpdateProduct,
+  useUpdateProductForm,
+} from "../../api/product/updateProduct";
+import { Condicion, Product } from "../../types/api";
 import { Controller, useFieldArray } from "react-hook-form";
 
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
+  product: Product | null;
 }
 
-export default function CreateProduct({ open, setOpen }: Props) {
+// By default product is null. Product is set on click
+export default function UpdateProduct({ open, setOpen, product }: Props) {
   const { tiendaId } = useParams<{ tiendaId: string }>();
   const storeId = +tiendaId!;
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState,
-    reset: resetForm,
-  } = useCreateProductForm();
+  const form = useUpdateProductForm(product);
 
   const { fields, append, remove } = useFieldArray({
-    control,
+    control: form.control,
     name: "categorias" as never,
   });
 
-  const createProductMutation = useCreateProduct({
+  // To update form values on product change
+  useEffect(() => {
+    if (product) {
+      form.reset({
+        nombre: product.nombre,
+        descripcion: product.descripcion,
+        stock: product.stock,
+        precio: product.precio,
+        condicion: product.condicion,
+        marca: product.marca,
+        categorias: product.categorias,
+      });
+    }
+  }, [product, form]);
+
+  const updateProductMutation = useUpdateProduct({
     storeId,
     mutationConfig: {
       onSuccess: () => {
-        resetForm();
         setOpen(false);
-      },
-      onError: (error) => {
-        console.error("Error creating shop:", error);
       },
     },
   });
 
-  const onSubmit = (data: CreateProductInput) => {
+  if (!product) return null;
+
+  const onSubmit = (data: UpdateProductInput) => {
     const newData = { ...data, id_tienda: Number(storeId) };
-    createProductMutation.mutate(newData);
+    updateProductMutation.mutate({ sku: product.sku, data: newData });
   };
 
   return (
     <ResponsiveModal
-      title="Crear producto"
-      triggerButtonText="Crear"
+      title="Actualizar producto"
+      triggerButtonText="Actualizar"
       open={open}
-      isSubmitDisabled={createProductMutation.isPending}
+      isSubmitDisabled={updateProductMutation.isPending}
       setOpen={setOpen}
     >
-      <form onSubmit={handleSubmit(onSubmit)} id="subscription-form">
+      <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
         <FormControl fullWidth>
           <FormLabel htmlFor="marca">Nombre</FormLabel>
           <TextField
-            {...register("nombre")}
+            {...form.register("nombre")}
             id="nombre"
             type="text"
             name="nombre"
@@ -79,13 +90,15 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {formState.errors.nombre && <p>{formState.errors.nombre.message}</p>}
+          {form.formState.errors.nombre && (
+            <p>{form.formState.errors.nombre.message}</p>
+          )}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="marca">Descripción</FormLabel>
           <TextField
-            {...register("descripcion")}
+            {...form.register("descripcion")}
             id="descripcion"
             name="descripcion"
             placeholder="..."
@@ -95,15 +108,15 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {formState.errors.descripcion && (
-            <p>{formState.errors.descripcion.message}</p>
+          {form.formState.errors.descripcion && (
+            <p>{form.formState.errors.descripcion.message}</p>
           )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="stock">Stock</FormLabel>
           <TextField
-            {...register("stock", { valueAsNumber: true })}
+            {...form.register("stock", { valueAsNumber: true })}
             id="stock"
             type="number"
             name="stock"
@@ -113,13 +126,15 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {formState.errors.stock && <p>{formState.errors.stock.message}</p>}
+          {form.formState.errors.stock && (
+            <p>{form.formState.errors.stock.message}</p>
+          )}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="precio">Precio</FormLabel>
           <TextField
-            {...register("precio", { valueAsNumber: true })}
+            {...form.register("precio", { valueAsNumber: true })}
             id="precio"
             type="number"
             name="precio"
@@ -129,14 +144,16 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {formState.errors.precio && <p>{formState.errors.precio.message}</p>}
+          {form.formState.errors.precio && (
+            <p>{form.formState.errors.precio.message}</p>
+          )}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="condicion">Condición</FormLabel>
           <Controller
             name="condicion"
-            control={control}
+            control={form.control}
             rules={{ required: "Condición es requerida." }}
             render={({ field }) => (
               <Select {...field} id="condicion" required fullWidth>
@@ -148,15 +165,15 @@ export default function CreateProduct({ open, setOpen }: Props) {
               </Select>
             )}
           />
-          {formState.errors.condicion && (
-            <p>{formState.errors.condicion.message}</p>
+          {form.formState.errors.condicion && (
+            <p>{form.formState.errors.condicion.message}</p>
           )}
         </FormControl>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="marca">Marca</FormLabel>
           <TextField
-            {...register("marca")}
+            {...form.register("marca")}
             id="marca"
             type="text"
             name="marca"
@@ -166,7 +183,9 @@ export default function CreateProduct({ open, setOpen }: Props) {
             fullWidth
             variant="outlined"
           />
-          {formState.errors.marca && <p>{formState.errors.marca.message}</p>}
+          {form.formState.errors.marca && (
+            <p>{form.formState.errors.marca.message}</p>
+          )}
         </FormControl>
 
         <div>
@@ -175,7 +194,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
             <div key={item.id}>
               <Controller
                 name={`categorias.${index}`}
-                control={control}
+                control={form.control}
                 render={({ field }) => (
                   <input {...field} placeholder={`String ${index + 1}`} />
                 )}
@@ -187,16 +206,16 @@ export default function CreateProduct({ open, setOpen }: Props) {
               >
                 Eliminar
               </Button>
-              {formState.errors.categorias?.[index]?.message && (
-                <span>{formState.errors.categorias[index].message}</span>
+              {form.formState.errors.categorias?.[index]?.message && (
+                <span>{form.formState.errors.categorias[index].message}</span>
               )}
             </div>
           ))}
           <Button variant="contained" onClick={() => append("")}>
             Añadir categoría
           </Button>
-          {formState.errors.categorias?.message && (
-            <span>{formState.errors.categorias.message}</span>
+          {form.formState.errors.categorias?.message && (
+            <span>{form.formState.errors.categorias.message}</span>
           )}
         </div>
       </form>

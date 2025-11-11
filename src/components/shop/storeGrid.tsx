@@ -1,22 +1,23 @@
-import { Card, CardContent, Grid2, styled, Typography } from "@mui/material";
-import { CreateShopResponse } from "../../api/shop/createShop";
+import { useState } from "react";
+
+import { Box, Grid2, Pagination } from "@mui/material";
+
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
 
-/*
-const page = 1;
-let { data, isLoading, isError } = useShops(page);
-
-if (isLoading) return "Loading...";
-if (isError) return "Error!";
-*/
+import { Shop } from "../../types/api";
+import { useShops } from "../../api/shop/getShops";
 
 export default function StoreGrid() {
-  // TODO: Remove, it's temp
-  const storedData = localStorage.getItem("stores");
-  const data = storedData ? JSON.parse(storedData) : [];
+  const [page, setPage] = useState(1);
+  const take = 2;
+  let { data, isLoading, isError } = useShops(page, take);
 
-  const noShops = data?.length === 0;
+  if (isLoading) return "Loading...";
+  if (isError) return "Error!";
+  if (!data) return null;
+
+  const noShops = data?.data.length === 0;
   if (noShops)
     return (
       <EmptyState
@@ -27,11 +28,27 @@ export default function StoreGrid() {
       />
     );
 
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
+
   return (
-    <Grid2 container spacing={2} columns={12}>
-      {data?.map((s: CreateShopResponse) => {
-        return <StoreGridItem data={s} key={s.id_tienda} />;
-      })}
-    </Grid2>
+    <>
+      <Grid2 container spacing={2} columns={12}>
+        {data?.data.map((s: Shop) => {
+          return <StoreGridItem data={s} key={s.id_tienda} />;
+        })}
+      </Grid2>
+      <Box display="flex" justifyContent="center">
+        <Pagination
+          count={data ? Math.ceil(data.meta.pageCount) : 0}
+          page={page}
+          onChange={handlePageChange}
+        />
+      </Box>
+    </>
   );
 }

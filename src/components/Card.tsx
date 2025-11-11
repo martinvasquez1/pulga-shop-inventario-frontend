@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import { Card, CardContent, Typography } from "@mui/material";
 
-export const StyledCard = styled(Card)(({ theme }) => ({
+export const StyledCard = styled(Card)(({}) => ({
   display: "flex",
   flexDirection: "column",
   padding: 0,
   height: "100%",
-  backgroundColor: theme.palette.background.paper,
   "&:focus-visible": {
     outline: "3px solid",
     outlineColor: "hsla(210, 98%, 48%, 0.5)",

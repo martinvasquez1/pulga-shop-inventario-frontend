@@ -29,6 +29,8 @@ export default function ShopPage() {
     );
   if (isError) return "Error!";
 
+  if (!store) return null;
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
       <Box
@@ -41,7 +43,7 @@ export default function ShopPage() {
       >
         <div>
           <Typography variant="h4" gutterBottom>
-            {store!.nombre}
+            {store.nombre}
           </Typography>
           <Typography>
             Aquí puedes ver todos los productos de la tienda.

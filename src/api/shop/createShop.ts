@@ -5,12 +5,32 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
+import { Shop } from "../../types/api";
 
 const createShopSchema = z.object({
-  nombre: z.string().min(3).max(36),
-  descripcion: z.string().optional(),
-  direccion: z.string(),
-  telefono: z.string(),
+  nombre: z
+    .string()
+    .min(3, { message: "Nombre debe tener al menos 3 caracteres." })
+    .max(36, { message: "Nombre no puede tener más de 36 caracteres." }),
+
+  descripcion: z
+    .string()
+    .max(200, { message: "Descripción no puede tener más de 200 caracteres." }),
+
+  direccion: z
+    .string()
+    .min(3, { message: "Dirección debe tener al menos 3 caracteres." })
+    .max(100, { message: "Dirección no puede tener más de 100 caracteres." }),
+
+  telefono: z.string().refine(
+    (phone) => {
+      const digits = phone.replace(/\s/g, "");
+      return /^[0-9\s]+$/.test(phone) && digits.length === 9;
+    },
+    {
+      message: "Teléfono debe tener 9 números",
+    }
+  ),
 });
 
 export const useCreateShopForm = () => {
@@ -27,22 +47,16 @@ export const useCreateShopForm = () => {
 
 export type CreateShopInput = z.infer<typeof createShopSchema>;
 
-type CreateShopPayload = {
+export type CreateShopPayload = {
   nombre: string;
   descripcion: string;
   direccion: string;
   telefono: string;
 };
 
-export type CreateShopResponse = {
-  id_tienda: number;
-  id_vendedor: number;
-  nombre: string;
-  direccion: string;
-  descripcion: string;
-  telefono: string;
-  fecha_creacion: Date;
-};
+// For now, they are the same. The response could later
+// have a different shape.
+export type CreateShopResponse = Shop;
 
 function createShop(payload: CreateShopPayload): Promise<CreateShopResponse> {
   return api
@@ -62,7 +76,7 @@ export function useCreateShop({ mutationConfig }: UseCreateShopOptions) {
   const mutation = useMutation({
     mutationFn: createShop,
     onSuccess: (...args) => {
-      queryClient.invalidateQueries({ queryKey: ["shops"] });
+      queryClient.invalidateQueries({ queryKey: ["tiendas"] });
       onSuccess?.(...args);
     },
     ...restConfig,
