@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import { useParams } from "react-router-dom";
-import { FormControl, FormLabel, MenuItem, Select } from "@mui/material";
+import { Box, FormControl, FormLabel, MenuItem, Select } from "@mui/material";
 import {
   UpdateProductInput,
   useUpdateProduct,
@@ -102,41 +102,48 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           )}
         </FormControl>
 
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="stock">Stock</FormLabel>
-          <TextField
-            {...form.register("stock", { valueAsNumber: true })}
-            id="stock"
-            type="number"
-            name="stock"
-            placeholder="10"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-          />
-          {form.formState.errors.stock && (
-            <p>{form.formState.errors.stock.message}</p>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth>
-          <FormLabel htmlFor="precio">Precio</FormLabel>
-          <TextField
-            {...form.register("precio", { valueAsNumber: true })}
-            id="precio"
-            type="number"
-            name="precio"
-            placeholder="10"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-          />
-          {form.formState.errors.precio && (
-            <p>{form.formState.errors.precio.message}</p>
-          )}
-        </FormControl>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="stock">Stock</FormLabel>
+            <TextField
+              {...form.register("stock", { valueAsNumber: true })}
+              id="stock"
+              type="number"
+              name="stock"
+              placeholder="10"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+            />
+            {form.formState.errors.stock && (
+              <p>{form.formState.errors.stock.message}</p>
+            )}
+          </FormControl>
+          <FormControl fullWidth>
+            <FormLabel htmlFor="precio">Precio</FormLabel>
+            <TextField
+              {...form.register("precio", { valueAsNumber: true })}
+              id="precio"
+              type="number"
+              name="precio"
+              placeholder="10"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+            />
+            {form.formState.errors.precio && (
+              <p>{form.formState.errors.precio.message}</p>
+            )}
+          </FormControl>
+        </Box>
 
         <FormControl fullWidth>
           <FormLabel htmlFor="condicion">Condición</FormLabel>
