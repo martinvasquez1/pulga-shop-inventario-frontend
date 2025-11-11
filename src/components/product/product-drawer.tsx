@@ -7,7 +7,16 @@ import {
   Drawer,
   Typography,
 } from "@mui/material";
+
 import MailIcon from "@mui/icons-material/Mail";
+import NotesIcon from "@mui/icons-material/Notes";
+import LabelIcon from "@mui/icons-material/Label";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import PinIcon from "@mui/icons-material/Pin";
+import CategoryIcon from "@mui/icons-material/Category";
+import GradeIcon from "@mui/icons-material/Grade";
+import CheckIcon from "@mui/icons-material/Check";
+
 import { Product } from "../../types/api";
 import { mockFotos } from "../../mocks/data";
 
@@ -19,10 +28,19 @@ interface DrawerItemProps {
 
 function DrawerItem({ name, text, icon }: DrawerItemProps) {
   return (
-    <ListItem disablePadding>
-      {icon}
-      <ListItemText primary={name} />
-      <p>{text}</p>
+    <ListItem disablePadding sx={{ marginY: 0.2 }}>
+      <Box sx={{ paddingRight: 2 }}>{icon}</Box>
+      <ListItemText
+        primary={
+          <Typography variant="body1" fontSize={14}>
+            {name}
+          </Typography>
+        }
+        color="secondary"
+      />
+      <Box sx={{ fontWeight: "bold" }}>
+        <Typography variant="body1">{text}</Typography>
+      </Box>
     </ListItem>
   );
 }
@@ -42,7 +60,7 @@ export default function ProductDrawer({
   return (
     <Drawer open={open} onClose={() => toggleDrawer(false)}>
       <Box
-        sx={{ width: 500, padding: 2 }}
+        sx={{ width: 400, padding: 2, paddingX: 3 }}
         role="presentation"
         onClick={() => toggleDrawer(false)}
       >
@@ -52,48 +70,51 @@ export default function ProductDrawer({
             justifyContent: "space-between",
             alignItems: "center",
             gap: 4,
+            marginBottom: 2,
           }}
         >
           <div>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               {product.nombre}
             </Typography>
-            <Typography>SKU: {product.sku}</Typography>
+            <Typography variant="subtitle2" noWrap>
+              SKU: {product.sku}
+            </Typography>
           </div>
         </Box>
 
-        <List>
+        <List style={{ padding: 0 }}>
           <DrawerItem
             name="Descripción"
             text={product.descripcion}
-            icon={<MailIcon />}
+            icon={<NotesIcon />}
           />
           <DrawerItem name="Marca" text={product.marca} icon={<MailIcon />} />
           <DrawerItem
             name="Precio"
             text={String(product.precio)}
-            icon={<MailIcon />}
+            icon={<LabelIcon />}
           />
           <DrawerItem
             name="Condición"
             text={product.condicion}
-            icon={<MailIcon />}
+            icon={<InventoryIcon />}
           />
           <DrawerItem
             name="Stock"
             text={String(product.stock)}
-            icon={<MailIcon />}
+            icon={<PinIcon />}
           />
 
-          <DrawerItem name="Categorias" text="" icon={<MailIcon />} />
+          <DrawerItem name="Categorias" text="" icon={<CategoryIcon />} />
           <div>
             {product.categorias.map((c) => (
               <p key={product.id_producto + c}>{c}</p>
             ))}
           </div>
 
-          <DrawerItem name="Rating" text="4.7" icon={<MailIcon />} />
-          <DrawerItem name="Disponible" text="True" icon={<MailIcon />} />
+          <DrawerItem name="Rating" text="4.7" icon={<GradeIcon />} />
+          <DrawerItem name="Disponible" text="True" icon={<CheckIcon />} />
         </List>
         <Divider />
         <p>Fotos</p>
