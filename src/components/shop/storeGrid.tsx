@@ -10,7 +10,7 @@ import { useShops } from "../../api/shop/getShops";
 
 export default function StoreGrid() {
   const [page, setPage] = useState(1);
-  const take = 2;
+  const take = 4;
   let { data, isLoading, isError } = useShops(page, take);
 
   if (isLoading) return "Loading...";
@@ -47,6 +47,8 @@ export default function StoreGrid() {
           count={data ? Math.ceil(data.meta.pageCount) : 0}
           page={page}
           onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
         />
       </Box>
     </>

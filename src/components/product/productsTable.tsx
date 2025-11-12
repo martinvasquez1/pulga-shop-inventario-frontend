@@ -29,7 +29,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [page, setPage] = useState(1);
-  const take = 2;
+  const take = 8;
   let { data, isLoading, isError } = useProducts(page, take, storeId);
 
   if (isLoading) return "Loading...";
@@ -160,6 +160,8 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
           count={data.meta.pageCount}
           page={page}
           onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
         />
       </Box>
     </>

@@ -5,8 +5,9 @@ import ResponsiveModal from "../ResponsiveModal";
 
 import { useParams } from "react-router-dom";
 import {
-  Button,
+  Box,
   FormControl,
+  FormHelperText,
   FormLabel,
   MenuItem,
   Select,
@@ -16,8 +17,8 @@ import {
   useUpdateProduct,
   useUpdateProductForm,
 } from "../../api/product/updateProduct";
-import { Condicion, Product } from "../../types/api";
-import { Controller, useFieldArray } from "react-hook-form";
+import { Condicion, Categoria, Product } from "../../types/api";
+import { Controller } from "react-hook-form";
 
 interface Props {
   open: boolean;
@@ -31,12 +32,11 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
   const storeId = +tiendaId!;
 
   const form = useUpdateProductForm(product);
+  const {
+    formState: { errors },
+  } = form;
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "categorias" as never,
-  });
-
+  // FIX:
   // To update form values on product change
   useEffect(() => {
     if (product) {
@@ -47,7 +47,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
         precio: product.precio,
         condicion: product.condicion,
         marca: product.marca,
-        categorias: product.categorias,
+        categoria: product.categoria,
       });
     }
   }, [product, form]);
@@ -77,147 +77,146 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Nombre</FormLabel>
           <TextField
             {...form.register("nombre")}
             id="nombre"
             type="text"
             name="nombre"
-            placeholder="Cool"
+            placeholder="Auriculares Inalámbricos"
             autoFocus
             required
             fullWidth
             variant="outlined"
+            error={!!errors.nombre}
+            helperText={errors.nombre ? errors.nombre.message : ""}
           />
-          {form.formState.errors.nombre && (
-            <p>{form.formState.errors.nombre.message}</p>
-          )}
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Descripción</FormLabel>
           <TextField
             {...form.register("descripcion")}
             id="descripcion"
             name="descripcion"
-            placeholder="..."
+            placeholder="Auriculares Bluetooth con cancelación de ruido y sonido envolvente"
             type="text"
             autoFocus
             required
             fullWidth
             variant="outlined"
+            error={!!errors.descripcion}
+            helperText={errors.descripcion ? errors.descripcion.message : ""}
           />
-          {form.formState.errors.descripcion && (
-            <p>{form.formState.errors.descripcion.message}</p>
-          )}
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <FormLabel htmlFor="stock">Stock</FormLabel>
-          <TextField
-            {...form.register("stock", { valueAsNumber: true })}
-            id="stock"
-            type="number"
-            name="stock"
-            placeholder="10"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-          />
-          {form.formState.errors.stock && (
-            <p>{form.formState.errors.stock.message}</p>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth>
-          <FormLabel htmlFor="precio">Precio</FormLabel>
-          <TextField
-            {...form.register("precio", { valueAsNumber: true })}
-            id="precio"
-            type="number"
-            name="precio"
-            placeholder="10"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-          />
-          {form.formState.errors.precio && (
-            <p>{form.formState.errors.precio.message}</p>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth>
-          <FormLabel htmlFor="condicion">Condición</FormLabel>
-          <Controller
-            name="condicion"
-            control={form.control}
-            rules={{ required: "Condición es requerida." }}
-            render={({ field }) => (
-              <Select {...field} id="condicion" required fullWidth>
-                {Object.values(Condicion).map((condicion) => (
-                  <MenuItem key={condicion} value={condicion}>
-                    {condicion}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-          {form.formState.errors.condicion && (
-            <p>{form.formState.errors.condicion.message}</p>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth>
           <FormLabel htmlFor="marca">Marca</FormLabel>
           <TextField
             {...form.register("marca")}
             id="marca"
             type="text"
             name="marca"
-            placeholder="Cool 21"
+            placeholder="TechWave"
             autoFocus
             required
             fullWidth
             variant="outlined"
+            error={!!errors.marca}
+            helperText={errors.marca ? errors.marca.message : ""}
           />
-          {form.formState.errors.marca && (
-            <p>{form.formState.errors.marca.message}</p>
-          )}
         </FormControl>
 
-        <div>
-          <label>Categorías (max. 20, min. 1):</label>
-          {fields.map((item, index) => (
-            <div key={item.id}>
-              <Controller
-                name={`categorias.${index}`}
-                control={form.control}
-                render={({ field }) => (
-                  <input {...field} placeholder={`String ${index + 1}`} />
-                )}
-              />
-              <Button
-                type="button"
-                variant="contained"
-                onClick={() => remove(index)}
-              >
-                Eliminar
-              </Button>
-              {form.formState.errors.categorias?.[index]?.message && (
-                <span>{form.formState.errors.categorias[index].message}</span>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="stock">Stock</FormLabel>
+            <TextField
+              {...form.register("stock", { valueAsNumber: true })}
+              id="stock"
+              type="number"
+              name="stock"
+              placeholder="10"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.stock}
+              helperText={errors.stock ? errors.stock.message : ""}
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <FormLabel htmlFor="precio">Precio</FormLabel>
+            <TextField
+              {...form.register("precio", { valueAsNumber: true })}
+              id="precio"
+              type="number"
+              name="precio"
+              placeholder="10"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.precio}
+              helperText={errors.precio ? errors.precio.message : ""}
+            />
+          </FormControl>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="condicion">Condición</FormLabel>
+            <Controller
+              name="condicion"
+              control={form.control}
+              rules={{ required: "Condición es requerida." }}
+              render={({ field }) => (
+                <Select {...field} id="condicion" required fullWidth>
+                  {Object.values(Condicion).map((condicion) => (
+                    <MenuItem key={condicion} value={condicion}>
+                      {condicion}
+                    </MenuItem>
+                  ))}
+                </Select>
               )}
-            </div>
-          ))}
-          <Button variant="contained" onClick={() => append("")}>
-            Añadir categoría
-          </Button>
-          {form.formState.errors.categorias?.message && (
-            <span>{form.formState.errors.categorias.message}</span>
-          )}
-        </div>
+            />
+            <FormHelperText>
+              {errors.condicion ? errors.condicion.message : ""}
+            </FormHelperText>
+          </FormControl>
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="condicion">Categoría</FormLabel>
+            <Controller
+              name="categoria"
+              control={form.control}
+              rules={{ required: "Categoría es requerida." }}
+              render={({ field }) => (
+                <Select {...field} id="cateogria" required fullWidth>
+                  {Object.values(Categoria).map((c) => (
+                    <MenuItem key={c} value={c}>
+                      {c}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+            <FormHelperText>
+              {errors.categoria ? errors.categoria.message : ""}
+            </FormHelperText>
+          </FormControl>
+        </Box>
       </form>
     </ResponsiveModal>
   );
