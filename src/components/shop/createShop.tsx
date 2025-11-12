@@ -9,6 +9,7 @@ import {
 } from "../../api/shop/createShop";
 import {
   Autocomplete,
+  Box,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -112,45 +113,6 @@ export default function CreateShop({ open, setOpen }: Props) {
           />
         </FormControl>
 
-        <FormControl fullWidth>
-          <FormLabel htmlFor="telefono">Teléfono</FormLabel>
-          <div className="flex w-full items-center">
-            <div className="h-10 flex justify-center items-center px-2">
-              <CL title="United States" width={24} />
-            </div>
-
-            <div className="h-10 flex justify-center items-center px-2 text-slate-500">
-              <span>+56</span>
-            </div>
-
-            <div className="w-full">
-              <TextField
-                {...register("telefono")}
-                id="telefono"
-                type="tel"
-                name="telefono"
-                placeholder="9 5555 1234"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-              />
-            </div>
-          </div>
-          <FormHelperText error={!!errors.telefono}>
-            {errors.telefono ? errors.telefono.message : ""}
-          </FormHelperText>
-        </FormControl>
-
-        <FormControlLabel
-          {...register("online")}
-          id="online"
-          name="online"
-          autoFocus
-          control={<Switch color="primary" />}
-          label="¿Es tienda online?"
-        />
-
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="ciudad">Ciudad</FormLabel>
           <Autocomplete
@@ -176,6 +138,56 @@ export default function CreateShop({ open, setOpen }: Props) {
             )}
           />
         </FormControl>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="telefono">Teléfono</FormLabel>
+            <div className="flex w-full items-center">
+              <div className="h-10 flex justify-center items-center px-2">
+                <CL title="United States" width={24} />
+              </div>
+
+              <div className="h-10 flex justify-center items-center px-2 text-slate-500">
+                <span>+56</span>
+              </div>
+
+              <div className="w-full">
+                <TextField
+                  {...register("telefono")}
+                  id="telefono"
+                  type="tel"
+                  name="telefono"
+                  placeholder="9 5555 1234"
+                  autoFocus
+                  required
+                  fullWidth
+                  variant="outlined"
+                />
+              </div>
+            </div>
+            <FormHelperText error={!!errors.telefono}>
+              {errors.telefono ? errors.telefono.message : ""}
+            </FormHelperText>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="online">¿Es tienda online?</FormLabel>
+            <FormControlLabel
+              {...register("online")}
+              id="online"
+              name="online"
+              autoFocus
+              control={<Switch />}
+              label="Online"
+            />
+          </FormControl>
+        </Box>
       </form>
     </ResponsiveModal>
   );
