@@ -5,6 +5,7 @@ export type Shop = {
   direccion: string;
   descripcion: string;
   telefono: string;
+  online: boolean;
   fecha_creacion: Date;
   // Should this have a product array?
   // producto: Product[];

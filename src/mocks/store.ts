@@ -8,7 +8,7 @@ export const storeHandlers = [
   http.post(inventoryApi("/tiendas"), async ({ request }) => {
     const body = (await request.clone().json()) as CreateShopPayload;
 
-    const { nombre, descripcion, direccion, telefono } = body;
+    const { nombre, descripcion, direccion, telefono, online } = body;
     const id_tienda = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
     const fecha_creacion = new Date();
 
@@ -19,6 +19,7 @@ export const storeHandlers = [
       direccion,
       descripcion,
       telefono,
+      online,
       fecha_creacion,
     };
     shops.push(newShop);

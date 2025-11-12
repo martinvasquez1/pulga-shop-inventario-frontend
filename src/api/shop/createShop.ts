@@ -32,6 +32,8 @@ const createShopSchema = z.object({
       message: "Teléfono debe tener 9 números",
     }
   ),
+
+  online: z.boolean(),
 });
 
 export const useCreateShopForm = () => {
@@ -53,6 +55,7 @@ export type CreateShopPayload = {
   descripcion: string;
   direccion: string;
   telefono: string;
+  online: boolean;
 };
 
 // For now, they are the same. The response could later

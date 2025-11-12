@@ -10,6 +10,7 @@ export let shopsInMemory: Shop[] = [
     descripcion: "Esta es la tienda 1",
     direccion: "Direccion 1",
     telefono: "123456789",
+    online: true,
     fecha_creacion: new Date(),
   },
   {
@@ -19,6 +20,7 @@ export let shopsInMemory: Shop[] = [
     descripcion: "Esta es la tienda 2",
     direccion: "Direccion 2",
     telefono: "987654321",
+    online: false,
     fecha_creacion: new Date(),
   },
 ];

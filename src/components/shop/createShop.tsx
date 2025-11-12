@@ -6,7 +6,13 @@ import {
   useCreateShop,
   useCreateShopForm,
 } from "../../api/shop/createShop";
-import { FormControl, FormHelperText, FormLabel } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Switch,
+} from "@mui/material";
 
 import { CL } from "country-flag-icons/react/3x2";
 
@@ -132,6 +138,15 @@ export default function CreateShop({ open, setOpen }: Props) {
             {errors.telefono ? errors.telefono.message : ""}
           </FormHelperText>
         </FormControl>
+
+        <FormControlLabel
+          {...register("online")}
+          id="online"
+          name="online"
+          autoFocus
+          control={<Switch color="primary" />}
+          label="¿Es tienda online?"
+        />
       </form>
     </ResponsiveModal>
   );
