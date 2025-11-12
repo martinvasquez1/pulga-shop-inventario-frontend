@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Box, Grid2, Pagination } from "@mui/material";
+import { Box, CircularProgress, Grid2, Pagination } from "@mui/material";
 
 import { StoreGridItem } from "./storeGridItem";
 import EmptyState from "../EmptyState";
@@ -13,7 +13,20 @@ export default function StoreGrid() {
   const take = 4;
   let { data, isLoading, isError } = useShops(page, take);
 
-  if (isLoading) return "Loading...";
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+
   if (isError) return "Error!";
   if (!data) return null;
 

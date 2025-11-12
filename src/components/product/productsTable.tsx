@@ -11,7 +11,7 @@ import EmptyState from "../EmptyState";
 import { StyledCard } from "../Card";
 
 import { useProducts } from "../../api/product/getProducts";
-import { Box, IconButton, Pagination } from "@mui/material";
+import { Box, CircularProgress, IconButton, Pagination } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import SegmentSharp from "@mui/icons-material/SegmentSharp";
 import UpdateProduct from "./updateProduct";
@@ -32,7 +32,19 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
   const take = 8;
   let { data, isLoading, isError } = useProducts(page, take, storeId);
 
-  if (isLoading) return "Loading...";
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (isError) return "Error!";
   if (!data) return null;
   if (!data.data) return null;
