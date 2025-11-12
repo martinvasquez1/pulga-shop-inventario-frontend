@@ -15,7 +15,7 @@ export function getProducts(
 ): Promise<GetProductsResponse> {
   return api
     .get<GetProductsResponse>("/productos", {
-      params: { page, take, storeId },
+      params: { page, take, id_tienda: storeId },
     })
     .then((res) => res.data);
 }

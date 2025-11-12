@@ -3,8 +3,10 @@ export type Shop = {
   id_vendedor: number;
   nombre: string;
   direccion: string;
+  id_ciudad: number;
   descripcion: string;
   telefono: string;
+  online: boolean;
   fecha_creacion: Date;
   // Should this have a product array?
   // producto: Product[];
@@ -53,4 +55,9 @@ export type PaginationMeta = {
   pageCount: number;
   hasPreviousPage: boolean;
   hasNextPage: boolean;
+};
+
+export type Error = {
+  message: string;
+  error: string;
 };

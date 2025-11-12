@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
@@ -17,6 +19,7 @@ import {
 } from "@mui/material";
 import { Categoria, Condicion } from "../../types/api";
 import { Controller } from "react-hook-form";
+import { PRODUCTO_ERROR_CODES } from "../../mocks/products";
 
 interface Props {
   open: boolean;
@@ -43,7 +46,12 @@ export default function CreateProduct({ open, setOpen }: Props) {
         setOpen(false);
       },
       onError: (error) => {
-        console.error("Error creating shop:", error);
+        console.error(error);
+        if (axios.isAxiosError(error)) {
+          console.error("Axios error:", error.response?.data.error);
+        } else {
+          console.error("Unexpected error:", error);
+        }
       },
     },
   });
@@ -77,6 +85,15 @@ export default function CreateProduct({ open, setOpen }: Props) {
             error={!!errors.nombre}
             helperText={errors.nombre ? errors.nombre.message : ""}
           />
+          <FormHelperText error={!!createProductMutation.error}>
+            {axios.isAxiosError(createProductMutation.error) &&
+            createProductMutation.error?.response
+              ? createProductMutation.error.response.data.error ===
+                PRODUCTO_ERROR_CODES.PRODUCTO_YA_EXISTE
+                ? "Ya existe un producto con ese nombre"
+                : "Error inesperado."
+              : ""}
+          </FormHelperText>
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 2 }}>

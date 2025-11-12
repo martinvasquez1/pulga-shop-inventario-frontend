@@ -1,12 +1,21 @@
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
+import cities from "./../../types/lista_ciudades.json";
 
 import {
   CreateShopInput,
   useCreateShop,
   useCreateShopForm,
 } from "../../api/shop/createShop";
-import { FormControl, FormHelperText, FormLabel } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Switch,
+} from "@mui/material";
 
 import { CL } from "country-flag-icons/react/3x2";
 
@@ -18,6 +27,7 @@ interface Props {
 export default function CreateShop({ open, setOpen }: Props) {
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
     reset: resetForm,
@@ -103,35 +113,81 @@ export default function CreateShop({ open, setOpen }: Props) {
           />
         </FormControl>
 
-        <FormControl fullWidth>
-          <FormLabel htmlFor="telefono">Teléfono</FormLabel>
-          <div className="flex w-full items-center">
-            <div className="h-10 flex justify-center items-center px-2">
-              <CL title="United States" width={24} />
-            </div>
-
-            <div className="h-10 flex justify-center items-center px-2 text-slate-500">
-              <span>+56</span>
-            </div>
-
-            <div className="w-full">
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="ciudad">Ciudad</FormLabel>
+          <Autocomplete
+            disablePortal
+            options={cities}
+            getOptionLabel={(option) => option.nombre}
+            onChange={(_event, newValue) => {
+              if (newValue) {
+                const selectedId = newValue.id_ciudad;
+                setValue("id_ciudad", selectedId);
+              } else {
+                setValue("id_ciudad", -1);
+              }
+            }}
+            renderInput={(params) => (
               <TextField
-                {...register("telefono")}
-                id="telefono"
-                type="tel"
-                name="telefono"
-                placeholder="9 5555 1234"
-                autoFocus
-                required
-                fullWidth
+                {...params}
                 variant="outlined"
+                error={!!errors.id_ciudad}
+                helperText={errors.id_ciudad ? errors.id_ciudad.message : ""}
+                placeholder="Arica"
               />
-            </div>
-          </div>
-          <FormHelperText error={!!errors.telefono}>
-            {errors.telefono ? errors.telefono.message : ""}
-          </FormHelperText>
+            )}
+          />
         </FormControl>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="telefono">Teléfono</FormLabel>
+            <div className="flex w-full items-center">
+              <div className="h-10 flex justify-center items-center px-2">
+                <CL title="United States" width={24} />
+              </div>
+
+              <div className="h-10 flex justify-center items-center px-2 text-slate-500">
+                <span>+56</span>
+              </div>
+
+              <div className="w-full">
+                <TextField
+                  {...register("telefono")}
+                  id="telefono"
+                  type="tel"
+                  name="telefono"
+                  placeholder="9 5555 1234"
+                  autoFocus
+                  required
+                  fullWidth
+                  variant="outlined"
+                />
+              </div>
+            </div>
+            <FormHelperText error={!!errors.telefono}>
+              {errors.telefono ? errors.telefono.message : ""}
+            </FormHelperText>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="online">¿Es tienda online?</FormLabel>
+            <FormControlLabel
+              {...register("online")}
+              id="online"
+              name="online"
+              autoFocus
+              control={<Switch />}
+              label="Online"
+            />
+          </FormControl>
+        </Box>
       </form>
     </ResponsiveModal>
   );

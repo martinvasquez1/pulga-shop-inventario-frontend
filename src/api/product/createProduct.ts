@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Condicion, Categoria, Product } from "../../types/api";
+import { Condicion, Categoria, Product, Error } from "../../types/api";
 
 export const createProductSchema = z.object({
   nombre: z
@@ -74,7 +74,7 @@ export type CreateProductPayload = {
   categoria: Categoria;
 };
 
-export type CreateProductResponse = Product;
+export type CreateProductResponse = Product | Error;
 
 function createProduct(
   payload: CreateProductPayload
