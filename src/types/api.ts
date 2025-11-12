@@ -56,3 +56,8 @@ export type PaginationMeta = {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 };
+
+export type Error = {
+  message: string;
+  error: string;
+};

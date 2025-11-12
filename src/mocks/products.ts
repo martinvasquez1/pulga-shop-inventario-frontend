@@ -8,41 +8,68 @@ import inventoryApi from "./paths";
 import { productsInMemory } from "./handlers";
 import { UpdateProductResponse } from "../api/product/updateProduct";
 import { GetProductsResponse } from "../api/product/getProducts";
+import { Error } from "../types/api";
+
+// Bad solution, but it's ok for now
+export const PRODUCTO_ERROR_CODES = {
+  STOCK_INVALIDO: "STOCK_INVALIDO",
+  PRECIO_INVALIDO: "PRECIO_INVALIDO",
+  DISPONIBILIDAD_INVALIDA: "DISPONIBILIDAD_INVALIDA",
+  PRODUCTO_EN_RESERVA: "PRODUCTO_EN_RESERVA",
+  PRODUCTO_YA_EXISTE: "PRODUCTO_YA_EXISTE",
+};
 
 export const productsHandlers = [
-  http.post(inventoryApi("/productos"), async ({ request }) => {
-    const body = (await request.clone().json()) as CreateProductPayload;
+  http.post<CreateProductResponse>(
+    inventoryApi("/productos"),
+    async ({ request }) => {
+      const body = (await request.clone().json()) as CreateProductPayload;
 
-    const {
-      stock,
-      precio,
-      id_tienda,
-      nombre,
-      descripcion,
-      marca,
-      condicion,
-      categoria,
-    } = body;
-    const sku = String(Math.floor(Math.random() * (10000 - 100 + 1)) + 100);
-    const id_producto = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
+      const {
+        stock,
+        precio,
+        id_tienda,
+        nombre,
+        descripcion,
+        marca,
+        condicion,
+        categoria,
+      } = body;
 
-    const newProduct: CreateProductResponse = {
-      sku,
-      id_tienda,
-      id_producto,
-      nombre,
-      descripcion,
-      marca,
-      precio,
-      condicion,
-      stock,
-      categoria,
-      fecha: new Date(),
-    };
-    productsInMemory.push(newProduct);
+      const existingProduct = productsInMemory.find(
+        (product) => product.nombre === nombre
+      );
+      if (existingProduct) {
+        return HttpResponse.json<Error>(
+          {
+            message: "Ya existe un producto con ese nombre",
+            error: PRODUCTO_ERROR_CODES.PRODUCTO_YA_EXISTE,
+          },
+          { status: 400 }
+        );
+      }
 
-    return HttpResponse.json(newProduct);
-  }),
+      const sku = String(Math.floor(Math.random() * (10000 - 100 + 1)) + 100);
+      const id_producto = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
+
+      const newProduct: CreateProductResponse = {
+        sku,
+        id_tienda,
+        id_producto,
+        nombre,
+        descripcion,
+        marca,
+        precio,
+        condicion,
+        stock,
+        categoria,
+        fecha: new Date(),
+      };
+      productsInMemory.push(newProduct);
+
+      return HttpResponse.json(newProduct);
+    }
+  ),
 
   http.get<{ page: string; take: string; storeId: string }>(
     inventoryApi("/productos"),
