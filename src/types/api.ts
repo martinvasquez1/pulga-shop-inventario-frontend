@@ -3,6 +3,7 @@ export type Shop = {
   id_vendedor: number;
   nombre: string;
   direccion: string;
+  id_ciudad: number;
   descripcion: string;
   telefono: string;
   online: boolean;

@@ -1,5 +1,6 @@
 import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
+import cities from "./../../types/lista_ciudades.json";
 
 import {
   CreateShopInput,
@@ -7,6 +8,7 @@ import {
   useCreateShopForm,
 } from "../../api/shop/createShop";
 import {
+  Autocomplete,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -24,6 +26,7 @@ interface Props {
 export default function CreateShop({ open, setOpen }: Props) {
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
     reset: resetForm,
@@ -147,6 +150,32 @@ export default function CreateShop({ open, setOpen }: Props) {
           control={<Switch color="primary" />}
           label="¿Es tienda online?"
         />
+
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="ciudad">Ciudad</FormLabel>
+          <Autocomplete
+            disablePortal
+            options={cities}
+            getOptionLabel={(option) => option.nombre}
+            onChange={(_event, newValue) => {
+              if (newValue) {
+                const selectedId = newValue.id_ciudad;
+                setValue("id_ciudad", selectedId);
+              } else {
+                setValue("id_ciudad", -1);
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                error={!!errors.id_ciudad}
+                helperText={errors.id_ciudad ? errors.id_ciudad.message : ""}
+                placeholder="Arica"
+              />
+            )}
+          />
+        </FormControl>
       </form>
     </ResponsiveModal>
   );
