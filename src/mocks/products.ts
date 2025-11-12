@@ -50,7 +50,7 @@ export const productsHandlers = [
       const url = new URL(request.url);
       const page = Number(url.searchParams.get("page")) || 1;
       const take = Number(url.searchParams.get("take")) || 5;
-      const storeId = Number(url.searchParams.get("storeId"));
+      const storeId = Number(url.searchParams.get("id_tienda"));
 
       const filteredProducts = productsInMemory.filter(
         (product) => product.id_tienda === storeId
