@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Categoria, Condicion } from "../../types/api";
 import { Controller } from "react-hook-form";
-import { PRODUCTO_ERROR_CODES } from "../../mocks/products";
+import { PRODUCTO_ERROR_CODES } from "../../mocks/errors";
 
 interface Props {
   open: boolean;

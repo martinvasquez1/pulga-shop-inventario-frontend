@@ -9,15 +9,7 @@ import { productsInMemory } from "./handlers";
 import { UpdateProductResponse } from "../api/product/updateProduct";
 import { GetProductsResponse } from "../api/product/getProducts";
 import { Error } from "../types/api";
-
-// Bad solution, but it's ok for now
-export const PRODUCTO_ERROR_CODES = {
-  STOCK_INVALIDO: "STOCK_INVALIDO",
-  PRECIO_INVALIDO: "PRECIO_INVALIDO",
-  DISPONIBILIDAD_INVALIDA: "DISPONIBILIDAD_INVALIDA",
-  PRODUCTO_EN_RESERVA: "PRODUCTO_EN_RESERVA",
-  PRODUCTO_YA_EXISTE: "PRODUCTO_YA_EXISTE",
-};
+import { PRODUCTO_ERROR_CODES } from "./errors";
 
 export const productsHandlers = [
   http.post<CreateProductResponse>(
