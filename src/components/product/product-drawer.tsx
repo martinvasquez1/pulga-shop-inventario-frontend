@@ -14,7 +14,6 @@ import LabelIcon from "@mui/icons-material/Label";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PinIcon from "@mui/icons-material/Pin";
 import CategoryIcon from "@mui/icons-material/Category";
-import GradeIcon from "@mui/icons-material/Grade";
 import CheckIcon from "@mui/icons-material/Check";
 
 import { Product } from "../../types/api";
@@ -110,8 +109,6 @@ export default function ProductDrawer({
             text={String(product.categoria)}
             icon={<CategoryIcon />}
           />
-
-          <DrawerItem name="Rating" text="4.7" icon={<GradeIcon />} />
           <DrawerItem name="Disponible" text="True" icon={<CheckIcon />} />
         </List>
         <Divider />
