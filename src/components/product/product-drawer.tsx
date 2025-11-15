@@ -17,7 +17,6 @@ import CategoryIcon from "@mui/icons-material/Category";
 import CheckIcon from "@mui/icons-material/Check";
 
 import { Product } from "../../types/api";
-import { mockFotos } from "../../mocks/data";
 
 interface DrawerItemProps {
   name: string;
@@ -112,15 +111,11 @@ export default function ProductDrawer({
           <DrawerItem name="Disponible" text="True" icon={<CheckIcon />} />
         </List>
         <Divider />
-        <p>Fotos</p>
+        <p>Foto de referencia</p>
         <div>
-          {mockFotos.map((f) => {
-            return (
-              <div className="aspect-square" key={product.id_producto + f}>
-                <img src={f} />
-              </div>
-            );
-          })}
+          <div className="aspect-square">
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" />
+          </div>
         </div>
       </Box>
     </Drawer>

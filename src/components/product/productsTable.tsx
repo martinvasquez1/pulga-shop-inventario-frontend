@@ -17,7 +17,6 @@ import SegmentSharp from "@mui/icons-material/SegmentSharp";
 import UpdateProduct from "./updateProduct";
 import ProductDrawer from "./product-drawer";
 import { Product } from "../../types/api";
-import { mockFotos } from "../../mocks/data";
 
 interface UpdateButtonProps {
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
@@ -115,7 +114,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       renderCell: () => {
         return (
           <div className="aspect-square max-h-full">
-            <img src={mockFotos[0]} />{" "}
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" />
           </div>
         );
       },
