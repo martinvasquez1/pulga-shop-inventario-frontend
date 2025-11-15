@@ -7,6 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ProductsTable from "../../components/product/productsTable";
 import CreateProduct from "../../components/product/createProduct";
 import { useShop } from "../../api/shop/getShop";
+import StoreInfo from "../../components/product/store-info";
 
 export default function ShopPage() {
   const { tiendaId: storeId } = useParams<{ tiendaId: string }>();
@@ -58,6 +59,7 @@ export default function ShopPage() {
           Nuevo Producto
         </Button>
       </Box>
+      <StoreInfo store={store} />
       <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} />
       <ProductsTable storeId={+storeId!} />
     </Box>
