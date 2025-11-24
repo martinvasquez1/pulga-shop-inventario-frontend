@@ -8,7 +8,9 @@ import { MutationConfig } from "../../lib/react-query";
 import { Categoria, Condicion, Product } from "../../types/api";
 import { CreateProductPayload, createProductSchema } from "./createProduct";
 
-const updateProductSchema = createProductSchema;
+const updateProductSchema = createProductSchema.extend({
+  stock: z.number().min(0, { message: "El stock debe ser al menos 0." }),
+});
 
 export const useUpdateProductForm = (defaultValues: Product | null) => {
   return useForm<z.infer<typeof updateProductSchema>>({
