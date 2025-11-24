@@ -12,11 +12,15 @@ import { StyledCard } from "../Card";
 
 import { useProducts } from "../../api/product/getProducts";
 import { Box, CircularProgress, IconButton, Pagination } from "@mui/material";
+
 import CreateIcon from "@mui/icons-material/Create";
+import RemoveIcon from "@mui/icons-material/Remove";
 import SegmentSharp from "@mui/icons-material/SegmentSharp";
+
 import UpdateProduct from "./updateProduct";
 import ProductDrawer from "./product-drawer";
 import { Product } from "../../types/api";
+import DeleteProduct from "./delete-product";
 
 interface UpdateButtonProps {
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
@@ -24,6 +28,7 @@ interface UpdateButtonProps {
 
 export default function ProductsTable({ storeId }: { storeId: number }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -80,6 +85,20 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     );
   }
 
+  function DeleteButton({ params }: UpdateButtonProps) {
+    return (
+      <IconButton
+        aria-label="delete"
+        onClick={() => {
+          setProduct(params.row.sku);
+          setIsDeleteModalOpen(true);
+        }}
+      >
+        <RemoveIcon />
+      </IconButton>
+    );
+  }
+
   function DetailsButton({ params }: UpdateButtonProps) {
     return (
       <IconButton
@@ -131,7 +150,9 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       flex: 1,
       renderCell: (params) => (
         <div className="flex gap-2">
-          <UpdateButton params={params} /> <DetailsButton params={params} />
+          <UpdateButton params={params} />
+          <DetailsButton params={params} />
+          <DeleteButton params={params} />
         </div>
       ),
     },
@@ -163,6 +184,11 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
         <UpdateProduct
           open={isModalOpen}
           setOpen={setIsModalOpen}
+          product={selectedProduct}
+        />
+        <DeleteProduct
+          open={isDeleteModalOpen}
+          setOpen={setIsDeleteModalOpen}
           product={selectedProduct}
         />
       </StyledCard>

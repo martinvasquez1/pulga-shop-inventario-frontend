@@ -20,8 +20,8 @@ export default function DeleteProduct({ open, setOpen, product }: Props) {
   const deleteProductMutation = useDeleteProduct(storeId);
 
   const onSubmit = () => {
-    if (!product) return;
-    deleteProductMutation.mutate(product.sku);
+    console.log("on submit");
+    deleteProductMutation.mutate(product!.sku);
   };
 
   return (
