@@ -28,7 +28,7 @@ export default function StoreInfo({ store }: { store: Shop }) {
       <Card sx={{ width: "100%" }}>
         <CardContent>
           <Typography gutterBottom variant="h5">
-            Datos para contacto
+            Información de contacto
           </Typography>
           <Typography variant="body1">
             <b>Dirección: </b> {store.direccion}
