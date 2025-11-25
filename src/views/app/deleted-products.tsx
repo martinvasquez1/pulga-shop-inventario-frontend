@@ -43,10 +43,15 @@ export default function DeletedProducts() {
   const noProducts = !data.data.length;
   if (noProducts)
     return (
-      <EmptyState
-        title="No hay productos eliminados disponibles"
-        body={"Parece que aún no hay productos eliminados."}
-      />
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Typography variant="h4" gutterBottom>
+          Productos eliminados
+        </Typography>
+        <EmptyState
+          title="No hay productos eliminados disponibles"
+          body={"Parece que aún no hay productos eliminados."}
+        />
+      </Box>
     );
 
   const handlePageChange = (
@@ -82,7 +87,7 @@ export default function DeletedProducts() {
   ];
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Typography variant="h4" gutterBottom>
         Productos eliminados
       </Typography>
