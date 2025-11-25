@@ -229,7 +229,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
           }}
         >
           <FormControl fullWidth sx={{ mb: 2 }}>
-            <FormLabel htmlFor="stock">Peso</FormLabel>
+            <FormLabel htmlFor="stock">Peso (kg)</FormLabel>
             <TextField
               {...register("peso", { valueAsNumber: true })}
               id="peso"
@@ -249,7 +249,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
           </FormControl>
 
           <FormControl fullWidth>
-            <FormLabel htmlFor="costo">Alto</FormLabel>
+            <FormLabel htmlFor="costo">Alto (cm)</FormLabel>
             <TextField
               {...register("alto", { valueAsNumber: true })}
               id="alto"
@@ -266,7 +266,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
           </FormControl>
 
           <FormControl fullWidth>
-            <FormLabel htmlFor="costo">Largo</FormLabel>
+            <FormLabel htmlFor="costo">Largo (cm)</FormLabel>
             <TextField
               {...register("largo", { valueAsNumber: true })}
               id="largo"
@@ -283,7 +283,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
           </FormControl>
 
           <FormControl fullWidth>
-            <FormLabel htmlFor="costo">Ancho</FormLabel>
+            <FormLabel htmlFor="costo">Ancho (cm)</FormLabel>
             <TextField
               {...register("ancho", { valueAsNumber: true })}
               id="ancho"
