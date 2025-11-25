@@ -41,7 +41,8 @@ export default function ShopPage() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: { xs: "initial", md: "center" },
+          flexDirection: { xs: "column", md: "row" },
           gap: 4,
           marginBottom: 2,
         }}
@@ -54,7 +55,13 @@ export default function ShopPage() {
             Aquí puedes ver todos los productos de la tienda.
           </Typography>
         </div>
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: 2,
+          }}
+        >
           <Button
             variant="contained"
             startIcon={<AddIcon />}
