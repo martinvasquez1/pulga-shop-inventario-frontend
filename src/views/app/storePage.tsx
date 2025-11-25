@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Remove from "@mui/icons-material/Remove";
 
 import ProductsTable from "../../components/product/productsTable";
 import CreateProduct from "../../components/product/createProduct";
@@ -50,14 +53,24 @@ export default function ShopPage() {
             Aquí puedes ver todos los productos de la tienda.
           </Typography>
         </div>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          color="secondary"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Nuevo Producto
-        </Button>
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            color="secondary"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Nuevo Producto
+          </Button>
+          <Button
+            component={Link}
+            to={`/app/tiendas/${+storeId!}/productos-eliminados`}
+            startIcon={<Remove />}
+            variant="outlined"
+          >
+            Productos eliminados
+          </Button>
+        </Box>
       </Box>
       <StoreInfo store={store} />
       <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} />
