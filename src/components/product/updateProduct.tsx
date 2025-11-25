@@ -4,7 +4,13 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import { useParams } from "react-router-dom";
-import { Box, FormControl, FormLabel } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Input,
+  FormHelperText,
+  FormLabel,
+} from "@mui/material";
 import {
   UpdateProductInput,
   useUpdateProduct,
@@ -164,6 +170,22 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             />
           </FormControl>
         </Box>
+
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
+          <Input
+            {...form.register("imagen")}
+            id="imagen"
+            type="file"
+            name="imagen"
+            autoFocus
+          />
+          {errors.imagen && (
+            <FormHelperText error>
+              {String(errors.imagen.message)}
+            </FormHelperText>
+          )}
+        </FormControl>
 
         {/*
         <Box

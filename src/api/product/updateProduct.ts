@@ -8,8 +8,31 @@ import { MutationConfig } from "../../lib/react-query";
 import { Categoria, Condicion, Product } from "../../types/api";
 import { CreateProductPayload, createProductSchema } from "./createProduct";
 
+const MAX_FILE_SIZE = 10000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
 const updateProductSchema = createProductSchema.extend({
   stock: z.number().min(0, { message: "El stock debe ser al menos 0." }),
+  imagen: z
+    .instanceof(FileList)
+    .refine(
+      (files) =>
+        files.length === 0 ||
+        (files.length === 1 && files[0].size <= MAX_FILE_SIZE),
+      `El tamaño máximo de la imagen es 10MB.`
+    )
+    .refine(
+      (files) =>
+        files.length === 0 ||
+        (files.length === 1 && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type)),
+      "Solo se admiten formatos .jpg, .jpeg, .png y .webp."
+    )
+    .optional(),
 });
 
 export const useUpdateProductForm = (defaultValues: Product | null) => {
@@ -29,9 +52,21 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
 
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 
+export type CreateProductType = {
+  nombre: string;
+  descripcion: string;
+  stock: number;
+  precio: number;
+  id_tienda: number;
+  condicion: Condicion;
+  marca: string;
+  categoria: Categoria;
+  imagen?: FileList;
+};
+
 export type UpdateProductPayload = {
   sku: string;
-  data: CreateProductPayload;
+  data: CreateProductType;
 };
 
 export type UpdateProductResponse = Product;

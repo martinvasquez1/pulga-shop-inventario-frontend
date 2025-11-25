@@ -57,7 +57,7 @@ export const createProductSchema = z.object({
   ]),
 
   imagen: z
-    .any()
+    .instanceof(FileList)
     .refine(
       (files) => files?.[0]?.size <= MAX_FILE_SIZE,
       `El tamaño máximo de la imagen es 10MB.`
@@ -91,7 +91,7 @@ export type CreateProductPayload = {
   condicion: Condicion;
   marca: string;
   categoria: Categoria;
-  imagen: File;
+  imagen: FileList;
 };
 
 export type CreateProductResponse = Product | Error;
