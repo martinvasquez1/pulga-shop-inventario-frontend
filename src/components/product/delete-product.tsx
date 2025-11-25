@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 import ResponsiveModal from "../ResponsiveModal";
-import { useCreateProductForm } from "../../api/product/createProduct";
 import { useDeleteProduct } from "../../api/product/deleteProduct";
 import { Product } from "../../types/api";
 
@@ -16,11 +15,11 @@ export default function DeleteProduct({ open, setOpen, product }: Props) {
   const { tiendaId } = useParams<{ tiendaId: string }>();
   const storeId = +tiendaId!;
 
-  const { handleSubmit } = useCreateProductForm();
   const deleteProductMutation = useDeleteProduct(storeId);
 
-  const onSubmit = () => {
-    console.log("on submit");
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setOpen(false);
     deleteProductMutation.mutate(product!.sku);
   };
 
@@ -32,7 +31,7 @@ export default function DeleteProduct({ open, setOpen, product }: Props) {
       isSubmitDisabled={deleteProductMutation.isPending}
       setOpen={setOpen}
     >
-      <form onSubmit={handleSubmit(onSubmit)} id="subscription-form">
+      <form onSubmit={onSubmit} id="subscription-form">
         <Typography>Esta acción es permanente.</Typography>
       </form>
     </ResponsiveModal>
