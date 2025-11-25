@@ -36,13 +36,14 @@ export default function ShopPage() {
   if (!store) return null;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           gap: 4,
+          marginBottom: 2,
         }}
       >
         <div>
