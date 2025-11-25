@@ -14,7 +14,9 @@ import LabelIcon from "@mui/icons-material/Label";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PinIcon from "@mui/icons-material/Pin";
 import CategoryIcon from "@mui/icons-material/Category";
-import CheckIcon from "@mui/icons-material/Check";
+import LineWeightIcon from "@mui/icons-material/LineWeight";
+import HeightIcon from "@mui/icons-material/Height";
+import StraightenIcon from "@mui/icons-material/Straighten";
 
 import { Product } from "../../types/api";
 
@@ -108,7 +110,26 @@ export default function ProductDrawer({
             text={String(product.categoria)}
             icon={<CategoryIcon />}
           />
-          <DrawerItem name="Disponible" text="True" icon={<CheckIcon />} />
+          <DrawerItem
+            name="Peso"
+            text={String(product.peso)}
+            icon={<LineWeightIcon />}
+          />
+          <DrawerItem
+            name="Alto"
+            text={String(product.alto)}
+            icon={<HeightIcon />}
+          />
+          <DrawerItem
+            name="Largo"
+            text={String(product.largo)}
+            icon={<StraightenIcon />}
+          />
+          <DrawerItem
+            name="Ancho"
+            text={String(product.ancho)}
+            icon={<StraightenIcon />}
+          />
         </List>
         <Divider />
         <p>Foto de referencia</p>
