@@ -15,7 +15,8 @@ export default function AppHome({}) {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: { xs: "initial", md: "center" },
           gap: 4,
         }}
       >
