@@ -46,6 +46,10 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
         condicion: product.condicion,
         marca: product.marca,
         categoria: product.categoria,
+        peso: product.peso,
+        alto: product.alto,
+        largo: product.largo,
+        ancho: product.ancho,
       });
     }
   }, [product, form]);
@@ -167,6 +171,85 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
               variant="outlined"
               error={!!errors.costo}
               helperText={errors.costo ? errors.costo.message : ""}
+            />
+          </FormControl>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="stock">Peso (kg)</FormLabel>
+            <TextField
+              {...form.register("peso", { valueAsNumber: true })}
+              id="peso"
+              type="number"
+              name="peso"
+              placeholder="5"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.peso}
+              helperText={errors.peso ? errors.peso.message : ""}
+              InputProps={{
+                inputProps: { step: "0.1", min: "0.1" },
+              }}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Alto (cm)</FormLabel>
+            <TextField
+              {...form.register("alto", { valueAsNumber: true })}
+              id="alto"
+              type="number"
+              name="alto"
+              placeholder="20"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.alto}
+              helperText={errors.alto ? errors.alto.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Largo (cm)</FormLabel>
+            <TextField
+              {...form.register("largo", { valueAsNumber: true })}
+              id="largo"
+              type="number"
+              name="largo"
+              placeholder="15"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.largo}
+              helperText={errors.largo ? errors.largo.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Ancho (cm)</FormLabel>
+            <TextField
+              {...form.register("ancho", { valueAsNumber: true })}
+              id="ancho"
+              type="number"
+              name="ancho"
+              placeholder="30"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.ancho}
+              helperText={errors.ancho ? errors.ancho.message : ""}
             />
           </FormControl>
         </Box>

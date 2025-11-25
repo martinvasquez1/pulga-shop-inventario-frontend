@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
 import { Categoria, Condicion, Product } from "../../types/api";
-import { CreateProductPayload, createProductSchema } from "./createProduct";
+import { createProductSchema } from "./createProduct";
 
 const MAX_FILE_SIZE = 10000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -46,13 +46,17 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
       condicion: defaultValues?.condicion ?? Condicion.NUEVO,
       marca: defaultValues?.marca ?? "",
       categoria: defaultValues?.categoria ?? Categoria.ELECTRÓNICA,
+      peso: defaultValues?.peso ?? 0,
+      alto: defaultValues?.alto ?? 0,
+      largo: defaultValues?.largo ?? 0,
+      ancho: defaultValues?.ancho ?? 0,
     },
   });
 };
 
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 
-export type CreateProductType = {
+export type UpdateProductType = {
   nombre: string;
   descripcion: string;
   stock: number;
@@ -62,11 +66,15 @@ export type CreateProductType = {
   marca: string;
   categoria: Categoria;
   imagen?: FileList;
+  peso: number;
+  alto: number;
+  largo: number;
+  ancho: number;
 };
 
 export type UpdateProductPayload = {
   sku: string;
-  data: CreateProductType;
+  data: UpdateProductType;
 };
 
 export type UpdateProductResponse = Product;
