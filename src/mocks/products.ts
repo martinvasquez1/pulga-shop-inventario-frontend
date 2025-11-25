@@ -43,6 +43,7 @@ export const productsHandlers = [
 
       const sku = String(Math.floor(Math.random() * (10000 - 100 + 1)) + 100);
       const id_producto = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
+      const activo = true;
 
       const newProduct: CreateProductResponse = {
         sku,
@@ -55,6 +56,7 @@ export const productsHandlers = [
         condicion,
         stock,
         categoria,
+        activo,
         fecha: new Date(),
       };
       productsInMemory.push(newProduct);
@@ -72,7 +74,7 @@ export const productsHandlers = [
       const storeId = Number(url.searchParams.get("id_tienda"));
 
       const filteredProducts = productsInMemory.filter(
-        (product) => product.id_tienda === storeId
+        (product) => product.id_tienda === storeId && product.activo
       );
 
       const start = (page - 1) * take;
@@ -120,6 +122,25 @@ export const productsHandlers = [
       };
 
       return HttpResponse.json(productsInMemory[productIndex], { status: 200 });
+    }
+  ),
+
+  http.delete<{ sku: string }>(
+    inventoryApi("/productos/:sku"),
+    async ({ params }) => {
+      const { sku } = params;
+
+      const productIndex = productsInMemory.findIndex((p) => p.sku === sku);
+      if (productIndex === -1) {
+        return HttpResponse.json(
+          { message: "Product not found" },
+          { status: 404 }
+        );
+      }
+
+      const disabledProduct = (productsInMemory[productIndex].activo = false);
+
+      return HttpResponse.json(disabledProduct, { status: 200 });
     }
   ),
 ];

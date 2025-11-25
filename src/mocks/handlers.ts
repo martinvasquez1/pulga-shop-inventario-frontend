@@ -42,6 +42,7 @@ export let productsInMemory: Product[] = [
     condicion: Condicion.NUEVO,
     stock: 10,
     categoria: Categoria.ELECTRÓNICA,
+    activo: true,
     fecha: new Date(),
   },
   {
@@ -55,6 +56,7 @@ export let productsInMemory: Product[] = [
     condicion: Condicion.REACONDICIONADO,
     stock: 20,
     categoria: Categoria.BELLEZA,
+    activo: true,
     fecha: new Date(),
   },
   {
@@ -68,6 +70,7 @@ export let productsInMemory: Product[] = [
     condicion: Condicion.USADO,
     stock: 30,
     categoria: Categoria.LIBROS,
+    activo: true,
     fecha: new Date(),
   },
 ];
