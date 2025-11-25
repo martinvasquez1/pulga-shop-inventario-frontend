@@ -28,7 +28,7 @@ export function useProducts(
   activo: boolean
 ) {
   return useQuery({
-    queryKey: ["tiendas", storeId, "productos", { page, take }],
+    queryKey: ["tiendas", storeId, "productos", { page, take, activo }],
     queryFn: () => getProducts(page, take, storeId, activo),
   });
 }
