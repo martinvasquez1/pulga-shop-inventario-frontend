@@ -47,6 +47,10 @@ export type Product = {
   categoria: Categoria;
   fecha: Date;
   activo: boolean;
+  peso: number;
+  alto: number;
+  largo: number;
+  ancho: number;
 };
 
 export type PaginationMeta = {

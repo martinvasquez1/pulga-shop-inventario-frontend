@@ -66,6 +66,16 @@ export const createProductSchema = z.object({
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
       "Solo se admiten formatos .jpg, .jpeg, .png y .webp."
     ),
+
+  peso: z
+    .number()
+    .min(0.1, { message: "El peso debe ser mayor que 0.1" })
+    .refine((val) => val === Math.round(val * 10) / 10, {
+      message: "El peso debe tener un máximo de un decimal.",
+    }),
+  alto: z.number().min(1, { message: "El alto debe ser al menos 1." }),
+  largo: z.number().min(1, { message: "El largo debe ser al menos 1." }),
+  ancho: z.number().min(1, { message: "El ancho debe ser al menos 1." }),
 });
 
 export const useCreateProductForm = () => {
@@ -76,6 +86,10 @@ export const useCreateProductForm = () => {
       costo: 0,
       condicion: Condicion.NUEVO,
       categoria: Categoria.ELECTRÓNICA,
+      peso: 0,
+      alto: 0,
+      largo: 0,
+      ancho: 0,
     },
   });
 };
@@ -92,6 +106,10 @@ export type CreateProductPayload = {
   marca: string;
   categoria: Categoria;
   imagen: FileList;
+  peso: number;
+  alto: number;
+  largo: number;
+  ancho: number;
 };
 
 export type CreateProductResponse = Product | Error;

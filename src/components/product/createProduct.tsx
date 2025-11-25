@@ -221,6 +221,85 @@ export default function CreateProduct({ open, setOpen }: Props) {
           </FormControl>
         </Box>
 
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="stock">Peso</FormLabel>
+            <TextField
+              {...register("peso", { valueAsNumber: true })}
+              id="peso"
+              type="number"
+              name="peso"
+              placeholder="5"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.peso}
+              helperText={errors.peso ? errors.peso.message : ""}
+              InputProps={{
+                inputProps: { step: "0.1", min: "0.1" },
+              }}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Alto</FormLabel>
+            <TextField
+              {...register("alto", { valueAsNumber: true })}
+              id="alto"
+              type="number"
+              name="alto"
+              placeholder="20"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.alto}
+              helperText={errors.alto ? errors.alto.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Largo</FormLabel>
+            <TextField
+              {...register("largo", { valueAsNumber: true })}
+              id="largo"
+              type="number"
+              name="largo"
+              placeholder="15"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.largo}
+              helperText={errors.largo ? errors.largo.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Ancho</FormLabel>
+            <TextField
+              {...register("ancho", { valueAsNumber: true })}
+              id="ancho"
+              type="number"
+              name="ancho"
+              placeholder="30"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.ancho}
+              helperText={errors.ancho ? errors.ancho.message : ""}
+            />
+          </FormControl>
+        </Box>
+
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
           <Input
