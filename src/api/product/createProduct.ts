@@ -7,6 +7,14 @@ import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
 import { Condicion, Categoria, Product, Error } from "../../types/api";
 
+const MAX_FILE_SIZE = 10000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
 export const createProductSchema = z.object({
   nombre: z
     .string()
@@ -47,6 +55,17 @@ export const createProductSchema = z.object({
     Categoria.MASCOTAS,
     Categoria.GENERAL,
   ]),
+
+  imagen: z
+    .any()
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `El tamaño máximo de la imagen es 10MB.`
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      "Solo se admiten formatos .jpg, .jpeg, .png y .webp."
+    ),
 });
 
 export const useCreateProductForm = () => {
@@ -72,6 +91,7 @@ export type CreateProductPayload = {
   condicion: Condicion;
   marca: string;
   categoria: Categoria;
+  imagen: File;
 };
 
 export type CreateProductResponse = Product | Error;

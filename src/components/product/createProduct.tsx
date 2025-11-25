@@ -14,6 +14,7 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  Input,
   MenuItem,
   Select,
 } from "@mui/material";
@@ -219,6 +220,23 @@ export default function CreateProduct({ open, setOpen }: Props) {
             </FormHelperText>
           </FormControl>
         </Box>
+
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
+          <Input
+            {...register("imagen")}
+            id="imagen"
+            type="file"
+            name="imagen"
+            autoFocus
+            required
+          />
+          {errors.imagen && (
+            <FormHelperText error>
+              {String(errors.imagen.message)}
+            </FormHelperText>
+          )}
+        </FormControl>
       </form>
     </ResponsiveModal>
   );
