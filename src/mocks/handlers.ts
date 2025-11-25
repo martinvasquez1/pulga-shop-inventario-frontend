@@ -44,6 +44,10 @@ export let productsInMemory: Product[] = [
     categoria: Categoria.ELECTRÓNICA,
     activo: true,
     fecha: new Date(),
+    peso: 10,
+    alto: 15,
+    largo: 20,
+    ancho: 25,
   },
   {
     sku: "1234567",
@@ -58,6 +62,10 @@ export let productsInMemory: Product[] = [
     categoria: Categoria.BELLEZA,
     activo: true,
     fecha: new Date(),
+    peso: 10,
+    alto: 15,
+    largo: 20,
+    ancho: 25,
   },
   {
     sku: "12345678",
@@ -72,6 +80,10 @@ export let productsInMemory: Product[] = [
     categoria: Categoria.LIBROS,
     activo: true,
     fecha: new Date(),
+    peso: 10,
+    alto: 15,
+    largo: 20,
+    ancho: 25,
   },
 ];
 

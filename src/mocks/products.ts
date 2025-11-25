@@ -26,6 +26,10 @@ export const productsHandlers = [
         marca,
         condicion,
         categoria,
+        peso,
+        alto,
+        largo,
+        ancho,
       } = body;
 
       const existingProduct = productsInMemory.find(
@@ -58,6 +62,10 @@ export const productsHandlers = [
         categoria,
         activo,
         fecha: new Date(),
+        peso,
+        alto,
+        largo,
+        ancho,
       };
       productsInMemory.push(newProduct);
 
