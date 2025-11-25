@@ -4,21 +4,13 @@ import TextField from "@mui/material/TextField";
 import ResponsiveModal from "../ResponsiveModal";
 
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Box, FormControl, FormLabel } from "@mui/material";
 import {
   UpdateProductInput,
   useUpdateProduct,
   useUpdateProductForm,
 } from "../../api/product/updateProduct";
-import { Condicion, Categoria, Product } from "../../types/api";
-import { Controller } from "react-hook-form";
+import { Product } from "../../types/api";
 
 interface Props {
   open: boolean;
@@ -77,6 +69,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
+        {/*
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Nombre</FormLabel>
           <TextField
@@ -93,6 +86,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             helperText={errors.nombre ? errors.nombre.message : ""}
           />
         </FormControl>
+        */}
 
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Descripción</FormLabel>
@@ -111,6 +105,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           />
         </FormControl>
 
+        {/*
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Marca</FormLabel>
           <TextField
@@ -127,6 +122,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             helperText={errors.marca ? errors.marca.message : ""}
           />
         </FormControl>
+        */}
 
         <Box
           sx={{
@@ -169,6 +165,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           </FormControl>
         </Box>
 
+        {/*
         <Box
           sx={{
             display: "flex",
@@ -217,6 +214,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             </FormHelperText>
           </FormControl>
         </Box>
+        */}
       </form>
     </ResponsiveModal>
   );
