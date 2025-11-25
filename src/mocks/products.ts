@@ -19,7 +19,7 @@ export const productsHandlers = [
 
       const {
         stock,
-        precio,
+        costo,
         id_tienda,
         nombre,
         descripcion,
@@ -52,7 +52,7 @@ export const productsHandlers = [
         nombre,
         descripcion,
         marca,
-        precio,
+        costo,
         condicion,
         stock,
         categoria,

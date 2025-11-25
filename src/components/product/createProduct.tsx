@@ -155,19 +155,19 @@ export default function CreateProduct({ open, setOpen }: Props) {
             />
           </FormControl>
           <FormControl fullWidth>
-            <FormLabel htmlFor="precio">Precio</FormLabel>
+            <FormLabel htmlFor="costo">Costo</FormLabel>
             <TextField
-              {...register("precio", { valueAsNumber: true })}
-              id="precio"
+              {...register("costo", { valueAsNumber: true })}
+              id="costo"
               type="number"
-              name="precio"
+              name="costo"
               placeholder="10"
               autoFocus
               required
               fullWidth
               variant="outlined"
-              error={!!errors.precio}
-              helperText={errors.precio ? errors.precio.message : ""}
+              error={!!errors.costo}
+              helperText={errors.costo ? errors.costo.message : ""}
             />
           </FormControl>
         </Box>

@@ -89,8 +89,8 @@ export default function ProductDrawer({
           />
           <DrawerItem name="Marca" text={product.marca} icon={<MailIcon />} />
           <DrawerItem
-            name="Precio"
-            text={String(product.precio)}
+            name="Costo"
+            text={String(product.costo)}
             icon={<LabelIcon />}
           />
           <DrawerItem

@@ -142,7 +142,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     { field: "id", headerName: "SKU", flex: 1 },
     { field: "marca", headerName: "Marca", flex: 1 },
     { field: "stock", headerName: "Stock", type: "number", flex: 1 },
-    { field: "precio", headerName: "Precio", type: "number", flex: 1 },
+    { field: "costo", headerName: "Costo", type: "number", flex: 1 },
     {
       field: "action",
       headerName: "Acción",

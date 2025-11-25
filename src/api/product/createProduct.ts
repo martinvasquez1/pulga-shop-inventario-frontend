@@ -27,7 +27,7 @@ export const createProductSchema = z.object({
     .max(200, { message: "Descripción no puede tener más de 200 caracteres." }),
 
   stock: z.number().min(1, { message: "El stock debe ser al menos 1." }),
-  precio: z.number().min(1, { message: "El precio debe ser al menos 1." }),
+  costo: z.number().min(1, { message: "El costo debe ser al menos 1." }),
 
   condicion: z.enum([
     Condicion.NUEVO,
@@ -73,7 +73,7 @@ export const useCreateProductForm = () => {
     resolver: zodResolver(createProductSchema),
     defaultValues: {
       stock: 0,
-      precio: 0,
+      costo: 0,
       condicion: Condicion.NUEVO,
       categoria: Categoria.ELECTRÓNICA,
     },
@@ -86,7 +86,7 @@ export type CreateProductPayload = {
   nombre: string;
   descripcion: string;
   stock: number;
-  precio: number;
+  costo: number;
   id_tienda: number;
   condicion: Condicion;
   marca: string;

@@ -42,7 +42,7 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
       nombre: defaultValues?.nombre ?? "",
       descripcion: defaultValues?.descripcion ?? "",
       stock: defaultValues?.stock ?? 0,
-      precio: defaultValues?.precio ?? 0,
+      costo: defaultValues?.costo ?? 0,
       condicion: defaultValues?.condicion ?? Condicion.NUEVO,
       marca: defaultValues?.marca ?? "",
       categoria: defaultValues?.categoria ?? Categoria.ELECTRÓNICA,
@@ -56,7 +56,7 @@ export type CreateProductType = {
   nombre: string;
   descripcion: string;
   stock: number;
-  precio: number;
+  costo: number;
   id_tienda: number;
   condicion: Condicion;
   marca: string;

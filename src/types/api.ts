@@ -41,7 +41,7 @@ export type Product = {
   nombre: string;
   descripcion: string;
   marca: string;
-  precio: number;
+  costo: number;
   condicion: Condicion;
   stock: number;
   categoria: Categoria;
