@@ -34,7 +34,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
 
   const [page, setPage] = useState(1);
   const take = 8;
-  let { data, isLoading, isError } = useProducts(page, take, storeId);
+  let { data, isLoading, isError } = useProducts(page, take, storeId, true);
 
   if (isLoading)
     return (

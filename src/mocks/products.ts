@@ -65,16 +65,18 @@ export const productsHandlers = [
     }
   ),
 
-  http.get<{ page: string; take: string; storeId: string }>(
+  http.get<{ page: string; take: string; storeId: string; activo: string }>(
     inventoryApi("/productos"),
     ({ request }) => {
       const url = new URL(request.url);
       const page = Number(url.searchParams.get("page")) || 1;
       const take = Number(url.searchParams.get("take")) || 5;
       const storeId = Number(url.searchParams.get("id_tienda"));
+      const activoStatus = Boolean(url.searchParams.get("activo")) || true;
 
       const filteredProducts = productsInMemory.filter(
-        (product) => product.id_tienda === storeId && product.activo
+        (product) =>
+          product.id_tienda === storeId && product.activo == activoStatus
       );
 
       const start = (page - 1) * take;
