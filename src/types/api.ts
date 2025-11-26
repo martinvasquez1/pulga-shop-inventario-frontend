@@ -51,6 +51,7 @@ export type Product = {
   alto: number;
   largo: number;
   ancho: number;
+  foto_referencia: string;
 };
 
 export type PaginationMeta = {

@@ -128,12 +128,15 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
 
   const columns: GridColDef[] = [
     {
-      field: "foto",
+      field: "foto_referencia",
       headerName: "Foto",
-      renderCell: () => {
+      renderCell: (params) => {
+        const defaultPicture =
+          "https://images.unsplash.com/photo-1491553895911-0055eca6402d";
+
         return (
           <div className="aspect-square max-h-full">
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" />
+            <img src={params.value || defaultPicture} />
           </div>
         );
       },

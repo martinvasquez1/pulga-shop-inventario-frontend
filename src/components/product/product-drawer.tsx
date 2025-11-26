@@ -57,6 +57,9 @@ export default function ProductDrawer({
 }: ProductDrawerProps) {
   if (!product) return null;
 
+  const defaultPicture =
+    "https://images.unsplash.com/photo-1491553895911-0055eca6402d";
+
   return (
     <Drawer open={open} onClose={() => toggleDrawer(false)}>
       <Box
@@ -135,7 +138,7 @@ export default function ProductDrawer({
         <p>Foto de referencia</p>
         <div>
           <div className="aspect-square">
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" />
+            <img src={product.foto_referencia || defaultPicture} />
           </div>
         </div>
       </Box>
