@@ -254,6 +254,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           </FormControl>
         </Box>
 
+        {/*
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
           <Input
@@ -269,6 +270,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             </FormHelperText>
           )}
         </FormControl>
+        */}
 
         {/*
         <Box
