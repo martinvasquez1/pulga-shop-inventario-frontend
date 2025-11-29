@@ -59,7 +59,7 @@ export const createProductSchema = z.object({
   file: z
     .instanceof(FileList)
     .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      (files) => {return files?.[0]?.size <= MAX_FILE_SIZE},
       `El tamaño máximo de la imagen es 10MB.`
     )
     .refine(

@@ -306,7 +306,7 @@ export default function CreateProduct({ open, setOpen }: Props) {
             {...register("file")}
             id="imagen"
             type="file"
-            name="imagen"
+            name="file"
             autoFocus
             required
           />
