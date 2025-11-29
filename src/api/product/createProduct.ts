@@ -56,7 +56,7 @@ export const createProductSchema = z.object({
     Categoria.GENERAL,
   ]),
 
-  imagen: z
+  file: z
     .instanceof(FileList)
     .refine(
       (files) => files?.[0]?.size <= MAX_FILE_SIZE,
@@ -105,7 +105,7 @@ export type CreateProductPayload = {
   condicion: Condicion;
   marca: string;
   categoria: Categoria;
-  imagen: FileList;
+  file: FileList;
   peso: number;
   alto: number;
   largo: number;

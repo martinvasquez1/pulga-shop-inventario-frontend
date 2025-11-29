@@ -66,7 +66,9 @@ export const productsHandlers = [
         alto,
         largo,
         ancho,
+        foto_referencia: "https://images.unsplash.com/photo-1491553895911-0055eca6402d"
       };
+
       productsInMemory.push(newProduct);
 
       return HttpResponse.json(newProduct);

@@ -48,6 +48,7 @@ export let productsInMemory: Product[] = [
     alto: 15,
     largo: 20,
     ancho: 25,
+    foto_referencia: pic1
   },
   {
     sku: "1234567",
@@ -66,6 +67,7 @@ export let productsInMemory: Product[] = [
     alto: 15,
     largo: 20,
     ancho: 25,
+    foto_referencia: pic1
   },
   {
     sku: "12345678",
@@ -84,6 +86,7 @@ export let productsInMemory: Product[] = [
     alto: 15,
     largo: 20,
     ancho: 25,
+    foto_referencia: pic1
   },
 ];
 

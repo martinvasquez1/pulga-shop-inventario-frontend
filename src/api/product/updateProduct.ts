@@ -18,7 +18,7 @@ const ACCEPTED_IMAGE_TYPES = [
 
 const updateProductSchema = createProductSchema.extend({
   stock: z.number().min(0, { message: "El stock debe ser al menos 0." }),
-  imagen: z
+  file: z
     .instanceof(FileList)
     .refine(
       (files) =>
@@ -65,7 +65,7 @@ export type UpdateProductType = {
   condicion: Condicion;
   marca: string;
   categoria: Categoria;
-  imagen?: FileList;
+  file?: FileList;
   peso: number;
   alto: number;
   largo: number;

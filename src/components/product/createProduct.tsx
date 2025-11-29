@@ -303,16 +303,16 @@ export default function CreateProduct({ open, setOpen }: Props) {
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
           <Input
-            {...register("imagen")}
+            {...register("file")}
             id="imagen"
             type="file"
             name="imagen"
             autoFocus
             required
           />
-          {errors.imagen && (
+          {errors.file && (
             <FormHelperText error>
-              {String(errors.imagen.message)}
+              {String(errors.file.message)}
             </FormHelperText>
           )}
         </FormControl>
