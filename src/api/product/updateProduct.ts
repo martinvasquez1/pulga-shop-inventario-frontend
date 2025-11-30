@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Categoria, Condicion, Product } from "../../types/api";
+import { Product } from "../../types/api";
 import { createProductSchema } from "./createProduct";
 
 const MAX_FILE_SIZE = 10000000;
