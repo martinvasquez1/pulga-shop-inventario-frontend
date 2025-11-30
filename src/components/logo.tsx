@@ -25,7 +25,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ size = "md", to = "/" }) => {
   return (
-    <Link to={to}>
+    <Link to={"/"}>
       <img src={LogoSVG} className={logoStyles({ size })} />
     </Link>
   );
