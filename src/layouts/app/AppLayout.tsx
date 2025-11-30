@@ -69,7 +69,7 @@ export default function AppLayout(props: Props) {
       <AppBar
         component="nav"
         sx={{
-          backgroundColor: "#00cc81",
+          backgroundColor: "#22c55e",
           color: "#fff",
           borderBottom: "1px solid #ccc",
         }}
