@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import Footer from "./footer";
 
 import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
@@ -64,7 +65,7 @@ export default function AppLayout(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <AppBar
         component="nav"
         sx={{
@@ -142,6 +143,7 @@ export default function AppLayout(props: Props) {
           <Outlet />
         </Container>
       </Box>
+      <Footer />
     </Box>
   );
 }
