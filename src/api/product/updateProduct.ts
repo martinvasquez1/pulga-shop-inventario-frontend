@@ -39,7 +39,6 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
   return useForm<z.infer<typeof updateProductSchema>>({
     resolver: zodResolver(updateProductSchema),
     defaultValues: {
-      nombre: defaultValues?.nombre ?? "",
       descripcion: defaultValues?.descripcion ?? "",
       stock: defaultValues?.stock ?? 0,
       costo: defaultValues?.costo ?? 0,
@@ -57,7 +56,6 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 
 export type UpdateProductType = {
-  nombre: string;
   descripcion: string;
   stock: number;
   costo: number;
