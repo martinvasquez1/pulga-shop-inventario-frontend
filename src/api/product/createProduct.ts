@@ -116,26 +116,26 @@ export type CreateProductResponse = Product | Error;
 function createProduct(
   payload: CreateProductPayload
 ): Promise<CreateProductResponse> {
-  let newPayload = new FormData();
+  const newPayload = new FormData();
 
-  newPayload.append("nombre", payload.nombre)
-  newPayload.append("descripcion", payload.descripcion)
-  newPayload.append("stock", payload.stock.toString())
-  newPayload.append("costo", payload.costo.toString())
-  newPayload.append("id_tienda", payload.id_tienda.toString())
-  newPayload.append("condicion", payload.condicion)
-  newPayload.append("marca", payload.marca)
-  newPayload.append("categoria", payload.categoria)
-  newPayload.append("peso", payload.peso.toString())
-  newPayload.append("alto", payload.alto.toString())
-  newPayload.append("largo", payload.largo.toString())
-  newPayload.append("anrcho", payload.ancho.toString())
+  newPayload.append("nombre", payload.nombre);
+  newPayload.append("descripcion", payload.descripcion);
+  newPayload.append("stock", payload.stock.toString());
+  newPayload.append("costo", payload.costo.toString());
+  newPayload.append("id_tienda", payload.id_tienda.toString());
+  newPayload.append("condicion", payload.condicion);
+  newPayload.append("marca", payload.marca);
+  newPayload.append("categoria", payload.categoria);
+  newPayload.append("peso", payload.peso.toString());
+  newPayload.append("alto", payload.alto.toString());
+  newPayload.append("largo", payload.largo.toString());
+  newPayload.append("ancho", payload.ancho.toString());
 
   if (payload.file && payload.file[0]) {
-    newPayload.append("file", payload.file[0])
+    newPayload.append("file", payload.file[0]);
   }
 
-  console.log(newPayload)
+  console.log(newPayload);
 
   return api
     .post<CreateProductResponse>("/productos", newPayload)
