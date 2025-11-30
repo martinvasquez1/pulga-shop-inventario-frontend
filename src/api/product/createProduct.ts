@@ -119,7 +119,7 @@ function createProduct(
   let newPayload;
 
   if (payload.file && payload.file[0]) {
-    newPayload = { ...payload, file: payload.file[0] };
+    newPayload = { payload, file: payload.file[0] };
   }
 
   return api
