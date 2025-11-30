@@ -62,8 +62,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
   if (!product) return null;
 
   const onSubmit = (data: UpdateProductInput) => {
-    const newData = { ...data, id_tienda: Number(storeId) };
-    updateProductMutation.mutate({ sku: product.sku, data: newData });
+    updateProductMutation.mutate({ sku: product.sku, data });
   };
 
   return (

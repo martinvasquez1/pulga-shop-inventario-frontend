@@ -61,7 +61,6 @@ export type UpdateProductType = {
   descripcion: string;
   stock: number;
   costo: number;
-  id_tienda: number;
   peso: number;
   alto: number;
   largo: number;
