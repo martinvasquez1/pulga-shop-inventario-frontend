@@ -18,7 +18,7 @@ export default function Register() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     localStorage.setItem("jwt", testToken);
-    navigate("/app");
+    navigate("/");
   }
 
   return (

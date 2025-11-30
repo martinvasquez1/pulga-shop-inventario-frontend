@@ -20,10 +20,10 @@ const Router = [
   },
   {
     // For testing only
-    path: "/auth",
+    path: "/auth-test",
     element: <AuthLayout />,
     children: [
-      { path: "", exact: true, element: <Navigate to="/auth/login" /> },
+      { path: "", exact: true, element: <Navigate to="/auth-test/login" /> },
       { path: "login", exact: true, element: <Login /> },
       { path: "register", exact: true, element: <Register /> },
       { path: "*", element: <Navigate to="/error/404" /> },
