@@ -16,7 +16,12 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 
-const updateProductSchema = createProductSchema.extend({
+const updateProductSchema = createProductSchema.omit({
+  nombre: true,
+  condicion: true,
+  marca: true,
+  categoria: true
+}).extend({
   stock: z.number().min(0, { message: "El stock debe ser al menos 0." }),
   file: z
     .instanceof(FileList)
@@ -42,9 +47,6 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
       descripcion: defaultValues?.descripcion ?? "",
       stock: defaultValues?.stock ?? 0,
       costo: defaultValues?.costo ?? 0,
-      condicion: defaultValues?.condicion ?? Condicion.NUEVO,
-      marca: defaultValues?.marca ?? "",
-      categoria: defaultValues?.categoria ?? Categoria.ELECTRÓNICA,
       peso: defaultValues?.peso ?? 0,
       alto: defaultValues?.alto ?? 0,
       largo: defaultValues?.largo ?? 0,
@@ -60,10 +62,6 @@ export type UpdateProductType = {
   stock: number;
   costo: number;
   id_tienda: number;
-  condicion: Condicion;
-  marca: string;
-  categoria: Categoria;
-  file?: FileList;
   peso: number;
   alto: number;
   largo: number;

@@ -32,6 +32,8 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
     formState: { errors },
   } = form;
 
+  console.log(errors)
+
   // FIX:
   // To update form values on product change
   useEffect(() => {
@@ -40,9 +42,6 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
         descripcion: product.descripcion,
         stock: product.stock,
         costo: product.costo,
-        condicion: product.condicion,
-        marca: product.marca,
-        categoria: product.categoria,
         peso: product.peso,
         alto: product.alto,
         largo: product.largo,
