@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Remove from "@mui/icons-material/Remove";
 
 import ProductsTable from "../../components/product/productsTable";
 import CreateProduct from "../../components/product/createProduct";
 import { useShop } from "../../api/shop/getShop";
+import StoreInfo from "../../components/product/store-info";
 
 export default function ShopPage() {
   const { tiendaId: storeId } = useParams<{ tiendaId: string }>();
@@ -32,13 +36,15 @@ export default function ShopPage() {
   if (!store) return null;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: { xs: "initial", md: "center" },
+          flexDirection: { xs: "column", md: "row" },
           gap: 4,
+          marginBottom: 2,
         }}
       >
         <div>
@@ -49,15 +55,32 @@ export default function ShopPage() {
             Aquí puedes ver todos los productos de la tienda.
           </Typography>
         </div>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          color="secondary"
-          onClick={() => setIsModalOpen(true)}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: 2,
+          }}
         >
-          Nuevo Producto
-        </Button>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            color="secondary"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Nuevo Producto
+          </Button>
+          <Button
+            component={Link}
+            to={`/app/tiendas/${+storeId!}/productos-eliminados`}
+            startIcon={<Remove />}
+            variant="outlined"
+          >
+            Productos eliminados
+          </Button>
+        </Box>
       </Box>
+      <StoreInfo store={store} />
       <CreateProduct open={isModalOpen} setOpen={setIsModalOpen} />
       <ProductsTable storeId={+storeId!} />
     </Box>

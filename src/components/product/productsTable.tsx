@@ -12,12 +12,15 @@ import { StyledCard } from "../Card";
 
 import { useProducts } from "../../api/product/getProducts";
 import { Box, CircularProgress, IconButton, Pagination } from "@mui/material";
+
 import CreateIcon from "@mui/icons-material/Create";
+import RemoveIcon from "@mui/icons-material/Remove";
 import SegmentSharp from "@mui/icons-material/SegmentSharp";
+
 import UpdateProduct from "./updateProduct";
 import ProductDrawer from "./product-drawer";
 import { Product } from "../../types/api";
-import { mockFotos } from "../../mocks/data";
+import DeleteProduct from "./delete-product";
 
 interface UpdateButtonProps {
   params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
@@ -25,12 +28,13 @@ interface UpdateButtonProps {
 
 export default function ProductsTable({ storeId }: { storeId: number }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [page, setPage] = useState(1);
   const take = 8;
-  let { data, isLoading, isError } = useProducts(page, take, storeId);
+  let { data, isLoading, isError } = useProducts(page, take, storeId, true);
 
   if (isLoading)
     return (
@@ -81,6 +85,20 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     );
   }
 
+  function DeleteButton({ params }: UpdateButtonProps) {
+    return (
+      <IconButton
+        aria-label="delete"
+        onClick={() => {
+          setProduct(params.row.sku);
+          setIsDeleteModalOpen(true);
+        }}
+      >
+        <RemoveIcon />
+      </IconButton>
+    );
+  }
+
   function DetailsButton({ params }: UpdateButtonProps) {
     return (
       <IconButton
@@ -110,12 +128,15 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
 
   const columns: GridColDef[] = [
     {
-      field: "foto",
+      field: "foto_referencia",
       headerName: "Foto",
-      renderCell: () => {
+      renderCell: (params) => {
+        const defaultPicture =
+          "https://images.unsplash.com/photo-1491553895911-0055eca6402d";
+
         return (
           <div className="aspect-square max-h-full">
-            <img src={mockFotos[0]} />{" "}
+            <img src={params.value || defaultPicture} />
           </div>
         );
       },
@@ -124,7 +145,7 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
     { field: "id", headerName: "SKU", flex: 1 },
     { field: "marca", headerName: "Marca", flex: 1 },
     { field: "stock", headerName: "Stock", type: "number", flex: 1 },
-    { field: "precio", headerName: "Precio", type: "number", flex: 1 },
+    { field: "costo", headerName: "Costo", type: "number", flex: 1 },
     {
       field: "action",
       headerName: "Acción",
@@ -132,7 +153,9 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
       flex: 1,
       renderCell: (params) => (
         <div className="flex gap-2">
-          <UpdateButton params={params} /> <DetailsButton params={params} />
+          <UpdateButton params={params} />
+          <DetailsButton params={params} />
+          <DeleteButton params={params} />
         </div>
       ),
     },
@@ -164,6 +187,11 @@ export default function ProductsTable({ storeId }: { storeId: number }) {
         <UpdateProduct
           open={isModalOpen}
           setOpen={setIsModalOpen}
+          product={selectedProduct}
+        />
+        <DeleteProduct
+          open={isDeleteModalOpen}
+          setOpen={setIsDeleteModalOpen}
           product={selectedProduct}
         />
       </StyledCard>

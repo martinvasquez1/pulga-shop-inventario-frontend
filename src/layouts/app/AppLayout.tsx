@@ -52,7 +52,7 @@ export default function AppLayout(props: Props) {
               to={item.path}
               sx={{ textAlign: "center" }}
             >
-              <ListItemText primary={item.name} />
+              <ListItemText primary={item.name} color="#fff" />
             </ListItemButton>
           </ListItem>
         ))}
@@ -68,8 +68,8 @@ export default function AppLayout(props: Props) {
       <AppBar
         component="nav"
         sx={{
-          backgroundColor: "background.paper",
-          color: "black",
+          backgroundColor: "#00cc81",
+          color: "#fff",
           borderBottom: "1px solid #ccc",
         }}
         elevation={0}

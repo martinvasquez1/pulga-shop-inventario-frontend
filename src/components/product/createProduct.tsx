@@ -14,12 +14,13 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  Input,
   MenuItem,
   Select,
 } from "@mui/material";
 import { Categoria, Condicion } from "../../types/api";
 import { Controller } from "react-hook-form";
-import { PRODUCTO_ERROR_CODES } from "../../mocks/products";
+import { PRODUCTO_ERROR_CODES } from "../../mocks/errors";
 
 interface Props {
   open: boolean;
@@ -154,19 +155,19 @@ export default function CreateProduct({ open, setOpen }: Props) {
             />
           </FormControl>
           <FormControl fullWidth>
-            <FormLabel htmlFor="precio">Precio</FormLabel>
+            <FormLabel htmlFor="costo">Costo</FormLabel>
             <TextField
-              {...register("precio", { valueAsNumber: true })}
-              id="precio"
+              {...register("costo", { valueAsNumber: true })}
+              id="costo"
               type="number"
-              name="precio"
+              name="costo"
               placeholder="10"
               autoFocus
               required
               fullWidth
               variant="outlined"
-              error={!!errors.precio}
-              helperText={errors.precio ? errors.precio.message : ""}
+              error={!!errors.costo}
+              helperText={errors.costo ? errors.costo.message : ""}
             />
           </FormControl>
         </Box>
@@ -219,6 +220,102 @@ export default function CreateProduct({ open, setOpen }: Props) {
             </FormHelperText>
           </FormControl>
         </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="stock">Peso (kg)</FormLabel>
+            <TextField
+              {...register("peso", { valueAsNumber: true })}
+              id="peso"
+              type="number"
+              name="peso"
+              placeholder="5"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.peso}
+              helperText={errors.peso ? errors.peso.message : ""}
+              InputProps={{
+                inputProps: { step: "0.1", min: "0.1" },
+              }}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Alto (cm)</FormLabel>
+            <TextField
+              {...register("alto", { valueAsNumber: true })}
+              id="alto"
+              type="number"
+              name="alto"
+              placeholder="20"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.alto}
+              helperText={errors.alto ? errors.alto.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Largo (cm)</FormLabel>
+            <TextField
+              {...register("largo", { valueAsNumber: true })}
+              id="largo"
+              type="number"
+              name="largo"
+              placeholder="15"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.largo}
+              helperText={errors.largo ? errors.largo.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Ancho (cm)</FormLabel>
+            <TextField
+              {...register("ancho", { valueAsNumber: true })}
+              id="ancho"
+              type="number"
+              name="ancho"
+              placeholder="30"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.ancho}
+              helperText={errors.ancho ? errors.ancho.message : ""}
+            />
+          </FormControl>
+        </Box>
+
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
+          <Input
+            {...register("file")}
+            id="imagen"
+            type="file"
+            name="file"
+            autoFocus
+            required
+          />
+          {errors.file && (
+            <FormHelperText error>
+              {String(errors.file.message)}
+            </FormHelperText>
+          )}
+        </FormControl>
       </form>
     </ResponsiveModal>
   );

@@ -14,11 +14,11 @@ import LabelIcon from "@mui/icons-material/Label";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PinIcon from "@mui/icons-material/Pin";
 import CategoryIcon from "@mui/icons-material/Category";
-import GradeIcon from "@mui/icons-material/Grade";
-import CheckIcon from "@mui/icons-material/Check";
+import LineWeightIcon from "@mui/icons-material/LineWeight";
+import HeightIcon from "@mui/icons-material/Height";
+import StraightenIcon from "@mui/icons-material/Straighten";
 
 import { Product } from "../../types/api";
-import { mockFotos } from "../../mocks/data";
 
 interface DrawerItemProps {
   name: string;
@@ -57,6 +57,9 @@ export default function ProductDrawer({
 }: ProductDrawerProps) {
   if (!product) return null;
 
+  const defaultPicture =
+    "https://images.unsplash.com/photo-1491553895911-0055eca6402d";
+
   return (
     <Drawer open={open} onClose={() => toggleDrawer(false)}>
       <Box
@@ -91,8 +94,8 @@ export default function ProductDrawer({
           />
           <DrawerItem name="Marca" text={product.marca} icon={<MailIcon />} />
           <DrawerItem
-            name="Precio"
-            text={String(product.precio)}
+            name="Costo"
+            text={String(product.costo)}
             icon={<LabelIcon />}
           />
           <DrawerItem
@@ -110,20 +113,33 @@ export default function ProductDrawer({
             text={String(product.categoria)}
             icon={<CategoryIcon />}
           />
-
-          <DrawerItem name="Rating" text="4.7" icon={<GradeIcon />} />
-          <DrawerItem name="Disponible" text="True" icon={<CheckIcon />} />
+          <DrawerItem
+            name="Peso"
+            text={String(product.peso)}
+            icon={<LineWeightIcon />}
+          />
+          <DrawerItem
+            name="Alto"
+            text={String(product.alto)}
+            icon={<HeightIcon />}
+          />
+          <DrawerItem
+            name="Largo"
+            text={String(product.largo)}
+            icon={<StraightenIcon />}
+          />
+          <DrawerItem
+            name="Ancho"
+            text={String(product.ancho)}
+            icon={<StraightenIcon />}
+          />
         </List>
         <Divider />
-        <p>Fotos</p>
+        <p>Foto de referencia</p>
         <div>
-          {mockFotos.map((f) => {
-            return (
-              <div className="aspect-square" key={product.id_producto + f}>
-                <img src={f} />
-              </div>
-            );
-          })}
+          <div className="aspect-square">
+            <img src={product.foto_referencia || defaultPicture} />
+          </div>
         </div>
       </Box>
     </Drawer>

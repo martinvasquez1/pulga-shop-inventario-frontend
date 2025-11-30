@@ -7,18 +7,14 @@ import { useParams } from "react-router-dom";
 import {
   Box,
   FormControl,
-  FormHelperText,
   FormLabel,
-  MenuItem,
-  Select,
 } from "@mui/material";
 import {
   UpdateProductInput,
   useUpdateProduct,
   useUpdateProductForm,
 } from "../../api/product/updateProduct";
-import { Condicion, Categoria, Product } from "../../types/api";
-import { Controller } from "react-hook-form";
+import { Product } from "../../types/api";
 
 interface Props {
   open: boolean;
@@ -44,10 +40,14 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
         nombre: product.nombre,
         descripcion: product.descripcion,
         stock: product.stock,
-        precio: product.precio,
+        costo: product.costo,
         condicion: product.condicion,
         marca: product.marca,
         categoria: product.categoria,
+        peso: product.peso,
+        alto: product.alto,
+        largo: product.largo,
+        ancho: product.ancho,
       });
     }
   }, [product, form]);
@@ -77,6 +77,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
       setOpen={setOpen}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} id="subscription-form">
+        {/*
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Nombre</FormLabel>
           <TextField
@@ -93,6 +94,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             helperText={errors.nombre ? errors.nombre.message : ""}
           />
         </FormControl>
+        */}
 
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Descripción</FormLabel>
@@ -111,6 +113,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
           />
         </FormControl>
 
+        {/*
         <FormControl fullWidth sx={{ mb: 2 }}>
           <FormLabel htmlFor="marca">Marca</FormLabel>
           <TextField
@@ -127,6 +130,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             helperText={errors.marca ? errors.marca.message : ""}
           />
         </FormControl>
+        */}
 
         <Box
           sx={{
@@ -152,23 +156,121 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             />
           </FormControl>
           <FormControl fullWidth>
-            <FormLabel htmlFor="precio">Precio</FormLabel>
+            <FormLabel htmlFor="costo">Costo</FormLabel>
             <TextField
-              {...form.register("precio", { valueAsNumber: true })}
-              id="precio"
+              {...form.register("costo", { valueAsNumber: true })}
+              id="costo"
               type="number"
-              name="precio"
+              name="costo"
               placeholder="10"
               autoFocus
               required
               fullWidth
               variant="outlined"
-              error={!!errors.precio}
-              helperText={errors.precio ? errors.precio.message : ""}
+              error={!!errors.costo}
+              helperText={errors.costo ? errors.costo.message : ""}
             />
           </FormControl>
         </Box>
 
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 0, md: 2 },
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormLabel htmlFor="stock">Peso (kg)</FormLabel>
+            <TextField
+              {...form.register("peso", { valueAsNumber: true })}
+              id="peso"
+              type="number"
+              name="peso"
+              placeholder="5"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.peso}
+              helperText={errors.peso ? errors.peso.message : ""}
+              InputProps={{
+                inputProps: { step: "0.1", min: "0.1" },
+              }}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Alto (cm)</FormLabel>
+            <TextField
+              {...form.register("alto", { valueAsNumber: true })}
+              id="alto"
+              type="number"
+              name="alto"
+              placeholder="20"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.alto}
+              helperText={errors.alto ? errors.alto.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Largo (cm)</FormLabel>
+            <TextField
+              {...form.register("largo", { valueAsNumber: true })}
+              id="largo"
+              type="number"
+              name="largo"
+              placeholder="15"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.largo}
+              helperText={errors.largo ? errors.largo.message : ""}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <FormLabel htmlFor="costo">Ancho (cm)</FormLabel>
+            <TextField
+              {...form.register("ancho", { valueAsNumber: true })}
+              id="ancho"
+              type="number"
+              name="ancho"
+              placeholder="30"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              error={!!errors.ancho}
+              helperText={errors.ancho ? errors.ancho.message : ""}
+            />
+          </FormControl>
+        </Box>
+
+        {/*
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormLabel htmlFor="imagen">Imagen de referencia</FormLabel>
+          <Input
+            {...form.register("imagen")}
+            id="imagen"
+            type="file"
+            name="imagen"
+            autoFocus
+          />
+          {errors.imagen && (
+            <FormHelperText error>
+              {String(errors.imagen.message)}
+            </FormHelperText>
+          )}
+        </FormControl>
+        */}
+
+        {/*
         <Box
           sx={{
             display: "flex",
@@ -217,6 +319,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
             </FormHelperText>
           </FormControl>
         </Box>
+        */}
       </form>
     </ResponsiveModal>
   );
