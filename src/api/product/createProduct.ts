@@ -58,10 +58,9 @@ export const createProductSchema = z.object({
 
   file: z
     .instanceof(FileList)
-    .refine(
-      (files) => {return files?.[0]?.size <= MAX_FILE_SIZE},
-      `El tamaño máximo de la imagen es 10MB.`
-    )
+    .refine((files) => {
+      return files?.[0]?.size <= MAX_FILE_SIZE;
+    }, `El tamaño máximo de la imagen es 10MB.`)
     .refine(
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
       "Solo se admiten formatos .jpg, .jpeg, .png y .webp."
@@ -117,8 +116,29 @@ export type CreateProductResponse = Product | Error;
 function createProduct(
   payload: CreateProductPayload
 ): Promise<CreateProductResponse> {
+  const newPayload = new FormData();
+
+  newPayload.append("nombre", payload.nombre);
+  newPayload.append("descripcion", payload.descripcion);
+  newPayload.append("stock", payload.stock.toString());
+  newPayload.append("costo", payload.costo.toString());
+  newPayload.append("id_tienda", payload.id_tienda.toString());
+  newPayload.append("condicion", payload.condicion);
+  newPayload.append("marca", payload.marca);
+  newPayload.append("categoria", payload.categoria);
+  newPayload.append("peso", payload.peso.toString());
+  newPayload.append("alto", payload.alto.toString());
+  newPayload.append("largo", payload.largo.toString());
+  newPayload.append("ancho", payload.ancho.toString());
+
+  if (payload.file && payload.file[0]) {
+    newPayload.append("file", payload.file[0]);
+  }
+
+  console.log(newPayload);
+
   return api
-    .post<CreateProductResponse>("/productos", { ...payload })
+    .post<CreateProductResponse>("/productos", newPayload)
     .then((res) => res.data);
 }
 

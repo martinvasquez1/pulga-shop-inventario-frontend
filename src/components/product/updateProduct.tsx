@@ -32,18 +32,16 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
     formState: { errors },
   } = form;
 
+  console.log(errors)
+
   // FIX:
   // To update form values on product change
   useEffect(() => {
     if (product) {
       form.reset({
-        nombre: product.nombre,
         descripcion: product.descripcion,
         stock: product.stock,
         costo: product.costo,
-        condicion: product.condicion,
-        marca: product.marca,
-        categoria: product.categoria,
         peso: product.peso,
         alto: product.alto,
         largo: product.largo,
@@ -64,8 +62,7 @@ export default function UpdateProduct({ open, setOpen, product }: Props) {
   if (!product) return null;
 
   const onSubmit = (data: UpdateProductInput) => {
-    const newData = { ...data, id_tienda: Number(storeId) };
-    updateProductMutation.mutate({ sku: product.sku, data: newData });
+    updateProductMutation.mutate({ sku: product.sku, data });
   };
 
   return (

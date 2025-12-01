@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import Footer from "./footer";
 
 import Logo from "../../components/logo";
 import { Outlet } from "react-router-dom";
@@ -41,7 +42,7 @@ export default function AppLayout(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <div className="flex justify-center pt-10">
-        <Logo size="md" to="/app" />
+        <Logo size="md" />
       </div>
       <Divider />
       <List>
@@ -64,11 +65,11 @@ export default function AppLayout(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <AppBar
         component="nav"
         sx={{
-          backgroundColor: "#00cc81",
+          backgroundColor: "#22c55e",
           color: "#fff",
           borderBottom: "1px solid #ccc",
         }}
@@ -90,7 +91,7 @@ export default function AppLayout(props: Props) {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              <Logo size="sm" to="/app" />
+              <Logo size="sm" />
             </Typography>
           </div>
           <div
@@ -106,7 +107,7 @@ export default function AppLayout(props: Props) {
                   key={item.name}
                   component={Link}
                   to={item.path}
-                  sx={{ color: "#000" }}
+                  sx={{ color: "#fff" }}
                 >
                   {item.name}
                 </Button>
@@ -142,6 +143,7 @@ export default function AppLayout(props: Props) {
           <Outlet />
         </Container>
       </Box>
+      <Footer />
     </Box>
   );
 }

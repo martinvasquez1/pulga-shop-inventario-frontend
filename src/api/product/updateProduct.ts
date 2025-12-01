@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../../lib/api-client";
 import { MutationConfig } from "../../lib/react-query";
-import { Categoria, Condicion, Product } from "../../types/api";
+import { Product } from "../../types/api";
 import { createProductSchema } from "./createProduct";
 
 const MAX_FILE_SIZE = 10000000;
@@ -16,7 +16,12 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 
-const updateProductSchema = createProductSchema.extend({
+const updateProductSchema = createProductSchema.omit({
+  nombre: true,
+  condicion: true,
+  marca: true,
+  categoria: true
+}).extend({
   stock: z.number().min(0, { message: "El stock debe ser al menos 0." }),
   file: z
     .instanceof(FileList)
@@ -39,13 +44,9 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
   return useForm<z.infer<typeof updateProductSchema>>({
     resolver: zodResolver(updateProductSchema),
     defaultValues: {
-      nombre: defaultValues?.nombre ?? "",
       descripcion: defaultValues?.descripcion ?? "",
       stock: defaultValues?.stock ?? 0,
       costo: defaultValues?.costo ?? 0,
-      condicion: defaultValues?.condicion ?? Condicion.NUEVO,
-      marca: defaultValues?.marca ?? "",
-      categoria: defaultValues?.categoria ?? Categoria.ELECTRÓNICA,
       peso: defaultValues?.peso ?? 0,
       alto: defaultValues?.alto ?? 0,
       largo: defaultValues?.largo ?? 0,
@@ -57,15 +58,9 @@ export const useUpdateProductForm = (defaultValues: Product | null) => {
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 
 export type UpdateProductType = {
-  nombre: string;
   descripcion: string;
   stock: number;
   costo: number;
-  id_tienda: number;
-  condicion: Condicion;
-  marca: string;
-  categoria: Categoria;
-  file?: FileList;
   peso: number;
   alto: number;
   largo: number;

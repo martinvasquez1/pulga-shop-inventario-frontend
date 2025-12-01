@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
+import Link from '@mui/material/Link';
 
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -54,6 +55,7 @@ export default function ShopPage() {
           <Typography>
             Aquí puedes ver todos los productos de la tienda.
           </Typography>
+          <Link href="/publicaciones">Click aquí para ir a publicaciones</Link>
         </div>
         <Box
           sx={{
@@ -71,7 +73,7 @@ export default function ShopPage() {
             Nuevo Producto
           </Button>
           <Button
-            component={Link}
+            component={ReactRouterLink}
             to={`/app/tiendas/${+storeId!}/productos-eliminados`}
             startIcon={<Remove />}
             variant="outlined"
