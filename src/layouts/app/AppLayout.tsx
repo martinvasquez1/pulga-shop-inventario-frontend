@@ -107,7 +107,7 @@ export default function AppLayout(props: Props) {
                   key={item.name}
                   component={Link}
                   to={item.path}
-                  sx={{ color: "#000" }}
+                  sx={{ color: "#fff" }}
                 >
                   {item.name}
                 </Button>
