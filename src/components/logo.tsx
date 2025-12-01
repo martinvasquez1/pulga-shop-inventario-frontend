@@ -20,10 +20,9 @@ type LogoSize = "sm" | "md" | "lg" | "xl";
 
 interface LogoProps {
   size?: LogoSize;
-  to?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ size = "md", to = "/" }) => {
+const Logo: React.FC<LogoProps> = ({ size = "md" }) => {
   return (
     <Link to={"/"}>
       <img src={LogoSVG} className={logoStyles({ size })} />

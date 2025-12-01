@@ -42,7 +42,7 @@ export default function AppLayout(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <div className="flex justify-center pt-10">
-        <Logo size="md" to="/app" />
+        <Logo size="md" />
       </div>
       <Divider />
       <List>
@@ -91,7 +91,7 @@ export default function AppLayout(props: Props) {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              <Logo size="sm" to="/app" />
+              <Logo size="sm" />
             </Typography>
           </div>
           <div
