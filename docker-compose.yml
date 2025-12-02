@@ -1,0 +1,31 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pulga-frontend:local
+    ports:
+      - "16004:3000" # host:container (frontend served on 3000 in the image)
+    environment:
+      # Use the host-mapped backend URL so the browser can reach it from outside Docker.
+      # Backend is accessible at localhost:16014 (mapped from container port 3000).
+      - VITE_API_URL=http://localhost:16014/api
+    networks:
+      - pulga-integration-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+# Notes:
+# - This compose file only manages the frontend service. The backend and other
+#   infrastructure (Postgres, Redis, pgAdmin) should be started from the backend
+#   repository's docker-compose. The frontend now contacts the backend by the
+#   Docker service name `backend` via a shared external network `pulga-integration-net`.
+# - To use this approach: create the network and ensure the backend compose
+#   attaches its services to the same network (see README-local.md for details).
+
+networks:
+  pulga-integration-net:
+    external: true
