@@ -1,13 +1,13 @@
-Pulga Shop - Local Docker Compose (Frontend + Backend + Postgres + Redis + pgAdmin)
+Pulga Shop - Docker Compose Local (Frontend + Backend + Postgres + Redis + pgAdmin)
 
-Short instructions to run the integrated stack locally on Windows PowerShell.
+Instrucciones breves para ejecutar la pila integrada localmente en Windows PowerShell.
 
-Files created:
-- `docker-compose.yml` — compose file with frontend, backend, postgres, redis, pgadmin
-- `Dockerfile` — frontend multi-stage build (serves static files on port 3000)
+Archivos creados:
+- `docker-compose.yml` — archivo compose con frontend, backend, postgres, redis, pgadmin
+- `Dockerfile` — build multi-etapa del frontend (sirve archivos estáticos en el puerto 3000)
 - `.dockerignore`
 
-1) Build and start the stack
+1) Construir e iniciar la pila
 
 PowerShell:
 ```
@@ -15,36 +15,36 @@ PowerShell:
 docker compose -f .\docker-compose.yml up -d --build
 ```
 
-Expected quick checks after startup:
-- Frontend UI: http://localhost:16004/  (maps to container port 3000)
-- Backend API: http://localhost:16014/api  (depends on backend; if built from code it should expose /api)
-- Postgres: 5432 inside the container, mapped to host 16010
+Comprobaciones rápidas esperadas después del inicio:
+- Interfaz del Frontend: http://localhost:16004/  (mapeado al puerto 3000 del contenedor)
+- API del Backend: http://localhost:16014/api  (depende del backend; si se construye desde código debe exponer /api)
+- Postgres: 5432 dentro del contenedor, mapeado al host en el puerto 16010
 - Redis: localhost:6379
-- pgAdmin: http://localhost:8080 (user: admin@local / password: admin)
+- pgAdmin: http://localhost:8080 (usuario: admin@local / contraseña: admin)
 
-2) View logs
+2) Ver logs
 ```
 docker compose -f .\docker-compose.yml logs -f frontend backend
 ```
 
-3) Generate a JWT test token (example)
+3) Generar un token JWT de prueba (ejemplo)
 
-PowerShell example to create a token by running node inside the backend container (requires `jsonwebtoken` available in the backend image):
+Ejemplo de PowerShell para crear un token ejecutando node dentro del contenedor del backend (requiere que `jsonwebtoken` esté disponible en la imagen del backend):
 
 ```
-# Capture token into a PowerShell variable (note: use -T to avoid tty issues on Windows)
+# Capturar el token en una variable de PowerShell (nota: usar -T para evitar problemas de tty en Windows)
 $token = docker compose exec -T backend node -e "console.log(require('jsonwebtoken').sign({id:1,email:'test@example.com'}, process.env.JWT_SECRET || 'EstoEsUnSecretoSuperSeguro',{expiresIn:'7d'}))"
 
-# Use the token to call a protected endpoint
+# Usar el token para llamar a un endpoint protegido
 Invoke-RestMethod -Uri "http://localhost:16014/api/protected" -Headers @{ Authorization = "Bearer $token" }
 ```
 
-Notes & troubleshooting:
-- If you have a backend source tree and want to build it locally, create `./Plan-integracion/backend` and place the backend code there, then uncomment the `build` section under the `backend` service in `docker-compose.yml`.
-- If you have a SQL dump at `./Plan-integracion/db_dump.sql`, uncomment the commented volume line in the `postgres` service to auto-import it on first run.
-- Healthchecks are provided; use `docker compose ps` to see service status.
-- JWT_SECRET default is `EstoEsUnSecretoSuperSeguro` (development only). Change for production.
+Notas y solución de problemas:
+- Si tienes el código fuente del backend y deseas construirlo localmente, crea `./Plan-integracion/backend` y coloca el código del backend allí, luego descomenta la sección `build` bajo el servicio `backend` en `docker-compose.yml`.
+- Si tienes un dump SQL en `./Plan-integracion/db_dump.sql`, descomenta la línea de volumen comentada en el servicio `postgres` para importarlo automáticamente en el primer inicio.
+- Se proporcionan healthchecks; usa `docker compose ps` para ver el estado de los servicios.
+- El JWT_SECRET por defecto es `EstoEsUnSecretoSuperSeguro` (solo para desarrollo). Cámbialo para producción.
 
-Common fixes:
-- If `prisma generate` fails in backend builds, ensure the backend `Dockerfile` copies `prisma` before running `npx prisma generate` (see template `Plan-integracion/backend/Dockerfile` if you use it).
-- If you get conflicts with existing containers, remove them (for example: `docker rm -f pulga-redis`) or avoid setting `container_name` in compose.
+Soluciones comunes:
+- Si `prisma generate` falla en los builds del backend, asegúrate de que el `Dockerfile` del backend copie la carpeta `prisma` antes de ejecutar `npx prisma generate` (consulta la plantilla `Plan-integracion/backend/Dockerfile` si la usas).
+- Si obtienes conflictos con contenedores existentes, elimínalos (por ejemplo: `docker rm -f pulga-redis`) o evita establecer `container_name` en el compose.
