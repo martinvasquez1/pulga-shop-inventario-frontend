@@ -1,11 +1,12 @@
-import { Navigate } from "react-router-dom";
 import AppLayout from "../layouts/app/AppLayout";
 
 export default function AuthRoutes() {
   const isAuthenticated = Boolean(localStorage.getItem("jwt"));
 
   if (!isAuthenticated) {
-    return <Navigate to="/auth/login" />;
+    const AUTH_URL = "http://localhost:5170";
+    window.location.href = AUTH_URL;
+    return
   }
 
   return <AppLayout />;
