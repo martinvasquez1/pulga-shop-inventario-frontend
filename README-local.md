@@ -7,27 +7,97 @@ Archivos creados:
 - `Dockerfile` — build multi-etapa del frontend (sirve archivos estáticos en el puerto 3000)
 - `.dockerignore`
 
-1) Construir e iniciar la pila
+## Configuración de la red Docker compartida
+
+Este proyecto usa una red Docker externa llamada `pulga-integration-net` que permite la comunicación entre el frontend y el backend, ejecutándose cada uno en su propio repositorio con su propio `docker-compose.yml`.
+
+**Paso 0: Crear la red compartida (solo una vez)**
+
+Antes de levantar cualquier servicio, crea la red Docker externa:
 
 PowerShell:
 ```
-# From project root
-docker compose -f .\docker-compose.yml up -d --build
+docker network create pulga-integration-net
 ```
 
-Comprobaciones rápidas esperadas después del inicio:
+**Nota:** Esta red solo necesita crearse una vez. Los contenedores del frontend y backend se unirán automáticamente a esta red cuando ejecutes sus respectivos `docker-compose up`.
+
+**Verificar la red:**
+```
+docker network ls | findstr pulga-integration-net
+```
+
+## Ejecución de los servicios
+
+**Importante:** El frontend y el backend deben ejecutarse desde sus repositorios separados. Cada uno tiene su propio `docker-compose.yml` que se conecta a la red compartida `pulga-integration-net`.
+
+**Orden de ejecución recomendado:**
+
+1) **Levantar el backend primero** (desde el repositorio del backend):
+```
+cd C:\ruta\a\repo-backend
+docker compose up -d --build
+```
+
+2) **Levantar el frontend** (desde este repositorio):
+
+PowerShell:
+```
+# Desde la raíz del proyecto frontend
+docker compose up -d --build
+```
+
+3) **Verificar que ambos stacks están en la misma red:**
+```
+docker network inspect pulga-integration-net --format '{{json .Containers}}' | Out-String
+```
+
+Deberías ver contenedores del frontend y del backend listados.
+
+**Comprobaciones rápidas esperadas después del inicio:**
 - Interfaz del Frontend: http://localhost:16004/  (mapeado al puerto 3000 del contenedor)
 - API del Backend: http://localhost:16014/api  (depende del backend; si se construye desde código debe exponer /api)
 - Postgres: 5432 dentro del contenedor, mapeado al host en el puerto 16010
 - Redis: localhost:6379
 - pgAdmin: http://localhost:8080 (usuario: admin@local / contraseña: admin)
 
-2) Ver logs
+## Comandos útiles
+
+**Ver logs del frontend:**
 ```
-docker compose -f .\docker-compose.yml logs -f frontend backend
+docker compose logs -f frontend
 ```
 
-3) Generar un token JWT de prueba (ejemplo)
+**Detener los servicios:**
+```
+# Desde el repositorio del frontend
+docker compose down
+
+# Desde el repositorio del backend
+cd C:\ruta\a\repo-backend
+docker compose down
+```
+
+**Reiniciar ambos stacks (limpio):**
+```
+# 1. Detener todo
+docker compose down
+cd C:\ruta\a\repo-backend
+docker compose down
+
+# 2. (Opcional) Recrear la red si hay problemas
+docker network rm pulga-integration-net
+docker network create pulga-integration-net
+
+# 3. Levantar backend y luego frontend
+cd C:\ruta\a\repo-backend
+docker compose up -d --build
+
+cd C:\ruta\a\repo-frontend
+docker compose up -d --build
+```
+
+## Generación de token JWT de prueba (ejemplo)
 
 Ejemplo de PowerShell para crear un token ejecutando node dentro del contenedor del backend (requiere que `jsonwebtoken` esté disponible en la imagen del backend):
 
