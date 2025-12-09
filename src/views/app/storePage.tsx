@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Link as ReactRouterLink } from "react-router-dom";
-import Link from '@mui/material/Link';
 
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -36,6 +35,11 @@ export default function ShopPage() {
 
   if (!store) return null;
 
+  function handleGoToPosts() {
+    const POSTS_URL = "http://localhost:4041/publicaciones";
+    window.location.href = POSTS_URL;
+  }
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Box
@@ -55,7 +59,7 @@ export default function ShopPage() {
           <Typography>
             Aquí puedes ver todos los productos de la tienda.
           </Typography>
-          <Link href="/publicaciones">Click aquí para ir a publicaciones</Link>
+          <Button onClick={handleGoToPosts}>Click aquí para ir a publicaciones</Button>
         </div>
         <Box
           sx={{
